@@ -24,7 +24,7 @@ def construct_url(isbn: str):
 
 
 def make_request(url: str):
-    return requests.get(request_url).txt
+    return requests.get(url).text
 
 
 def get_book_data(isbn: str):
@@ -35,8 +35,12 @@ def get_book_data(isbn: str):
 
 
 def get_data_from_isbn(isbn: str):
-    book_data = get_book_data
-    return book_data
+    book_data = get_book_data(isbn)
+    data = {
+        "title": book_data.get("title", "unknown"),
+        "isbn": isbn,
+    }
+    return data
 
 
 def get_metadata_from_isbn(isbn: str):
@@ -50,6 +54,34 @@ def get_metadata_from_isbn(isbn: str):
 def validate(isbn: str):
     if len(isbn) not in [10, 13]:
         raise ValueError("not valid ISBN number!")
+
+    if int(isbn[:3]) not in [978, 979]:
+        raise ValueError("not valid ISBN number!")
+
+    if len(isbn) == 10:
+        control_sum = 0
+        for index, number in enumerate(isbn[:-1]):
+            control_sum += int(number) * index
+
+        control_number = control_sum % 11
+
+        if control_number != int(isbn[-1]):
+            raise ValueError("not valid ISBN number!")
+
+    if len(isbn) == 13:
+        control_sum = 0
+
+        for index, number in enumerate(isbn):
+            if index % 2 == 0:
+                multiplier = 3
+            else:
+                mutliplier = 1
+            control_sum += int(number) * multiplier
+
+        control_number = 10 - (control_sum % 10)
+
+        if control_number != int(isbn[-1]):
+            raise ValueError("not valid ISBN number!")
 
 
 def run_substract_regex(regex_args: dict, text: str):
@@ -69,4 +101,4 @@ def preprocess_text(isbn: str):
 # TEST
 string_sample = read_isbn_number_from_image(image_src="test_picture.jpg")
 isbn_number = preprocess_text(string_sample)
-construct_request(isbn_number)
+# data = get_data_from_isbn(isbn_number)
