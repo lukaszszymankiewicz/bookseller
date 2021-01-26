@@ -1,0 +1,80 @@
+import warnings
+
+from utils import (NONDIGITS_REGEX, WHITESPACE_REGEX, construct_url,
+                   make_request_and_serialize_response, run_substract_regex)
+
+
+class Book:
+    CLEANERS = [WHITESPACE_REGEX, NONDIGITS_REGEX]
+    LEGAL_PREFIX = [978, 979]
+
+    def __init__(self, raw_string: str):
+        self.code = self._clean_raw_string(raw_string)
+        self.validate()
+        # self.get_book_data()
+
+    def __len__(self):
+        return len(self.code)
+
+    def __str__(self):
+        return {
+            "isbn": self.code,
+            "title": self.title,
+        }
+
+    def _clean_raw_string(self, raw_string: str) -> str:
+        string_cleaned = raw_string
+
+        for cleaner_regex in self.CLEANERS:
+            string_cleaned = run_substract_regex(regex_args=cleaner_regex, text=string_cleaned)
+
+        return string_cleaned
+
+    @property
+    def control_number(self):
+        return int(self.code[-1])
+
+    @property
+    def prefix(self):
+        if len(self) == 13:
+            return int(self.code[:3])
+        else:
+            raise warnings.warn("ISBN prefix is nonexistent for short codes.")
+            return None
+
+    def get_info(self):
+        url = construct_url(self.code)
+        data = make_request_and_serialize_response(url)
+        self.title = data.get("title", None)
+
+    def validate(self):
+        if len(self) not in [10, 13]:
+            raise ValueError(f"{self.code} is not valid ISBN number! (nonvalid length)")
+
+        if len(self) == 13 and self.prefix not in self.LEGAL_PREFIX:
+            raise ValueError(f"{self.code} is not valid ISBN number! (nonvalid prefix)")
+
+        if len(self) == 10:
+            control_sum = 0
+            for index, number in enumerate(self.code[:-1]):
+                control_sum += int(number) * index
+
+            control_number = control_sum % 11
+
+            if control_number != self.control_number:
+                raise ValueError(f"{self.code} is not valid ISBN number! (control sum error)")
+
+        if len(self) == 13:
+            control_sum = 0
+
+            for index, number in enumerate(self.code[3:]):
+                if index % 2 == 0:
+                    multiplier = 3
+                else:
+                    multiplier = 1
+                control_sum += int(number) * multiplier
+
+            control_number = 10 - (control_sum % 10)
+
+            if control_number != self.control_number:
+                raise ValueError(f"{self.code} is not valid ISBN number! (control sum error)")
