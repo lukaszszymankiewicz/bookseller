@@ -8,10 +8,13 @@ class Book:
     CLEANERS = [WHITESPACE_REGEX, NONDIGITS_REGEX]
     LEGAL_PREFIX = [978, 979]
 
-    def __init__(self, raw_string: str):
+    def __init__(self, raw_string: str, auto_request: bool = False):
+        self.title = None
         self.code = self._clean_raw_string(raw_string)
         self.validate()
-        # self.get_book_data()
+
+        if auto_request:
+            self.get_book_data()
 
     def __len__(self):
         return len(self.code)
@@ -42,7 +45,7 @@ class Book:
             raise warnings.warn("ISBN prefix is nonexistent for short codes.")
             return None
 
-    def get_info(self):
+    def get_book_data(self):
         url = construct_url(self.code)
         data = make_request_and_serialize_response(url)
         self.title = data.get("title", None)
