@@ -1,7 +1,8 @@
 import warnings
 
-from utils import (NONDIGITS_REGEX, WHITESPACE_REGEX, construct_url,
-                   make_request_and_serialize_response, run_substract_regex)
+from utils import (NONDIGITS_REGEX, WHITESPACE_REGEX, construct_author_request,
+                   construct_isbn_url, make_request_and_serialize_response,
+                   run_substract_regex)
 
 
 class Book:
@@ -10,20 +11,32 @@ class Book:
 
     def __init__(self, raw_string: str, auto_request: bool = False):
         self.title = None
+        self.author = None
         self.code = self._clean_raw_string(raw_string)
+        self.requested = False
         self.validate()
 
         if auto_request:
             self.get_book_data()
+            self.requested = True
+        else:
+            self.requested = False
 
     def __len__(self):
         return len(self.code)
 
-    def __str__(self):
+    @property
+    def data(self):
         return {
             "isbn": self.code,
             "title": self.title,
+            "author": self.author,
+            "requested": self.requested,
         }
+
+    @property
+    def search_string(self):
+        return self.title + self.author
 
     def _clean_raw_string(self, raw_string: str) -> str:
         string_cleaned = raw_string
@@ -46,9 +59,27 @@ class Book:
             return None
 
     def get_book_data(self):
-        url = construct_url(self.code)
+        if self.requested:
+            raise warnings.warn("Book data was requested already! Aborting!")
+            return None
+
+        url = construct_isbn_url(self.code)
         data = make_request_and_serialize_response(url)
-        self.title = data.get("title", None)
+
+        author_code = self.extract_author_code(data)
+        author_request_url = construct_author_request(author_code)
+        author_data = make_request_and_serialize_response(author_request_url)
+
+        self.author = author_data.get("name")
+        self.title = self.extract_title_data(data)
+        self.requested = True
+
+    def extract_title_data(self, data: dict):
+        raw_title = data.get("title")
+        return raw_title.split(":")[0]
+
+    def extract_author_code(self, data: dict):
+        return data.get("authors")[0]["key"].replace("/authors/", "")
 
     def validate(self):
         if len(self) not in [10, 13]:
