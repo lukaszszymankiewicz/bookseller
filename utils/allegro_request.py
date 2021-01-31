@@ -1,4 +1,3 @@
-#  https://allegro.pl/listing?string=henryk%20sienkiewicz%20krzy%C5%BCacy&offerTypeBuyNow=1&bmatch=cx210105ap-enomswp-diwebp-cul-1-3-0129
 ALLEGRO_PREFIX = "https://allegro.pl/"
 LIST_PREFIX = "listing"
 SEARCH_BY_STRING = "?string"
@@ -25,9 +24,3 @@ def construct_allegro_search_url(author: str, title: str) -> str:
             YES,
         ]
     )
-
-
-title = "Krzyżacy"
-author = "Henryk Sienkiewicz"
-url = construct_allegro_search_url(author, title)
-print(url)
