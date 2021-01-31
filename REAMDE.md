@@ -2,7 +2,8 @@ This project will scan ISBN number from photo, check price on allegro and put it
 user want to.
 
 TODO: 
-[ ] - Connect to Allegro API (token and shit)
+[x] - Connect to Allegro API (as it turns out - Allegro API only serves as extension for user
+operations, so atomatizing search it is not an option here)
 [ ] - Integrate ISBN (and metadata from it) to get find request from Allegro
 [ ] - Calculate average price/bought books from request data
 [ ] - Return readable and compressed imformation

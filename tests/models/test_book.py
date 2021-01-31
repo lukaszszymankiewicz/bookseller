@@ -1,6 +1,11 @@
+import os
+
 import pytest
 
 from models import Book
+
+# TODO: move it to some more convinent place
+os.environ["RUN_REQUESTS_AT_TEST"] = "False"
 
 
 class TestBook:
@@ -12,7 +17,9 @@ class TestBook:
         with pytest.raises(ValueError):
             Book(wrong_code)
 
-    def test_validation_will_raise_error_if_code_without_proper_prefix_is_inputted(self):
+    def test_validation_will_raise_error_if_code_without_proper_prefix_is_inputted(
+        self,
+    ):
         # GIVEN
         wrong_code = "1234567890123"
 
@@ -72,6 +79,9 @@ class TestBook:
         # THEN
         assert expected_title == title
 
+    @pytest.mark.skipif(
+        os.environ["RUN_REQUESTS_AT_TEST"] == "False", reason="requests test in pipelines only"
+    )
     def test_title_is_read_properly(self):
         # GIVEN
         code = "978-1-491-91205-8"
