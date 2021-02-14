@@ -6,6 +6,8 @@ YES = "1"
 EQUAL = "="
 SPACE = " "
 PARAM_DELIMETER = "&"
+SORT_BY = "order"
+POPULARITY = "qd"
 
 
 def construct_allegro_search_url(author: str, title: str) -> str:
@@ -22,5 +24,9 @@ def construct_allegro_search_url(author: str, title: str) -> str:
             BUYNOW_OPTION,
             EQUAL,
             YES,
+            PARAM_DELIMETER,
+            SORT_BY,
+            EQUAL,
+            POPULARITY,
         ]
     )

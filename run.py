@@ -12,5 +12,6 @@ def read_isbn_number_from_image(image_src: str):
     return pytesseract.image_to_string(image=test_image, config=TESSERACT_CONFIG)
 
 
-isbn_number = read_isbn_number_from_image("test_picture.jpg")
-book = Book(isbn_number)
+# isbn_number = read_isbn_number_from_image("test_picture.jpg")
+isbn_number = "9788310133748"
+book = Book(isbn_number, auto_request=True)

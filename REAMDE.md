@@ -4,9 +4,10 @@ user want to.
 TODO: 
 [x] - Connect to Allegro API (as it turns out - Allegro API only serves as extension for user
 operations, so atomatizing search it is not an option here)
+[ ] - search in "books" categor on allegro exclusively!
 [ ] - Integrate ISBN (and metadata from it) to get find request from Allegro
-[ ] - Calculate average price/bought books from request data
-[ ] - Return readable and compressed imformation
+[x] - Calculate average price/bought books from request data
+[x] - Return readable and compressed imformation
 
 TODO (BACKEND SIDE):
 [ ] - Check what is better for minimal photo app: Kotlin/Java, maybe other framework?

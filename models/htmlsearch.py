@@ -44,10 +44,18 @@ prices_search = HTMLSearch(
     convertion_fun=float,
     aggregate_fun=lambda x: sum(x) // len(x),
 )
+
 sales_number_search = HTMLSearch(
     tag="span",
     attrs={"class": "msa3_z4"},
     cleaning_regex="[0-9]*",
     convertion_fun=int,
     aggregate_fun=lambda x: sum(x),
+)
+number_of_result_pages = HTMLSearch(
+    tag="span",
+    attrs={"class": "_1h7wt _1fkm6 _g1gnj _3db39_3i0GV _3db39_XEsAE"},
+    cleaning_regex="[0-9]*",
+    convertion_fun=int,
+    aggregate_fun=lambda x: x[0],
 )
