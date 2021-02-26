@@ -13,5 +13,6 @@ def read_isbn_number_from_image(image_src: str):
 
 
 # isbn_number = read_isbn_number_from_image("test_picture.jpg")
-isbn_number = "9788310133748"
+isbn_number = "978-0-262-03924-6"
 book = Book(isbn_number, auto_request=True)
+print(book.data)

@@ -36,13 +36,20 @@ class HTMLSearch:
         return aggregated_results
 
 
+def save_division(x):
+    if len(x) == 0:
+        return 0
+    else:
+        return sum(x) // len(x)
+
+
 prices_search = HTMLSearch(
     tag="span",
     attrs={"class": "_1svub _lf05o"},
     cleaning_regex="[+-]?([0-9]*[,])?[0-9]+",
     cleaning_replace=(",", "."),
     convertion_fun=float,
-    aggregate_fun=lambda x: sum(x) // len(x),
+    aggregate_fun=save_division,
 )
 
 sales_number_search = HTMLSearch(

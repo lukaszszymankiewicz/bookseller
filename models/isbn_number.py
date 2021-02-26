@@ -11,7 +11,7 @@ class ISBNnumber:
 
     def __init__(self, raw_string: str):
         self.code = self._clean_raw_string(raw_string)
-        self._validate()
+        # self._validate()
 
     def __len__(self):
         return len(self.code)

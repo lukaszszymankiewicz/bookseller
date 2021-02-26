@@ -1,0 +1,51 @@
+<MyScreenManager>:
+    SearchWindow:
+    ResultsWindow:
+
+<ResultsWindow>:
+    name: 'results'
+    orientation: 'vertical'
+
+<SearchWindow>:
+    name: 'search'
+    orientation: 'vertical'
+
+    canvas:
+        Color:
+            # TODO: this color is ugly XD
+            rgba: 104/255, 177/255, 162/255, 1.0
+        Rectangle:
+            pos: self.pos
+            size: self.size
+
+    BoxLayout:
+        orientation: 'vertical'
+        size_hint_y: 0.1
+
+        Label:
+            text: 'input ISBN'
+            font_size: 20
+
+    BoxLayout:
+        orientation: 'horizontal'
+
+        TextInput:
+            # TODO: try to put it into vertical middle somehow
+            id: isbn_number
+            valign: 'middle'
+            halign: 'left'
+            hint_text: 'input ISBN'
+            font_size: 20
+            size_hint_y: 0.1
+            size_hint_x: 0.9
+
+        Button:
+            text: 'send'
+            font_size: 20
+            size_hint_x: 0.1
+            size_hint_y: 0.1
+            on_press: 
+                root.check_book_by_isbn(isbn_number.text)
+                app.root.current = 'results'
+                root.manager.transition.direction = 'left'
+
