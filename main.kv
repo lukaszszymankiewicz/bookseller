@@ -1,10 +1,54 @@
 <MyScreenManager>:
     SearchWindow:
+    WaitWindow:
     ResultsWindow:
 
 <ResultsWindow>:
     name: 'results'
     orientation: 'vertical'
+
+    canvas:
+        Color:
+            rgb: (0.5, 0.5, 0.6)
+        Rectangle:
+            pos: self.pos
+            size: self.size
+
+    BoxLayout:
+        orientation: 'vertical'
+
+        Label:
+            id: title
+            text: 'jebac psy'
+
+        Label:
+            id: author
+            text: 'Pezet'
+
+        Label:
+            id: avg_prices
+            text: '0.0'
+
+        Label:
+            id: sales_number
+            text: '69'
+
+<WaitWindow>:
+    name: 'wait'
+    orientation: 'vertical'
+
+    canvas:
+        Color:
+            rgb: (1,1,1)
+        Rectangle:
+            pos: self.pos
+            size: self.size
+
+    Image:
+        source: 'small_wait.png'
+        allow_stretch: False
+        keep_ratio: True
+        size: self.texture_size
 
 <SearchWindow>:
     name: 'search'
@@ -30,11 +74,11 @@
         orientation: 'horizontal'
 
         TextInput:
-            # TODO: try to put it into vertical middle somehow
             id: isbn_number
             valign: 'middle'
             halign: 'left'
-            hint_text: 'input ISBN'
+            # this is for texting ONLY!
+            hint_text: '9781449340377'
             font_size: 20
             size_hint_y: 0.1
             size_hint_x: 0.9
@@ -45,7 +89,4 @@
             size_hint_x: 0.1
             size_hint_y: 0.1
             on_press: 
-                root.check_book_by_isbn(isbn_number.text)
-                app.root.current = 'results'
-                root.manager.transition.direction = 'left'
-
+                app.root.current = 'wait'
