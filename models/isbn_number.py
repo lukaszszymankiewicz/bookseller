@@ -11,6 +11,7 @@ class ISBNnumber:
 
     def __init__(self, raw_string: str, validate: bool = False):
         self.code = self._clean_raw_string(raw_string)
+
         if validate:
             self._validate()
 
@@ -41,7 +42,7 @@ class ISBNnumber:
         url = construct_isbn_url(self.code)
         data = make_request_and_serialize_response(url)
 
-        author_code = self.extract_author_code(data)
+        author_code = self._extract_author_code(data)
         author_request_url = construct_author_request(author_code)
         author_data = make_request_and_serialize_response(author_request_url)
 
@@ -57,7 +58,7 @@ class ISBNnumber:
         raw_title = data.get("title")
         return raw_title.split(":")[0]
 
-    def extract_author_code(self, data: dict):
+    def _extract_author_code(self, data: dict):
         return data.get("authors")[0]["key"].replace("/authors/", "")
 
     def _validate(self):
