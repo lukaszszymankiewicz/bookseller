@@ -1,6 +1,6 @@
 import warnings
 
-from utils import (NONDIGITS_REGEX, WHITESPACE_REGEX, Rating,
+from utils import (NONDIGITS_REGEX, WHITESPACE_REGEX,
                    construct_allegro_search_url, create_soup, make_request)
 
 from .htmlsearch import (number_of_result_pages, prices_search,
@@ -44,20 +44,3 @@ class Book:
         }
 
         self.requested = True
-
-    def calculate_score(self):
-        if not self.requested:
-            raise warnings.warn("Book data wasn`t requested yet! Aborting!")
-            return None
-
-        if self.data["sales_number"] == 0:
-            return Rating.unsellable
-
-        elif self.data["sales_number"] > 5 and self.data["avg_prices"] > 10:
-            return Rating.promising
-
-        elif self.data["sales_number"] > 10 and self.data["avg_prices"] > 20:
-            return Rating.worth_it
-
-        elif self.data["sales_number"] > 20 and self.data["avg_prices"] > 30:
-            return Rating.treasure

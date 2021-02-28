@@ -3,8 +3,9 @@ import threading
 from kivy.app import App
 from kivy.core.window import Window
 from kivy.lang.builder import Builder
-from kivy.properties import StringProperty
+from kivy.properties import NumericProperty, StringProperty
 from kivy.uix.screenmanager import Screen, ScreenManager
+from kivy.uix.textinput import TextInput
 
 Window.size = (360, 640)
 
@@ -14,7 +15,37 @@ kv = Builder.load_file("main.kv")
 
 
 class SearchWindow(Screen):
-    pass
+    def _clean_messages_window(self):
+        self.manager.screens[0].ids["seach_layout_messages_label"].text = ""
+
+    def _check_if_len_is_satisfied(self):
+        label_text = self.manager.screens[0].ids["search_layout_number_label"].text
+
+        if len(label_text) == 10 or len(label_text) == 13:
+            self.manager.screens[0].ids["run"].disabled = False
+        else:
+            self.manager.screens[0].ids["run"].disabled = True
+
+    def input_number(self, number: int):
+        self._clean_messages_window()
+        self._check_if_len_is_satisfied()
+        label_text = self.manager.screens[0].ids["search_layout_number_label"].text
+
+        if len(label_text) < 13:
+            self.manager.screens[0].ids["search_layout_number_label"].text += str(number)
+        else:
+            self.manager.screens[0].ids["seach_layout_messages_label"].text = "ISBN can`t be longer"
+
+    def delete_last_number(self):
+        self._clean_messages_window()
+        self._check_if_len_is_satisfied()
+        label_text = self.manager.screens[0].ids["search_layout_number_label"].text
+
+        if len(label_text) > 0:
+            trimmed = label_text[:-1]
+            self.manager.screens[0].ids["search_layout_number_label"].text = trimmed
+        else:
+            self.manager.screens[0].ids["seach_layout_messages_label"].text = "type ISBN number"
 
 
 class ResultsWindow(Screen):
