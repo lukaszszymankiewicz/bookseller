@@ -9,9 +9,10 @@ class ISBNnumber:
     CLEANERS = [WHITESPACE_REGEX, NONDIGITS_REGEX]
     LEGAL_PREFIX = [978, 979]
 
-    def __init__(self, raw_string: str):
+    def __init__(self, raw_string: str, validate: bool = False):
         self.code = self._clean_raw_string(raw_string)
-        # self._validate()
+        if validate:
+            self._validate()
 
     def __len__(self):
         return len(self.code)
