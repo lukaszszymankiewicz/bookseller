@@ -7,13 +7,9 @@ from utils import (NONDIGITS_REGEX, WHITESPACE_REGEX, construct_author_request,
 
 class ISBNnumber:
     CLEANERS = [WHITESPACE_REGEX, NONDIGITS_REGEX]
-    LEGAL_PREFIX = [978, 979]
 
-    def __init__(self, raw_string: str, validate: bool = False):
+    def __init__(self, raw_string: str):
         self.code = self._clean_raw_string(raw_string)
-
-        if validate:
-            self._validate()
 
     def __len__(self):
         return len(self.code)
@@ -60,35 +56,3 @@ class ISBNnumber:
 
     def _extract_author_code(self, data: dict):
         return data.get("authors")[0]["key"].replace("/authors/", "")
-
-    def _validate(self):
-        if len(self) not in [10, 13]:
-            raise ValueError(f"{self.code} is not valid ISBN number! (nonvalid length)")
-
-        if len(self) == 13 and self.prefix not in self.LEGAL_PREFIX:
-            raise ValueError(f"{self.code} is not valid ISBN number! (nonvalid prefix)")
-
-        if len(self) == 10:
-            control_sum = 0
-            for index, number in enumerate(self.code[:-1]):
-                control_sum += int(number) * index
-
-            control_number = control_sum % 11
-
-            if control_number != self.control_number:
-                raise ValueError(f"{self.code} is not valid ISBN number! (control sum error)")
-
-        if len(self) == 13:
-            control_sum = 0
-
-            for index, number in enumerate(self.code[3:]):
-                if index % 2 == 0:
-                    multiplier = 3
-                else:
-                    multiplier = 1
-                control_sum += int(number) * multiplier
-
-            control_number = 10 - (control_sum % 10)
-
-            if control_number != self.control_number:
-                raise ValueError(f"{self.code} is not valid ISBN number! (control sum error)")

@@ -3,7 +3,9 @@ user want to.
 
 TODO:
 
-[ ] number keyboard to input ISBN number in it.
+[x] number keyboard to input ISBN number in it.
+[ ] basic ISBN validation while typing
+[ ] waiting screen made anyhow readable
 [ ] result screen made anyhow readeble
 [ ] error screen - some basics but with try catch.
 [ ] consistency between screens (one color only)

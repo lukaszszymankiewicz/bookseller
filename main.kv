@@ -2,6 +2,7 @@
     SearchWindow:
     WaitWindow:
     ResultsWindow:
+    ProblemWindow:
 
 <ResultsWindow>:
     name: 'results'
@@ -39,16 +40,21 @@
 
     canvas:
         Color:
-            rgb: (1,1,1)
+            rgba: 0.0, 0.0, 0.0, 1.0
         Rectangle:
             pos: self.pos
             size: self.size
-
     Image:
-        source: 'small_wait.png'
+        id: wait_layout_wait_image
+        source: 'wait.gif'
+        anim_delay: 0.1
+        anim_loop: 5
         allow_stretch: False
-        keep_ratio: True
-        size: self.texture_size
+        size_hint_y: 0.1
+        size_hint_x: 0.1
+        pos_hint: {'center_x':0.5, 'center_y': 0.5}
+        keep_data: True
+
 
 <SearchWindow>:
     name: 'search'
@@ -67,7 +73,7 @@
 
         Label:
             id: search_layout_number_label
-            text: ''
+            text: '9781617293702'
             padding_y: self.height / 3
             padding_x: 20
             multiline: False
@@ -157,6 +163,29 @@
             Button:
                 id: run
                 text: 'Go!'
-                disabled: True
-            #     on_press: 
-            #         app.root.current = 'wait'
+                disabled: False
+                on_press: 
+                    app.root.current = 'wait'
+
+<ProblemWindow>:
+    name: 'results'
+    orientation: 'vertical'
+
+    canvas:
+        Color:
+            rgba: 0.0, 0.0, 0.0, 1.0
+        Rectangle:
+            pos: self.pos
+            size: self.size
+
+            Label:
+                id: problem_layout_message
+                text: 'Unknown poblem occured!'
+                padding_y: self.height / 3
+                padding_x: 20
+                multiline: False
+                size_hint_y: 0.3
+                pos_hint: {'center_x':0.5, 'y': 0.5}
+                font_size: 20
+
+<LoadingPopUp>

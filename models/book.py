@@ -40,7 +40,7 @@ class Book:
             "author": author,
             "avg_prices": prices_search.search(allegro_soup),
             "sales_number": sales_number_search.search(allegro_soup),
-            "n_pages": number_of_result_pages.search(allegro_soup),
+            # "n_pages": number_of_result_pages.search(allegro_soup),
         }
 
         self.requested = True
