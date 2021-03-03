@@ -8,5 +8,9 @@ TODO:
 [x] waiting screen made anyhow readable (query now indicated somehow)
 [x] result screen made anyhow readeble
 [x] consistency between screens (one color only)
+[ ] refactor tests
+[ ] add welcome screen
+[ ] add settings screen
+[ ] add choose-method screen
 [ ] error screen - some basics but with try catch.
 [ ] taking ISBN number directly from photo (in real time!)

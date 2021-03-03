@@ -219,7 +219,7 @@
                     app.root.current = 'wait'
 
 <ProblemWindow>:
-    name: 'results'
+    name: 'problem'
     orientation: 'vertical'
 
     canvas:
@@ -234,9 +234,7 @@
                 text: 'Unknown poblem occured!'
                 padding_y: self.height / 3
                 padding_x: 20
-                multiline: False
+                multiline: True
                 size_hint_y: 0.3
                 pos_hint: {'center_x':0.5, 'y': 0.5}
                 font_size: 20
-
-<LoadingPopUp>
