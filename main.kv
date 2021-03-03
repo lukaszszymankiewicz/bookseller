@@ -10,29 +10,80 @@
 
     canvas:
         Color:
-            rgb: (0.5, 0.5, 0.6)
+            rgba: 0.0, 0.0, 0.0, 1.0
         Rectangle:
             pos: self.pos
             size: self.size
 
-    BoxLayout:
-        orientation: 'vertical'
+    GridLayout:
+        id: results_layout_labels_layout
+        rows: 4
+        cols: 2
+        size_hint_y: 0.5
+        size_hint_x: 0.5
+        pos_hint: {'center_x':0.5, 'y': 0.4}
+
+        Label:
+            id: title_label
+            text: 'title:'
+            font_size: 20
 
         Label:
             id: title
             text: 'jebac psy'
+            font_size: 20
+
+        Label:
+            id: author_label
+            text: 'title:'
+            font_size: 20
 
         Label:
             id: author
             text: 'Pezet'
+            font_size: 20
+
+        Label:
+            id: avg_prices_label
+            text: 'avg. price:'
+            font_size: 20
 
         Label:
             id: avg_prices
             text: '0.0'
+            font_size: 20
+
+        Label:
+            id: sales_number_label
+            text: 'sold:'
+            font_size: 20
 
         Label:
             id: sales_number
             text: '69'
+            font_size: 20
+
+    BoxLayout:
+        id: results_layout_buttons_layout
+        orientation: 'horizontal'
+        size_hint_y: 0.1
+        size_hint_x: 0.5
+        pos_hint: {'center_x':0.5, 'y': 0.2}
+
+        Button:
+            id: results_layout_goback_button
+            text: 'Go Back'
+            font_size: 20
+            on_press: 
+                root.goback()
+
+        Button:
+            id: results_layout_sell_button
+            text: 'Sell!'
+            font_size: 20
+            disabled: True
+            on_press: 
+                root.sell()
 
 <WaitWindow>:
     name: 'wait'
@@ -46,7 +97,7 @@
             size: self.size
     Image:
         id: wait_layout_wait_image
-        source: 'wait.gif'
+        source: 'static/wait.gif'
         anim_delay: 0.1
         anim_loop: 5
         allow_stretch: False

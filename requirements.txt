@@ -1,4 +1,3 @@
-requests
-Pillow
-pytesseract
 beautifulsoup4 == 4.9.1 
+requests
+kivy
