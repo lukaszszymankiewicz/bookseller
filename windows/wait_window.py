@@ -48,7 +48,7 @@ class WaitWindow(Screen):
 
         if message.completed:
 
-            book_data = message.data
+            book_data = message.message
 
             self.manager.screens[2].ids["title"].text = str(book_data["title"])
             self.manager.screens[2].ids["author"].text = str(book_data["author"])

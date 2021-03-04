@@ -20,6 +20,9 @@ def parse_soup(
 
     tags = soup.findAll(name=tag, attrs=attrs)
 
+    import pdb
+
+    pdb.set_trace()
     for tag in tags:
         tag_regexed = re.search(cleaning_regex, tag.text)[0]
         tag_cleaned = tag_regexed.replace(*cleaning_replace)
