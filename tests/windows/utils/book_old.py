@@ -1,7 +1,6 @@
 import os
 
 import pytest
-
 from models import Book
 
 # TODO: move it to some more convinent place

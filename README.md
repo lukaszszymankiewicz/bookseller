@@ -10,6 +10,7 @@ TODO:
 [x] consistency between screens (one color only)
 [ ] 403 issue on request module (check GET headers)
 [ ] add more flexible status parameter to async request (job_done, job_wip, job succeded). Think about RabbitMQ here (watch out! That could be overkill in this place!)
+[ ] implement one geneal use message (not query message and validation message!)
 [ ] refactor tests (all unit test work on old version of prototype)
 [ ] add welcome screen with three options available: scan by photo, input number manually and settings.
 [ ] add settings screen (logging to allegro, new auction template, selling strategy and so on)

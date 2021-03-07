@@ -2,43 +2,42 @@ from .validation_message import ValidationMessage
 
 LEGAL_PREFIX = [978, 979]
 
-number = "9781617293702"
 
-
-def number_is_proper_isbn_number(number: str):
-    if len(number) == 13:
-        prefix = int(number[:3])
-    else:
-        prefix = None
-
+def number_is_proper_isbn_number(number: str) -> ValidationMessage:
     control_number = int(number[-1])
-
-    if len(number) == 13 and prefix not in LEGAL_PREFIX:
-        return ValidationMessage(validated=False, message="this number has invalid prefix!")
+    control_sum = 0
 
     if len(number) == 10:
-        control_sum = 0
-        for index, number in enumerate(number[:-1]):
+        for index, number in enumerate(iterable=number[:-1], start=1):
             control_sum += int(number) * index
 
         calculated_control_number = control_sum % 11
 
         if calculated_control_number != control_number:
-            return ValidationMessage(validated=False, message="invalid ISBN")
+            return ValidationMessage(validated=False, message="wrong control sum")
+        else:
+            return ValidationMessage(validated=True)
 
-    if len(number) == 13:
-        control_sum = 0
+    elif len(number) == 13:
+        if int(number[:3]) not in LEGAL_PREFIX:
+            return ValidationMessage(validated=False, message="this number has invalid prefix!")
 
-        for index, number in enumerate(number):
+        for index, digit in enumerate(iterable=number[:-1], start=1):
             if index % 2 == 0:
                 multiplier = 3
             else:
                 multiplier = 1
-            control_sum += int(number) * multiplier
+            control_sum += int(digit) * multiplier
 
-        calculated_control_number = 10 - (control_sum % 10)
+        if (control_sum % 10) == 0:
+            calculated_control_number = 0
+        else:
+            calculated_control_number = 10 - (control_sum % 10)
 
         if calculated_control_number != control_number:
-            return ValidationMessage(validated=False, message="invalid ISBN")
+            return ValidationMessage(validated=False, message="wrong control sum")
+        else:
+            return ValidationMessage(validated=True)
 
-    return ValidationMessage(validated=True)
+    else:
+        return ValidationMessage(validated=False, message="wrong number length")

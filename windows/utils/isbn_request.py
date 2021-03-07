@@ -10,5 +10,5 @@ def construct_isbn_url(isbn: str) -> str:
     return REQUEST_PREFIX + SEPARATOR + ISBN_CODE + SEPARATOR + isbn + REQUEST_SUFFIX
 
 
-def construct_author_request(author: str) -> dict:
+def construct_author_request(author: str) -> str:
     return REQUEST_PREFIX + SEPARATOR + AUTHOR_CODE + SEPARATOR + author + REQUEST_SUFFIX
