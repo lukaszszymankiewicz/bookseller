@@ -1,29 +1,36 @@
 import pytest
+from faker import Faker
 from windows.utils.validation import number_is_proper_isbn_number
 
+N_PROBES = 100
 
-@pytest.mark.parametrize(
-    "isbn_number",
-    [
-        "9783161484100",
-        "9788310133748",
-        "9788308043899",
-        "8305116743",
-        "8308017509",
-        "9788324054411",
-        "9788377313312",
-        "9788324034871",
-        "9788363944667",
-        "9780007547999",
-        "9788395243356",
-    ],
-)
-def test_number_is_proper_isbn_number_sucessfully_recognize_valid_isbn_number(isbn_number):
-    # WHEN
-    message = number_is_proper_isbn_number(isbn_number)
 
-    # THEN
-    assert message.validated
+def test_number_is_proper_isbn_number_sucessfully_recognize_valid_isbn_number_with_10_digits():
+    # GIVEN
+    faker = Faker()
+
+    for _ in range(N_PROBES):
+        isbn_number = faker.isbn10(separator="")
+
+        # WHEN
+        message = number_is_proper_isbn_number(isbn_number)
+
+        # THEN
+        assert message.validated
+
+
+def test_number_is_proper_isbn_number_sucessfully_recognize_valid_isbn_number_with_13_digits():
+    # GIVEN
+    faker = Faker()
+
+    for _ in range(N_PROBES):
+        isbn_number = faker.isbn13(separator="")
+
+        # WHEN
+        message = number_is_proper_isbn_number(isbn_number)
+
+        # THEN
+        assert message.validated
 
 
 @pytest.mark.parametrize(

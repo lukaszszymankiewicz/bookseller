@@ -10,6 +10,7 @@ DONE:
  - [x] 403 issue on request module.
 
 TODO:
+ - [ ] change "wait_window" name to something more descriptable
  - [ ] clean up all methods using screen manager (add more descriptive function names and usages),
  - [ ] add more flexible status parameter to async request (job_done, job_wip, job succeded). Think about RabbitMQ here (watch out! That could be overkill in this place!),
  - [ ] implement one geneal use message (not query message and validation message!),

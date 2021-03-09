@@ -7,10 +7,6 @@ from .utils import get_book_data
 
 
 class WaitWindow(Screen):
-    @property
-    def _isbn_number(self):
-        return self.manager.screens[0].ids["search_layout_number_label"].text
-
     def on_enter(self):
         global job_done
         global job_wip
@@ -41,25 +37,19 @@ class WaitWindow(Screen):
         t.start()
 
     def process(self):
-        message = get_book_data(raw_string=self._isbn_number)
+        isbn_number = self.manager.get_isbn_number_from_search_screen()
+        message = get_book_data(raw_string=isbn_number)
 
         global job_done
         global job_succeded
 
         if message.completed:
-
             book_data = message.message
-
-            self.manager.screens[2].ids["title"].text = str(book_data["title"])
-            self.manager.screens[2].ids["author"].text = str(book_data["author"])
-            self.manager.screens[2].ids["avg_prices"].text = str(book_data["avg_prices"])
-            self.manager.screens[2].ids["sales_number"].text = str(book_data["sales_number"])
-
-            job_done = True
+            self.manager.fill_book_data_in_results_screen(book_data)
             job_succeded = True
 
         else:
-            self.manager.screens[3].ids["problem_layout_message"].text = message.message
-
-            job_done = True
+            self.manager.fill_error_in_problem_screen(message.message)
             job_succeded = False
+
+        job_done = True

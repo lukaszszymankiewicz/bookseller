@@ -4,7 +4,11 @@ LEGAL_PREFIX = [978, 979]
 
 
 def number_is_proper_isbn_number(number: str) -> ValidationMessage:
-    control_number = int(number[-1])
+    if number[-1] == "X":
+        control_number = 10
+    else:
+        control_number = int(number[-1])
+
     control_sum = 0
 
     if len(number) == 10:

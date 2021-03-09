@@ -1,11 +1,27 @@
 <MyScreenManager>:
+    id: main_manager
+
     SearchWindow:
+        id: search_window
+        manager: main_manager
+        name: 'search'
+
     WaitWindow:
+        id: wait_window
+        manager: main_manager
+        name: 'wait'
+
     ResultsWindow:
+        id: results_window
+        manager: main_manager
+        name: 'results'
+
     ProblemWindow:
+        id: problem_window
+        manager: main_manager
+        name: 'problem'
 
 <ResultsWindow>:
-    name: 'results'
     orientation: 'vertical'
 
     canvas:
@@ -76,6 +92,7 @@
             font_size: 20
             on_press: 
                 root.goback()
+                app.root.current = "search"
 
         Button:
             id: results_layout_sell_button
@@ -86,7 +103,6 @@
                 root.sell()
 
 <WaitWindow>:
-    name: 'wait'
     orientation: 'vertical'
 
     canvas:
@@ -108,7 +124,6 @@
 
 
 <SearchWindow>:
-    name: 'search'
     orientation: 'vertical'
 
     canvas:
@@ -219,12 +234,12 @@
                     app.root.current = 'wait'
 
 <ProblemWindow>:
-    name: 'problem'
     orientation: 'vertical'
 
     canvas:
         Color:
             rgba: 0.0, 0.0, 0.0, 1.0
+
         Rectangle:
             pos: self.pos
             size: self.size
