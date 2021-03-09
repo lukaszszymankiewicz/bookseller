@@ -3,7 +3,7 @@ user want to.
 
 ISSUES:
  - [ ] going back to main screen does not work (sic!)
- - [ ] inputting custom ISBN (not prepared) will block cool gif in the background
+ - [ ] inputting custom ISBN (not prepared) will sometimes block cool gif in the background.
 
 DONE:
  - [x] number keyboard to input ISBN number in it,
@@ -13,7 +13,7 @@ DONE:
  - [x] consistency between screens,
  - [x] 403 issue on request module.
  - [x] clean up all methods using screen manager (add more descriptive function names and usages),
- - [x] refactor tests (all unit test work on old version of prototype),
+ - [x] refactor tests (all unit test work on old version of prototype).
 
 TODO:
  - [ ] add whole app test (check if all method works abyhow, swithcing between screens etc)
@@ -27,3 +27,4 @@ TODO:
    - [ ] pretty error printing (now it shows raw Python error),
    - [ ] implement some basic fuckups (no Internet connection, 404, and so on),
  - [ ] taking ISBN number directly from photo (in real time!),
+ - [ ] add moeny currency at results screen.
