@@ -38,7 +38,6 @@ class MyScreenManager(ScreenManager):
 
     def disable_start_button_on_search_screen(self):
         self.ids["search_window"].ids["run"].disabled = True
-        self.ids["search_window"].ids["run"].state = "normal"
 
     def enable_start_button_on_search_screen(self):
         self.ids["search_window"].ids["run"].disabled = False

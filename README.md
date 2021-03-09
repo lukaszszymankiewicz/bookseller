@@ -3,6 +3,7 @@ user want to.
 
 ISSUES:
  - [ ] going back to main screen does not work (sic!)
+ - [ ] inputting custom ISBN (not prepared) will block cool gif in the background
 
 DONE:
  - [x] number keyboard to input ISBN number in it,

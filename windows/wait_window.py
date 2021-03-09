@@ -13,18 +13,14 @@ class WaitWindow(Screen):
         global job_succeded
 
         job_done = False
-        job_wip = False
         job_succeded = False
+
+        self.start_thread()
 
         Clock.schedule_interval(self.check, 1)
 
     def check(self, dt):
-        global job_wip
         global job_done
-
-        if not job_wip:
-            job_wip = True
-            self.start_thread()
 
         if job_done:
             if job_succeded:
@@ -47,9 +43,9 @@ class WaitWindow(Screen):
             book_data = message.message
             self.manager.fill_book_data_in_results_screen(book_data)
             job_succeded = True
+            job_done = True
 
         else:
             self.manager.fill_error_in_problem_screen(message.message)
             job_succeded = False
-
-        job_done = True
+            job_done = True

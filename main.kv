@@ -23,7 +23,6 @@
 
 <ResultsWindow>:
     orientation: 'vertical'
-
     canvas:
         Color:
             rgba: 0.0, 0.0, 0.0, 1.0
@@ -92,7 +91,6 @@
             font_size: 20
             on_press: 
                 root.goback()
-                app.root.current = "search"
 
         Button:
             id: results_layout_sell_button
@@ -139,7 +137,7 @@
 
         Label:
             id: search_layout_number_label
-            text: '9781617293702'
+            text: ''
             padding_y: self.height / 3
             padding_x: 20
             multiline: False
@@ -150,7 +148,6 @@
         Label:
             id: seach_layout_messages_label
             text: 'type ISBN number'
-            hint_text: ''
             font_size: 20
             size_hint_y: 0.1
 
@@ -235,7 +232,6 @@
 
 <ProblemWindow>:
     orientation: 'vertical'
-
     canvas:
         Color:
             rgba: 0.0, 0.0, 0.0, 1.0
