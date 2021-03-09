@@ -1,6 +1,7 @@
 import re
 
-from .allegro_request import construct_allegro_search_url
+from .allegro_request import (construct_allegro_headers,
+                              construct_allegro_search_url)
 from .isbn_request import construct_author_request, construct_isbn_url
 from .parsers import prices_search, sales_number_search
 from .query_message import QueryMessage
@@ -15,9 +16,9 @@ NONDIGITS_REGEX = {"pattern": "\D", "repl": ""}
 def get_book_data(raw_string: str):
     try:
         code = clean_string_using_regexes(raw_string, [WHITESPACE_REGEX, NONDIGITS_REGEX])
-
         url = construct_isbn_url(code)
         data = make_request_and_serialize_response(url)
+        headers = construct_allegro_headers()
 
         author_code = _extract_author_code(data)
         author_request_url = construct_author_request(author_code)
@@ -27,7 +28,7 @@ def get_book_data(raw_string: str):
         title = _extract_title(data)
 
         allegro_url = construct_allegro_search_url(author, title)
-        allegro_content = make_request(allegro_url)
+        allegro_content = make_request(allegro_url, headers)
         allegro_soup = create_soup(allegro_content.content)
 
         avg_price = prices_search(soup=allegro_soup)
