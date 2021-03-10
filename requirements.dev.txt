@@ -1,5 +1,5 @@
-flake8
-black
-isort
-pytest
-faker
+flake8==3.8.4
+black==20.8b1
+isort==5.7.0
+pytest==6.2.2
+faker==6.6.0
