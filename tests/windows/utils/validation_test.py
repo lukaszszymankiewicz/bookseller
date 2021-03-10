@@ -16,7 +16,7 @@ def test_number_is_proper_isbn_number_sucessfully_recognize_valid_isbn_number_wi
         message = number_is_proper_isbn_number(isbn_number)
 
         # THEN
-        assert message.validated
+        assert message.success
 
 
 def test_number_is_proper_isbn_number_sucessfully_recognize_valid_isbn_number_with_13_digits():
@@ -30,7 +30,7 @@ def test_number_is_proper_isbn_number_sucessfully_recognize_valid_isbn_number_wi
         message = number_is_proper_isbn_number(isbn_number)
 
         # THEN
-        assert message.validated
+        assert message.success
 
 
 @pytest.mark.parametrize(
@@ -54,8 +54,8 @@ def test_number_is_proper_isbn_number_sucessfully_recognize_nonvalid_isbn_number
     message = number_is_proper_isbn_number(isbn_number)
 
     # THEN
-    assert message.validated is False
-    assert message.message == "wrong control sum"
+    assert message.success is False
+    assert message.content == "wrong control sum"
 
 
 @pytest.mark.parametrize(
@@ -80,8 +80,8 @@ def test_number_is_proper_isbn_number_sucessfully_recognize_isbn_number_with_wro
     message = number_is_proper_isbn_number(isbn_number)
 
     # THEN
-    assert message.validated is False
-    assert message.message == "wrong number length"
+    assert message.success is False
+    assert message.content == "wrong number length"
 
 
 @pytest.mark.parametrize(
@@ -105,5 +105,5 @@ def test_number_is_proper_isbn_number_sucessfully_recognize_isbn_number_with_wro
     message = number_is_proper_isbn_number(isbn_number)
 
     # THEN
-    assert message.validated is False
-    assert message.message == "this number has invalid prefix!"
+    assert message.success is False
+    assert message.content == "this number has invalid prefix!"
