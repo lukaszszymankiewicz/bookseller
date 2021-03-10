@@ -1,24 +1,24 @@
-<MyScreenManager>:
-    id: main_manager
+<Manager>:
+    id: manager
 
     SearchWindow:
         id: search_window
-        manager: main_manager
+        manager: manager
         name: 'search'
 
-    WaitWindow:
-        id: wait_window
-        manager: main_manager
-        name: 'wait'
+    JobWindow:
+        id: job_window
+        manager: manager
+        name: 'job'
 
     ResultsWindow:
         id: results_window
-        manager: main_manager
+        manager: manager
         name: 'results'
 
     ProblemWindow:
         id: problem_window
-        manager: main_manager
+        manager: manager
         name: 'problem'
 
 <ResultsWindow>:
@@ -31,7 +31,7 @@
             size: self.size
 
     GridLayout:
-        id: results_layout_labels_layout
+        id: results_layout
         rows: 4
         cols: 2
         size_hint_y: 0.5
@@ -44,7 +44,7 @@
             font_size: 20
 
         Label:
-            id: title
+            id: title_content
             text: 'jebac psy'
             font_size: 20
 
@@ -54,7 +54,7 @@
             font_size: 20
 
         Label:
-            id: author
+            id: author_content
             text: 'Pezet'
             font_size: 20
 
@@ -64,7 +64,7 @@
             font_size: 20
 
         Label:
-            id: avg_prices
+            id: avg_prices_content
             text: '0.0'
             font_size: 20
 
@@ -74,33 +74,33 @@
             font_size: 20
 
         Label:
-            id: sales_number
+            id: sales_number_content
             text: '69'
             font_size: 20
 
     BoxLayout:
-        id: results_layout_buttons_layout
+        id: buttons_layout
         orientation: 'horizontal'
         size_hint_y: 0.1
         size_hint_x: 0.5
         pos_hint: {'center_x':0.5, 'y': 0.2}
 
         Button:
-            id: results_layout_goback_button
+            id: goback_button
             text: 'Go Back'
             font_size: 20
             on_press: 
                 root.goback()
 
         Button:
-            id: results_layout_sell_button
+            id: sell_button
             text: 'Sell!'
             font_size: 20
             disabled: True
             on_press: 
                 root.sell()
 
-<WaitWindow>:
+<JobWindow>:
     orientation: 'vertical'
 
     canvas:
@@ -110,7 +110,7 @@
             pos: self.pos
             size: self.size
     Image:
-        id: wait_layout_wait_image
+        id: job_wip_gif
         source: 'static/wait.gif'
         anim_delay: 0.1
         anim_loop: 5
@@ -136,8 +136,8 @@
         orientation: 'vertical'
 
         Label:
-            id: search_layout_number_label
-            text: ''
+            id: isbn_number_label
+            text: '9781617293702'
             padding_y: self.height / 3
             padding_x: 20
             multiline: False
@@ -146,13 +146,13 @@
             font_size: 20
 
         Label:
-            id: seach_layout_messages_label
+            id: message_label
             text: 'type ISBN number'
             font_size: 20
             size_hint_y: 0.1
 
         GridLayout:
-            id: search_layout_keyboard_layout
+            id: keyboard_input_layout
             rows: 4
             cols: 3
             size_hint_y: 0.4
@@ -228,7 +228,7 @@
                 text: 'Go!'
                 disabled: False
                 on_press: 
-                    app.root.current = 'wait'
+                    app.root.current = 'job'
 
 <ProblemWindow>:
     orientation: 'vertical'

@@ -1,9 +1,9 @@
-from .validation_message import ValidationMessage
+from .message import Message
 
 LEGAL_PREFIX = [978, 979]
 
 
-def number_is_proper_isbn_number(number: str) -> ValidationMessage:
+def number_is_proper_isbn_number(number: str) -> Message:
     if number[-1] == "X":
         control_number = 10
     else:
@@ -18,13 +18,13 @@ def number_is_proper_isbn_number(number: str) -> ValidationMessage:
         calculated_control_number = control_sum % 11
 
         if calculated_control_number != control_number:
-            return ValidationMessage(validated=False, message="wrong control sum")
+            return Message(success=False, content="wrong control sum")
         else:
-            return ValidationMessage(validated=True)
+            return Message(success=True)
 
     elif len(number) == 13:
         if int(number[:3]) not in LEGAL_PREFIX:
-            return ValidationMessage(validated=False, message="this number has invalid prefix!")
+            return Message(success=False, content="this number has invalid prefix!")
 
         for index, digit in enumerate(iterable=number[:-1], start=1):
             if index % 2 == 0:
@@ -39,9 +39,9 @@ def number_is_proper_isbn_number(number: str) -> ValidationMessage:
             calculated_control_number = 10 - (control_sum % 10)
 
         if calculated_control_number != control_number:
-            return ValidationMessage(validated=False, message="wrong control sum")
+            return Message(success=False, content="wrong control sum")
         else:
-            return ValidationMessage(validated=True)
+            return Message(success=True)
 
     else:
-        return ValidationMessage(validated=False, message="wrong number length")
+        return Message(success=False, content="wrong number length")
