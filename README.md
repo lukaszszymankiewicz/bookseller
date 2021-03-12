@@ -19,8 +19,10 @@ DONE:
  - [x] implement one geneal use message (not query message and validation message!),
  - [x] add moeny currency at results screen.
  - [x] add settings screen 
+ - [x] change name of "SearchWindow" to "InputNumberManuallyScreen"
 
 TODO:
+ - [ ] add goback options in "input_number_manually_screen"
  - [ ] add config perserving closing app.
  - [ ] add whole app test (check if all method works abyhow, swithcing between screens etc),
  - [ ] add welcome screen with three options available: scan by photo, input number manually and settings,

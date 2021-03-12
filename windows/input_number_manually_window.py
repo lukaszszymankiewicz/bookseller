@@ -3,7 +3,7 @@ from kivy.uix.screenmanager import Screen
 from .utils import number_is_proper_isbn_number
 
 
-class SearchWindow(Screen):
+class InputNumberManuallyScreen(Screen):
     @property
     def _isbn_number(self):
         return self.ids["isbn_number_label"].text

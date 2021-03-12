@@ -1,10 +1,15 @@
 <Manager>:
     id: manager
 
-    SearchWindow:
-        id: search_window
+    MainWindow:
+        id: main_window
         manager: manager
-        name: 'search'
+        name: 'main'
+
+    InputNumberManuallyScreen:
+        id: input_number_manually_window
+        manager: manager
+        name: 'input_number_manually'
 
     JobWindow:
         id: job_window
@@ -25,6 +30,78 @@
         id: settings_window
         manager: manager
         name: 'settings'
+
+<MainWindow>:
+    orientation: 'vertical'
+    canvas:
+        Color:
+            rgba: 0.0, 0.0, 0.0, 1.0
+        Rectangle:
+            pos: self.pos
+            size: self.size
+
+    Label:
+        id: search_method_label
+        text: 'Choose ISBN input method'
+        font_size: 20
+        size_hint_y: 0.1
+        size_hint_x: 0.5
+        pos_hint: {'center_x':0.5, 'y': 0.8}
+
+    GridLayout:
+        id: search_method_layout
+        rows: 1
+        cols: 2
+        size_hint_y: 0.1
+        size_hint_x: 0.5
+        pos_hint: {'center_x':0.5, 'y': 0.5}
+
+        Button:
+            id: search_by_scanning
+            background_normal: ''
+            text: 'Scan'
+            font_size: 20
+            disabled: True
+            background_color: (0.3, 0.3, 0.3, 1.0)
+
+        Button:
+            id: search_by_inputting
+            background_normal: ''
+            text: 'Input'
+            font_size: 20
+            disabled: False
+            background_color: (0.3, 0.3, 0.3, 1.0)
+            on_press: 
+                app.root.current = 'input_number_manually'
+
+    GridLayout:
+        id: search_method_layout
+        rows: 2
+        cols: 1
+        size_hint_y: 0.1
+        size_hint_x: 0.2
+        padding: -50
+        pos_hint: {'center_x':0.5, 'y': 0.3}
+
+        Button:
+            id: goto_settings
+            background_normal: ''
+            text: 'Settings'
+            font_size: 20
+            disabled: False
+            background_color: (0.3, 0.3, 0.3, 1.0)
+            on_press: 
+                app.root.current = 'settings'
+
+        Button:
+            id: exit_button
+            background_normal: ''
+            text: 'Exit'
+            font_size: 20
+            disabled: False
+            background_color: (0.3, 0.3, 0.3, 1.0)
+            on_press: 
+                app.get_running_app().stop()
 
 <SettingsWindow>:
     orientation: 'vertical'
@@ -394,7 +471,7 @@
         pos_hint: {'center_x':0.5, 'center_y': 0.5}
 
 
-<SearchWindow>:
+<InputNumberManuallyScreen>:
     orientation: 'vertical'
 
     canvas:
