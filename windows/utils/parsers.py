@@ -4,7 +4,8 @@ from typing import Callable, Tuple
 
 import bs4
 
-from .math import avg_from_list
+from .aggregation_functions import (avg_from_list, force_sum, force_to_float,
+                                    force_to_int)
 
 
 def parse_soup(
@@ -38,26 +39,18 @@ prices_search = partial(
     attrs={"class": "_1svub _lf05o"},
     cleaning_regex="[+-]?([0-9]*[,])?[0-9]+",
     cleaning_replace=(",", "."),
-    convertion_fun=float,
+    convertion_fun=force_to_float,
     aggregate_fun=avg_from_list,
 )
-
-
-def try_to_int(value):
-    if not value:
-        return 0
-    else:
-        return int(value)
-
 
 sales_number_search = partial(
     parse_soup,
     tag="span",
     attrs={"class": "msa3_z4"},
     cleaning_regex="[0-9]*",
-    convertion_fun=try_to_int,
+    convertion_fun=force_to_int,
     cleaning_replace=("", ""),
-    aggregate_fun=lambda x: sum(x),
+    aggregate_fun=force_sum,
 )
 
 number_of_result_pages = partial(
@@ -65,7 +58,7 @@ number_of_result_pages = partial(
     tag="span",
     attrs={"class": "_1h7wt _1fkm6 _g1gnj _3db39_3i0GV _3db39_XEsAE"},
     cleaning_regex="[0-9]*",
-    convertion_fun=int,
+    convertion_fun=force_to_int,
     cleaning_replace=("", ""),
     aggregate_fun=lambda x: x[0],
 )

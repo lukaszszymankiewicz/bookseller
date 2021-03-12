@@ -5,6 +5,7 @@ from windows.manager import Manager
 from windows.problem_window import ProblemWindow
 from windows.results_window import ResultsWindow
 from windows.search_window import SearchWindow
+from windows.settings_window import SettingsWindow
 
 
 class BuildApp(App):

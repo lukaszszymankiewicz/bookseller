@@ -21,6 +21,279 @@
         manager: manager
         name: 'problem'
 
+    SettingsWindow:
+        id: settings_window
+        manager: manager
+        name: 'settings'
+
+<SettingsWindow>:
+    orientation: 'vertical'
+    canvas:
+        Color:
+            rgba: 0.0, 0.0, 0.0, 1.0
+        Rectangle:
+            pos: self.pos
+            size: self.size
+
+    Label:
+        id: price_strategy_label
+        text: 'choose default price difference from average:'
+        font_size: 20
+        size_hint_y: 0.1
+        size_hint_x: 0.5
+        pos_hint: {'center_x':0.5, 'y': 0.9}
+
+    GridLayout:
+        id: price_strategy_layout
+        rows: 1
+        cols: 4
+        size_hint_y: 0.1
+        size_hint_x: 0.5
+        pos_hint: {'center_x':0.5, 'y': 0.8}
+
+        Button:
+            id: set_0_percent_price_strategy
+            background_normal: ''
+            text: '-0%'
+            font_size: 20
+            disabled: False
+            background_color: (0.3, 0.3, 0.3, 1.0)
+            on_press: 
+                root.set_price_strategy(0)
+
+        Button:
+            id: set_10_percent_price_strategy
+            background_normal: ''
+            text: '-10%'
+            font_size: 20
+            disabled: False
+            background_color: (0, 0, 0, 1.0)
+            on_press: 
+                root.set_price_strategy(10)
+
+        Button:
+            id: set_20_percent_price_strategy
+            background_normal: ''
+            text: '-20%'
+            font_size: 20
+            disabled: False
+            background_color: (0, 0, 0, 1.0)
+            on_press: 
+                root.set_price_strategy(20)
+
+        Button:
+            id: set_40_percent_price_strategy
+            background_normal: ''
+            text: '-40%'
+            font_size: 20
+            disabled: False
+            background_color: (0, 0, 0, 1.0)
+            on_press: 
+                root.set_price_strategy(40)
+
+    Label:
+        id: sell_strategy
+        text: 'choose sell strategy'
+        font_size: 20
+        size_hint_y: 0.1
+        size_hint_x: 0.5
+        pos_hint: {'center_x':0.5, 'y': 0.7}
+
+    GridLayout:
+        id: sell_strategy_layout
+        rows: 2
+        cols: 3
+        size_hint_y: 0.1
+        size_hint_x: 0.5
+        pos_hint: {'center_x':0.5, 'y': 0.6}
+
+        Label:
+            id: sell_strategy_label
+            text: 'Sell as:'
+            font_size: 20
+            size_hint_y: 0.1
+            size_hint_x: 0.5
+
+        Button:
+            id: set_sell_as_new
+            background_normal: ''
+            text: 'used'
+            font_size: 20
+            disabled: False
+            background_color: (0.3, 0.3, 0.3, 1.0)
+            on_press: 
+                root.sell_as('used')
+
+        Button:
+            id: set_sell_as_used
+            background_normal: ''
+            text: 'new'
+            font_size: 20
+            disabled: False
+            background_color: (0, 0, 0, 1.0)
+            on_press: 
+                root.sell_as('new')
+
+        Label:
+            id: buynow_strategy_label
+            text: 'Allow Buy Now'
+            font_size: 20
+            size_hint_y: 0.1
+            size_hint_x: 0.5
+
+        Button:
+            id: buynow_true
+            background_normal: ''
+            text: 'yes'
+            font_size: 20
+            disabled: False
+            background_color: (0.3, 0.3, 0.3, 1.0)
+            on_press: 
+                root.buynow(True)
+
+        Button:
+            id: buynow_false
+            background_normal: ''
+            text: 'no'
+            font_size: 20
+            disabled: False
+            background_color: (0, 0, 0, 1.0)
+            on_press: 
+                root.buynow(False)
+
+    Label:
+        id: delivery_strategy_label
+        text: 'choose delivery options'
+        font_size: 20
+        size_hint_y: 0.1
+        size_hint_x: 0.5
+        pos_hint: {'center_x':0.5, 'y': 0.5}
+
+    GridLayout:
+        id: delivery_strategy_layout
+        rows: 3
+        cols: 5
+        size_hint_y: 0.3
+        size_hint_x: 0.5
+        pos_hint: {'center_x':0.5, 'y': 0.2}
+
+        # PARCELLOCKER
+        TwoStateClickableImage:
+            id: parcellocker_delivery_tick
+            source: 'static/yes.png'
+
+        Label:
+            id: parcellocker_delivery_label
+            background_normal: ''
+            text: 'Parcellocker'
+            font_size: 20
+            background_color: (0, 0, 0, 1.0)
+
+        Button:
+            id: parcellocker_delivery_less
+            text: '-'
+            font_size: 20
+            disabled: False
+            background_color: (0.3, 0.3, 0.3, 1.0)
+            on_press: 
+                root.change_price('parcellocker', -1)
+
+        Label:
+            id: parcellocker_delivery_price
+            background_normal: ''
+            text: '10.00 PLN'
+            font_size: 20
+            background_color: (0, 0, 0, 1.0)
+
+        Button:
+            id: parcellocker_delivery_less
+            text: '+'
+            font_size: 20
+            background_color: (0.3, 0.3, 0.3, 1.0)
+            on_press: 
+                root.change_price('parcellocker', 1)
+
+        # COURIER
+        TwoStateClickableImage:
+            id: courier_delivery_tick
+            source: 'static/yes.png'
+
+        Label:
+            id: courier_delivery_label
+            background_normal: ''
+            text: 'Courier'
+            font_size: 20
+            background_color: (0, 0, 0, 1.0)
+
+        Button:
+            id: courier_delivery_less
+            text: '-'
+            font_size: 20
+            background_color: (0.3, 0.3, 0.3, 1.0)
+            on_press: 
+                root.change_price('courier', -1)
+
+        Label:
+            id: courier_delivery_price
+            background_normal: ''
+            text: '10.00 PLN'
+            font_size: 20
+            background_color: (0, 0, 0, 1.0)
+
+        Button:
+            id: courier_delivery_less
+            text: '+'
+            font_size: 20
+            background_color: (0.3, 0.3, 0.3, 1.0)
+            on_press: 
+                root.change_price('courier', 1)
+
+        # MAIL
+        TwoStateClickableImage:
+            id: mail_delivery_tick
+            source: 'static/yes.png'
+
+        Label:
+            id: mail_delivery_label
+            background_normal: ''
+            text: 'Mail'
+            font_size: 20
+            background_color: (0, 0, 0, 1.0)
+
+        Button:
+            id: mail_delivery_less
+            text: '-'
+            font_size: 20
+            background_color: (0.3, 0.3, 0.3, 1.0)
+            on_press: 
+                root.change_price('mail', -1)
+
+        Label:
+            id: mail_delivery_price
+            background_normal: ''
+            text: '10.00 PLN'
+            font_size: 20
+            background_color: (0, 0, 0, 1.0)
+
+        Button:
+            id: mail_delivery_less_arrow
+            text: '+'
+            font_size: 20
+            background_color: (0.3, 0.3, 0.3, 1.0)
+            on_press: 
+                root.change_price('mail', 1)
+
+    Button:
+        id: goback
+        text: 'Save and Proceed'
+        font_size: 20
+        size_hint_y: 0.1
+        size_hint_x: 0.5
+        pos_hint: {'center_x':0.5, 'y': 0.0}
+        background_color: (0.3, 0.3, 0.3, 1.0)
+        on_press: 
+            root.save_and_proceed()
+
 <ResultsWindow>:
     orientation: 'vertical'
     canvas:
@@ -109,6 +382,7 @@
         Rectangle:
             pos: self.pos
             size: self.size
+
     Image:
         id: job_wip_gif
         source: 'static/wait.gif'
@@ -118,7 +392,6 @@
         size_hint_y: 0.1
         size_hint_x: 0.1
         pos_hint: {'center_x':0.5, 'center_y': 0.5}
-        keep_data: True
 
 
 <SearchWindow>:
