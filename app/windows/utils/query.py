@@ -1,15 +1,14 @@
 import re
 
-from windows.utils.url_constructors import (
-    construct_allegro_book_search_url, construct_allegro_headers,
-    construct_openlibrary_author_search_url,
-    construct_openlibrary_isbn_search_url)
-
 from .message import Message
 from .parsers import prices_search, sales_number_search
 from .regex import clean_string_using_regexes
 from .request import make_request, make_request_and_serialize_response
 from .soup import create_soup
+from .url_constructors import (construct_allegro_book_search_url,
+                               construct_allegro_headers,
+                               construct_openlibrary_author_search_url,
+                               construct_openlibrary_isbn_search_url)
 
 WHITESPACE_REGEX = {"pattern": r"\s+", "repl": "", "flags": re.UNICODE}
 NONDIGITS_REGEX = {"pattern": "\D", "repl": ""}

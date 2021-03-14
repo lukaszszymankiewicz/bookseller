@@ -4,6 +4,8 @@ from .utils import number_is_proper_isbn_number
 
 
 class InputNumberManuallyScreen(Screen):
+    id = "input_number_manually_window"
+
     @property
     def _isbn_number(self):
         return self.ids["isbn_number_label"].text

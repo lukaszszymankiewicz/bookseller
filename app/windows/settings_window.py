@@ -1,16 +1,19 @@
-from kivy.uix.screenmanager import Screen
+from app.windows.utils.constants import CURRENCY
+from app.windows.ux.colors import BLACK, GREY
+from app.windows.widgets.two_state_clickable_image import \
+    TwoStateClickableImage
 
-from windows.utils.colors import BLACK, GREY
-from windows.widgets.two_state_clickable_image import TwoStateClickableImage
-
-CURRENCY = "PLN"
+from .base_window import BaseBooksellerWindow
 
 
-class SettingsWindow(Screen):
+class SettingsWindow(BaseBooksellerWindow):
+    id = "settings_window"
+
     price_strategy = 0
 
     def _disable_all_price_strategy_button(self):
         for widget_name in self.ids.keys():
+            # TODO: add some "functionality" paramter to whis widget class
             if widget_name.endswith("price_strategy"):
                 self.ids[widget_name].background_color = BLACK
 

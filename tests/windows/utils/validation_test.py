@@ -1,6 +1,6 @@
 import pytest
+from app.windows.utils.validation import number_is_proper_isbn_number
 from faker import Faker
-from windows.utils.validation import number_is_proper_isbn_number
 
 N_PROBES = 100
 

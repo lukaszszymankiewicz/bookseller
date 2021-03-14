@@ -1,11 +1,10 @@
-from kivy.core.window import Window
+"""This file is only fo building app. All app-wide settings is in windows.app"""
+
 from kivy.lang.builder import Builder
 
-Window.size = (360, 640)
+from app.build import BuildApp
 
 kv = Builder.load_file("main.kv")
-
-from windows import BuildApp
 
 if __name__ == "__main__":
     BuildApp().run()

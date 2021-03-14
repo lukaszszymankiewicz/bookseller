@@ -1,8 +1,8 @@
 from time import sleep
 from typing import List
 
-from windows.utils.enums import JobStatus
-from windows.utils.job import Job
+from app.windows.utils.enums import JobStatus
+from app.windows.utils.job import Job
 
 
 def test_job_runs_function_and_sets_done_flag():

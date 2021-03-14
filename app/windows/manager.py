@@ -17,8 +17,6 @@ class Manager(ScreenManager):
 
     def fill_error_in_problem_screen(self, message: str):
         self.current = "search"
-        print(message)
-        # self.ids["problem_window"].ids["problem_layout_message"].text = str(message)
 
     def get_isbn_number_from_search_screen(self) -> str:
         return self.ids["search_window"].ids["isbn_number_label"].text

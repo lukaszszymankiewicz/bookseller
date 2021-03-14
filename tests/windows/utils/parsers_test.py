@@ -1,6 +1,6 @@
 import pytest
-from windows.utils.parsers import (number_of_result_pages, prices_search,
-                                   sales_number_search)
+from app.windows.utils.parsers import (number_of_result_pages, prices_search,
+                                       sales_number_search)
 
 
 # fmt:off

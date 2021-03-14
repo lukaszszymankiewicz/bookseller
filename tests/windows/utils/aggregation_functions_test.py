@@ -1,6 +1,7 @@
 import pytest
-from windows.utils.aggregation_functions import (avg_from_list, force_sum,
-                                                 force_to_float, force_to_int)
+from app.windows.utils.aggregation_functions import (avg_from_list, force_sum,
+                                                     force_to_float,
+                                                     force_to_int)
 
 
 @pytest.mark.parametrize("input, expected_result", [(None, 0), ([0], 0), ([1, 2, 3], 2)])

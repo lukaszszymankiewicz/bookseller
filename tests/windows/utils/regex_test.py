@@ -1,7 +1,8 @@
 import re
 
 import pytest
-from windows.utils.regex import clean_string_using_regexes, run_substract_regex
+from app.windows.utils.regex import (clean_string_using_regexes,
+                                     run_substract_regex)
 
 WHITESPACE_REGEX = {"pattern": r"\s+", "repl": "", "flags": re.UNICODE}
 NONDIGITS_REGEX = {"pattern": "\D", "repl": ""}

@@ -1,11 +1,13 @@
-from app_config import job_check_time_interval
 from kivy.clock import Clock
 from kivy.uix.screenmanager import Screen
 
+from ..config import job_check_time_interval
 from .utils import Job, query_book_data
 
 
 class JobWindow(Screen):
+    id = "job_window"
+
     def on_enter(self):
         isbn_number = self.manager.get_isbn_number_from_search_screen()
         self.job = Job(fun=query_book_data, args=isbn_number)

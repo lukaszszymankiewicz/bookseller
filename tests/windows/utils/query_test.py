@@ -1,7 +1,7 @@
 import os
 
 import pytest
-from windows.utils.query import query_book_data
+from app.windows.utils.query import query_book_data
 
 # TODO: move it to some more convinent place
 os.environ["RUN_REQUESTS_AT_TEST"] = "False"

@@ -1,51 +1,26 @@
 <Manager>:
-    id: manager
-
     MainWindow:
-        id: main_window
-        manager: manager
-        name: 'main'
+        name: "main"
 
     InputNumberManuallyScreen:
-        id: input_number_manually_window
-        manager: manager
         name: 'input_number_manually'
 
     JobWindow:
-        id: job_window
-        manager: manager
         name: 'job'
 
     ResultsWindow:
-        id: results_window
-        manager: manager
         name: 'results'
 
     ProblemWindow:
-        id: problem_window
-        manager: manager
         name: 'problem'
 
     SettingsWindow:
-        id: settings_window
-        manager: manager
         name: 'settings'
 
 <MainWindow>:
-    orientation: 'vertical'
-    canvas:
-        Color:
-            rgba: 0.0, 0.0, 0.0, 1.0
-        Rectangle:
-            pos: self.pos
-            size: self.size
-
-    Label:
+    CenteredLabel:
         id: search_method_label
         text: 'Choose ISBN input method'
-        font_size: 20
-        size_hint_y: 0.1
-        size_hint_x: 0.5
         pos_hint: {'center_x':0.5, 'y': 0.8}
 
     GridLayout:
@@ -104,14 +79,6 @@
                 app.get_running_app().stop()
 
 <SettingsWindow>:
-    orientation: 'vertical'
-    canvas:
-        Color:
-            rgba: 0.0, 0.0, 0.0, 1.0
-        Rectangle:
-            pos: self.pos
-            size: self.size
-
     Label:
         id: price_strategy_label
         text: 'choose default price difference from average:'
@@ -254,7 +221,6 @@
         size_hint_x: 0.5
         pos_hint: {'center_x':0.5, 'y': 0.2}
 
-        # PARCELLOCKER
         TwoStateClickableImage:
             id: parcellocker_delivery_tick
             source: 'static/yes.png'
@@ -290,7 +256,6 @@
             on_press: 
                 root.change_price('parcellocker', 1)
 
-        # COURIER
         TwoStateClickableImage:
             id: courier_delivery_tick
             source: 'static/yes.png'
@@ -325,7 +290,6 @@
             on_press: 
                 root.change_price('courier', 1)
 
-        # MAIL
         TwoStateClickableImage:
             id: mail_delivery_tick
             source: 'static/yes.png'
@@ -373,14 +337,6 @@
             app.root.current = 'main'
 
 <ResultsWindow>:
-    orientation: 'vertical'
-    canvas:
-        Color:
-            rgba: 0.0, 0.0, 0.0, 1.0
-        Rectangle:
-            pos: self.pos
-            size: self.size
-
     GridLayout:
         id: results_layout
         rows: 4
@@ -452,15 +408,6 @@
                 root.sell()
 
 <JobWindow>:
-    orientation: 'vertical'
-
-    canvas:
-        Color:
-            rgba: 0.0, 0.0, 0.0, 1.0
-        Rectangle:
-            pos: self.pos
-            size: self.size
-
     Image:
         id: job_wip_gif
         source: 'static/wait.gif'
@@ -473,18 +420,8 @@
 
 
 <InputNumberManuallyScreen>:
-    orientation: 'vertical'
-
-    canvas:
-        Color:
-            rgba: 0.0, 0.0, 0.0, 1.0
-        Rectangle:
-            pos: self.pos
-            size: self.size
-
     BoxLayout:
         id: search_layout_main
-        orientation: 'vertical'
 
         Label:
             id: isbn_number_label
@@ -582,21 +519,12 @@
                     app.root.current = 'job'
 
 <ProblemWindow>:
-    orientation: 'vertical'
-    canvas:
-        Color:
-            rgba: 0.0, 0.0, 0.0, 1.0
-
-        Rectangle:
-            pos: self.pos
-            size: self.size
-
-            Label:
-                id: problem_layout_message
-                text: 'Unknown poblem occured!'
-                padding_y: self.height / 3
-                padding_x: 20
-                multiline: True
-                size_hint_y: 0.3
-                pos_hint: {'center_x':0.5, 'y': 0.5}
-                font_size: 20
+    Label:
+        id: problem_layout_message
+        text: 'Unknown poblem occured!'
+        padding_y: self.height / 3
+        padding_x: 20
+        multiline: True
+        size_hint_y: 0.3
+        pos_hint: {'center_x':0.5, 'y': 0.5}
+        font_size: 20

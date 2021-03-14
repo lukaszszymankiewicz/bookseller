@@ -3,8 +3,8 @@ user want to.
 
 ISSUES:
  - [x] going back to main screen does not work (sic!)
- - [ ] inputting custom ISBN (not prepared) will sometimes block cool gif in the background.
- - [ ] prolem message seems to be not initialised while quering for book
+ - [ ] inputting custom ISBN (not prepared) will sometimes block cool gif in the background,
+ - [ ] problem message seems to be not initialised while quering for book.
 
 DONE:
  - [x] number keyboard to input ISBN number in it,
@@ -12,29 +12,29 @@ DONE:
  - [x] waiting screen made anyhow readable,
  - [x] result screen made anyhow readeble,
  - [x] consistency between screens,
- - [x] 403 issue on request module.
+ - [x] 403 issue on request module,
  - [x] clean up all methods using screen manager (add more descriptive function names and usages),
- - [x] refactor tests (all unit test work on old version of prototype).
+ - [x] refactor tests (all unit test work on old version of prototype),
  - [x] add more flexible status parameter to async request (job_done, job_wip, job succeded),
  - [x] implement one geneal use message (not query message and validation message!),
- - [x] add moeny currency at results screen.
- - [x] add settings screen 
- - [x] change name of "SearchWindow" to "InputNumberManuallyScreen"
+ - [x] add moeny currency at results screen,
+ - [x] add settings screen,
+ - [x] change name of "SearchWindow" to "InputNumberManuallyScreen".
 
 TODO:
- - [ ] add basig logo to main screen
- - [ ] prettify kivy.kv file (move data to Python class)
- - [ ] add goback options in "input_number_manually_screen"
- - [ ] add config perserving closing app.
+ - [ ] add basic logo to main screen,
+ - [ ] prettify kivy.kv file (move data to Python class),
+ - [ ] add goback options in "input_number_manually_screen",
+ - [ ] add config perserving closing app,
  - [ ] add whole app test (check if all method works abyhow, swithcing between screens etc),
  - [ ] add welcome screen with three options available: scan by photo, input number manually and settings,
- - [ ] add allegro login screen
+ - [ ] add allegro login screen,
  - [ ] error screen - some basics but with try catch,
    - [ ] pretty error printing (now it shows raw Python error),
    - [ ] implement some basic fuckups (no Internet connection, 404, and so on),
  - [ ] taking ISBN number directly from photo (in real time!),
- - [ ] add rudimental docstrings
- - [ ] upgrade json extraction
+ - [ ] add rudimental docstrings,
+ - [ ] upgrade json extraction (actual vesion can explode in every second).
 
  NICE TO HAVE:
  - [x] change "wait_window" name to something more descriptable,
