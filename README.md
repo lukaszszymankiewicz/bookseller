@@ -22,6 +22,8 @@ DONE:
  - [x] change name of "SearchWindow" to "InputNumberManuallyScreen"
 
 TODO:
+ - [ ] add basig logo to main screen
+ - [ ] prettify kivy.kv file (move data to Python class)
  - [ ] add goback options in "input_number_manually_screen"
  - [ ] add config perserving closing app.
  - [ ] add whole app test (check if all method works abyhow, swithcing between screens etc),
@@ -31,6 +33,8 @@ TODO:
    - [ ] pretty error printing (now it shows raw Python error),
    - [ ] implement some basic fuckups (no Internet connection, 404, and so on),
  - [ ] taking ISBN number directly from photo (in real time!),
+ - [ ] add rudimental docstrings
+ - [ ] upgrade json extraction
 
  NICE TO HAVE:
  - [x] change "wait_window" name to something more descriptable,
