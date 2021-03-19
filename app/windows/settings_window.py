@@ -33,11 +33,6 @@ class SettingsWindow(BaseBooksellerWindow):
 
     def set_price_strategy(self, percent: int):
         self._disable_all_price_strategy_button()
-
-        import pdb
-
-        pdb.set_trace()
-        print("imhere")
         self.ids[f"set_{str(percent)}_percent_price_strategy"].background_color = GREY
         self.price_strategy = percent
 

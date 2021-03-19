@@ -67,26 +67,29 @@
         cols: 4
         pos_hint: {'center_x':0.5, 'y': 0.8}
 
-        SmallBlackButton:
+        Button:
             id: set_0_percent_price_strategy
+            background_color: (0,0,0,1)
             text: '-0%'
-            disabled: False
             on_press: 
                 root.set_price_strategy(0)
 
-        SmallBlackButton:
+        Button:
             id: set_10_percent_price_strategy
+            background_color: (0,0,0,1)
             text: '-10%'
             on_press: 
                 root.set_price_strategy(10)
 
-        SmallBlackButton:
+        Button:
             id: set_20_percent_price_strategy
+            background_color: (0,0,0,1)
             text: '-20%'
             on_press: 
                 root.set_price_strategy(20)
 
-        SmallBlackButton:
+        Button:
+            background_color: (0,0,0,1)
             id: set_40_percent_price_strategy
             text: '-40%'
             on_press: 
@@ -135,7 +138,7 @@
             on_press: 
                 root.buynow(False)
 
-    CenteredLabel
+    CenteredLabel:
         id: delivery_strategy_label
         text: 'choose delivery options'
         pos_hint: {'center_x':0.5, 'y': 0.5}
@@ -277,7 +280,8 @@
 
 <JobWindow>:
     WaitForResultsImage:
-        id: job_wip_gif
+        source: "static/wait.gif"
+        pos_hint: {"center_x": 0.5, "center_y": 0.5}
 
 
 <InputNumberManuallyScreen>:

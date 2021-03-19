@@ -12,6 +12,8 @@ class GrayButton(Button):
 
 
 class InputNumberButton(GrayButton):
+    background_color = GREY
+
     def __init__(self, **kwargs):
         super(InputNumberButton, self).__init__(**kwargs)
 

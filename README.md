@@ -23,10 +23,10 @@ DONE:
  - [x] prettify kivy.kv file (move data to Python class),
 
 TODO:
+ - [ ] add basic logo to main screen,
+ - [ ] Implement radio buttons in Settings tab!
  - [ ] maybe some of the basic label values should be inputted by some init method instead of
    hard-coding it kivy.kv? Think about it!
- - [ ] add radio/swith buttons to settings (this by now is UGLY!)
- - [ ] add basic logo to main screen,
  - [ ] add goback options in "input_number_manually_screen",
  - [ ] add config perserving closing app,
  - [ ] add whole app test (check if all method works abyhow, swithcing between screens etc),
@@ -40,5 +40,6 @@ TODO:
  - [ ] upgrade json extraction (actual vesion can explode in every second).
 
  NICE TO HAVE:
+ - [ ] all widget in main.kv should have its own class (is it necessary?)
  - [x] change "wait_window" name to something more descriptable,
  - [ ] nice way to pass argmunets in between screens.

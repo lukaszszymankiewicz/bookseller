@@ -15,13 +15,9 @@ class TwoStateClickableImage(Image):
 
 
 class WaitForResultsImage(Image):
-    source = "static/wait.gif"
     anim_delay = 0.1
     anim_loop = 5
-    allow_stretch = False
-    size_hint_y = 0.1
-    size_hint_x = 0.1
-    pos_hint = {"center_x": 0.5, "center_y": 0.5}
+    size_hint = (0.1, 0.1)
 
     def __init__(self, **kwargs):
         super(WaitForResultsImage, self).__init__(**kwargs)
