@@ -2,14 +2,14 @@
     MainWindow:
         name: "main"
 
+    ResultsWindow:
+        name: 'results'
+
     InputNumberManuallyScreen:
         name: 'input_number_manually'
 
     JobWindow:
         name: 'job'
-
-    ResultsWindow:
-        name: 'results'
 
     ProblemWindow:
         name: 'problem'
@@ -21,238 +21,150 @@
     CenteredLabel:
         id: search_method_label
         text: 'Choose ISBN input method'
-        pos_hint: {'center_x':0.5, 'y': 0.8}
+        pos_hint: {'center_x': 0.5, 'y': 0.8}
 
-    GridLayout:
+    FullWidthGridLayoutThin:
         id: search_method_layout
         rows: 1
         cols: 2
-        size_hint_y: 0.1
-        size_hint_x: 0.5
-        pos_hint: {'center_x':0.5, 'y': 0.5}
+        pos_hint: {'center_x': 0.5, 'y': 0.6}
 
-        Button:
+        GrayButton:
             id: search_by_scanning
-            background_normal: ''
             text: 'Scan'
-            font_size: 20
             disabled: True
-            background_color: (0.3, 0.3, 0.3, 1.0)
 
-        Button:
+        GrayButton:
             id: search_by_inputting
-            background_normal: ''
             text: 'Input'
-            font_size: 20
             disabled: False
-            background_color: (0.3, 0.3, 0.3, 1.0)
             on_press: 
                 app.root.current = 'input_number_manually'
 
-    GridLayout:
-        id: search_method_layout
-        rows: 2
-        cols: 1
-        size_hint_y: 0.1
-        size_hint_x: 0.2
-        padding: -50
-        pos_hint: {'center_x':0.5, 'y': 0.3}
+    SmallGrayButton:
+        id: goto_settings
+        text: 'Settings'
+        pos_hint: {'center_x': 0.5, 'y': 0.3}
+        on_press: 
+            app.root.current = 'settings'
 
-        Button:
-            id: goto_settings
-            background_normal: ''
-            text: 'Settings'
-            font_size: 20
-            disabled: False
-            background_color: (0.3, 0.3, 0.3, 1.0)
-            on_press: 
-                app.root.current = 'settings'
-
-        Button:
-            id: exit_button
-            background_normal: ''
-            text: 'Exit'
-            font_size: 20
-            disabled: False
-            background_color: (0.3, 0.3, 0.3, 1.0)
-            on_press: 
-                app.get_running_app().stop()
+    SmallGrayButton:
+        id: exit_button
+        text: 'Exit'
+        pos_hint: {'center_x':0.5, 'y': 0.1}
+        on_press: 
+            app.get_running_app().stop()
 
 <SettingsWindow>:
-    Label:
+    CenteredLabel:
         id: price_strategy_label
         text: 'choose default price difference from average:'
-        font_size: 20
-        size_hint_y: 0.1
-        size_hint_x: 0.5
         pos_hint: {'center_x':0.5, 'y': 0.9}
 
-    GridLayout:
+    FullWidthGridLayoutThin:
         id: price_strategy_layout
         rows: 1
         cols: 4
-        size_hint_y: 0.1
-        size_hint_x: 0.5
         pos_hint: {'center_x':0.5, 'y': 0.8}
 
-        Button:
+        SmallBlackButton:
             id: set_0_percent_price_strategy
-            background_normal: ''
             text: '-0%'
-            font_size: 20
             disabled: False
-            background_color: (0.3, 0.3, 0.3, 1.0)
             on_press: 
                 root.set_price_strategy(0)
 
-        Button:
+        SmallBlackButton:
             id: set_10_percent_price_strategy
-            background_normal: ''
             text: '-10%'
-            font_size: 20
-            disabled: False
-            background_color: (0, 0, 0, 1.0)
             on_press: 
                 root.set_price_strategy(10)
 
-        Button:
+        SmallBlackButton:
             id: set_20_percent_price_strategy
-            background_normal: ''
             text: '-20%'
-            font_size: 20
-            disabled: False
-            background_color: (0, 0, 0, 1.0)
             on_press: 
                 root.set_price_strategy(20)
 
-        Button:
+        SmallBlackButton:
             id: set_40_percent_price_strategy
-            background_normal: ''
             text: '-40%'
-            font_size: 20
-            disabled: False
-            background_color: (0, 0, 0, 1.0)
             on_press: 
                 root.set_price_strategy(40)
 
-    Label:
+    CenteredLabel:
         id: sell_strategy
         text: 'choose sell strategy'
-        font_size: 20
-        size_hint_y: 0.1
-        size_hint_x: 0.5
         pos_hint: {'center_x':0.5, 'y': 0.7}
 
-    GridLayout:
+    FullWidthGridLayoutThin:
         id: sell_strategy_layout
         rows: 2
         cols: 3
-        size_hint_y: 0.1
-        size_hint_x: 0.5
-        pos_hint: {'center_x':0.5, 'y': 0.6}
+        pos_hint: {'center_x': 0.5, 'y': 0.6}
 
-        Label:
+        CenteredLabel:
             id: sell_strategy_label
             text: 'Sell as:'
-            font_size: 20
-            size_hint_y: 0.1
-            size_hint_x: 0.5
 
-        Button:
+        GrayButton:
             id: set_sell_as_new
-            background_normal: ''
             text: 'used'
-            font_size: 20
-            disabled: False
-            background_color: (0.3, 0.3, 0.3, 1.0)
             on_press: 
                 root.sell_as('used')
 
-        Button:
+        BlackButton:
             id: set_sell_as_used
-            background_normal: ''
             text: 'new'
-            font_size: 20
-            disabled: False
-            background_color: (0, 0, 0, 1.0)
             on_press: 
                 root.sell_as('new')
 
-        Label:
+        CenteredLabel:
             id: buynow_strategy_label
             text: 'Allow Buy Now'
-            font_size: 20
-            size_hint_y: 0.1
-            size_hint_x: 0.5
 
-        Button:
+        GrayButton:
             id: buynow_true
-            background_normal: ''
             text: 'yes'
-            font_size: 20
-            disabled: False
-            background_color: (0.3, 0.3, 0.3, 1.0)
             on_press: 
                 root.buynow(True)
 
-        Button:
+        BlackButton:
             id: buynow_false
-            background_normal: ''
             text: 'no'
-            font_size: 20
-            disabled: False
-            background_color: (0, 0, 0, 1.0)
             on_press: 
                 root.buynow(False)
 
-    Label:
+    CenteredLabel
         id: delivery_strategy_label
         text: 'choose delivery options'
-        font_size: 20
-        size_hint_y: 0.1
-        size_hint_x: 0.5
         pos_hint: {'center_x':0.5, 'y': 0.5}
 
-    GridLayout:
+    FullWidthGridLayoutChunky:
         id: delivery_strategy_layout
         rows: 3
         cols: 5
-        size_hint_y: 0.3
-        size_hint_x: 0.5
+        size_hint_x: 0.7
         pos_hint: {'center_x':0.5, 'y': 0.2}
 
         TwoStateClickableImage:
             id: parcellocker_delivery_tick
             source: 'static/yes.png'
 
-        Label:
+        CenteredLabel:
             id: parcellocker_delivery_label
             background_normal: ''
             text: 'Parcellocker'
-            font_size: 20
-            background_color: (0, 0, 0, 1.0)
 
-        Button:
-            id: parcellocker_delivery_less
-            text: '-'
-            font_size: 20
-            disabled: False
-            background_color: (0.3, 0.3, 0.3, 1.0)
+        SetLessPriceButton:
             on_press: 
                 root.change_price('parcellocker', -1)
 
-        Label:
+        CenteredLabel:
             id: parcellocker_delivery_price
-            background_normal: ''
             text: '10.00 PLN'
-            font_size: 20
-            background_color: (0, 0, 0, 1.0)
 
-        Button:
-            id: parcellocker_delivery_less
-            text: '+'
-            font_size: 20
-            background_color: (0.3, 0.3, 0.3, 1.0)
+        SetMorePriceButton:
             on_press: 
                 root.change_price('parcellocker', 1)
 
@@ -260,33 +172,19 @@
             id: courier_delivery_tick
             source: 'static/yes.png'
 
-        Label:
+        CenteredLabel:
             id: courier_delivery_label
-            background_normal: ''
             text: 'Courier'
-            font_size: 20
-            background_color: (0, 0, 0, 1.0)
 
-        Button:
-            id: courier_delivery_less
-            text: '-'
-            font_size: 20
-            background_color: (0.3, 0.3, 0.3, 1.0)
+        SetLessPriceButton:
             on_press: 
                 root.change_price('courier', -1)
 
-        Label:
+        CenteredLabel:
             id: courier_delivery_price
-            background_normal: ''
             text: '10.00 PLN'
-            font_size: 20
-            background_color: (0, 0, 0, 1.0)
 
-        Button:
-            id: courier_delivery_less
-            text: '+'
-            font_size: 20
-            background_color: (0.3, 0.3, 0.3, 1.0)
+        SetMorePriceButton:
             on_press: 
                 root.change_price('courier', 1)
 
@@ -294,237 +192,176 @@
             id: mail_delivery_tick
             source: 'static/yes.png'
 
-        Label:
+        CenteredLabel:
             id: mail_delivery_label
-            background_normal: ''
             text: 'Mail'
-            font_size: 20
-            background_color: (0, 0, 0, 1.0)
 
-        Button:
-            id: mail_delivery_less
-            text: '-'
-            font_size: 20
-            background_color: (0.3, 0.3, 0.3, 1.0)
+        SetLessPriceButton:
             on_press: 
                 root.change_price('mail', -1)
 
-        Label:
+        CenteredLabel:
             id: mail_delivery_price
-            background_normal: ''
             text: '10.00 PLN'
-            font_size: 20
-            background_color: (0, 0, 0, 1.0)
 
-        Button:
-            id: mail_delivery_less_arrow
-            text: '+'
-            font_size: 20
-            background_color: (0.3, 0.3, 0.3, 1.0)
+        SetMorePriceButton:
             on_press: 
                 root.change_price('mail', 1)
 
-    Button:
+    SmallGrayButton:
         id: goback
         text: 'Save and Proceed'
-        font_size: 20
-        size_hint_y: 0.1
-        size_hint_x: 0.5
         pos_hint: {'center_x':0.5, 'y': 0.0}
-        background_color: (0.3, 0.3, 0.3, 1.0)
         on_press: 
             root.save_and_proceed()
             app.root.current = 'main'
 
 <ResultsWindow>:
-    GridLayout:
+    FullWidthGridLayoutChunkiest:
         id: results_layout
         rows: 4
         cols: 2
-        size_hint_y: 0.5
-        size_hint_x: 0.5
         pos_hint: {'center_x':0.5, 'y': 0.4}
 
-        Label:
+        BaseLabel:
             id: title_label
             text: 'title:'
-            font_size: 20
 
-        Label:
+        BaseLabel:
             id: title_content
             text: 'jebac psy'
-            font_size: 20
 
-        Label:
+        BaseLabel:
             id: author_label
             text: 'title:'
-            font_size: 20
 
-        Label:
+        BaseLabel:
             id: author_content
             text: 'Pezet'
-            font_size: 20
 
-        Label:
+        BaseLabel:
             id: avg_prices_label
             text: 'avg. price:'
-            font_size: 20
 
-        Label:
+        BaseLabel:
             id: avg_prices_content
             text: '0.0'
-            font_size: 20
 
-        Label:
+        BaseLabel:
             id: sales_number_label
             text: 'sold:'
-            font_size: 20
 
-        Label:
+        BaseLabel:
             id: sales_number_content
             text: '69'
-            font_size: 20
 
-    BoxLayout:
+    FullWidthGridLayoutThin:
         id: buttons_layout
-        orientation: 'horizontal'
-        size_hint_y: 0.1
-        size_hint_x: 0.5
+        rows: 1
+        cols: 2
         pos_hint: {'center_x':0.5, 'y': 0.2}
 
-        Button:
+        GrayButton:
             id: goback_button
             text: 'Go Back'
-            font_size: 20
             on_press: 
                 root.goback()
 
-        Button:
+        GrayButton:
             id: sell_button
             text: 'Sell!'
-            font_size: 20
-            disabled: True
+            # this will be implemented in future
+            disabled: True  
             on_press: 
                 root.sell()
 
 <JobWindow>:
-    Image:
+    WaitForResultsImage:
         id: job_wip_gif
-        source: 'static/wait.gif'
-        anim_delay: 0.1
-        anim_loop: 5
-        allow_stretch: False
-        size_hint_y: 0.1
-        size_hint_x: 0.1
-        pos_hint: {'center_x':0.5, 'center_y': 0.5}
 
 
 <InputNumberManuallyScreen>:
-    BoxLayout:
-        id: search_layout_main
+    id: search_layout_main
 
-        Label:
-            id: isbn_number_label
-            text: '9781617293702'
-            padding_y: self.height / 3
-            padding_x: 20
-            multiline: False
-            size_hint_y: 0.3
-            pos_hint: {'center_x':0.5, 'y': 0.5}
-            font_size: 20
+    CenteredLabel:
+        id: isbn_number_label
+        text: '9781617293702'
+        pos_hint: {'center_x': 0.5, 'y': 0.7}
 
-        Label:
-            id: message_label
-            text: 'type ISBN number'
-            font_size: 20
-            size_hint_y: 0.1
+    CenteredLabel:
+        id: message_label
+        text: 'type ISBN number'
+        pos_hint: {'center_x':0.5, 'y': 0.5}
 
-        GridLayout:
-            id: keyboard_input_layout
-            rows: 4
-            cols: 3
-            size_hint_y: 0.4
+    FullWidthGridLayoutChunkiest:
+        id: keyboard_input_layout
+        rows: 4
+        cols: 3
 
-            Button:
-                id: button_1
-                text: '1'
-                on_press: 
-                    root.input_number(1)
+        InputNumberButton:
+            text: '1'
+            on_press: 
+                root.input_number(1)
 
-            Button:
-                id: button_2
-                text: '2'
-                on_press: 
-                    root.input_number(2)
+        InputNumberButton:
+            text: '2'
+            on_press: 
+                root.input_number(2)
 
-            Button:
-                id: button_3
-                text: '3'
-                on_press: 
-                    root.input_number(3)
+        InputNumberButton:
+            text: '3'
+            on_press: 
+                root.input_number(3)
 
-            Button:
-                id: button_4
-                text: '4'
-                on_press: 
-                    root.input_number(4)
+        InputNumberButton:
+            text: '4'
+            on_press: 
+                root.input_number(4)
 
-            Button:
-                id: button_5
-                text: '5'
-                on_press: 
-                    root.input_number(5)
+        InputNumberButton:
+            text: '5'
+            on_press: 
+                root.input_number(5)
 
-            Button:
-                id: button_6
-                text: '6'
-                on_press: 
-                    root.input_number(6)
+        InputNumberButton:
+            text: '6'
+            on_press: 
+                root.input_number(6)
 
-            Button:
-                id: button_7
-                text: '7'
-                on_press: 
-                    root.input_number(7)
+        InputNumberButton:
+            text: '7'
+            on_press: 
+                root.input_number(7)
 
-            Button:
-                id: button_8
-                text: '8'
-                on_press: 
-                    root.input_number(8)
+        InputNumberButton:
+            text: '8'
+            on_press: 
+                root.input_number(8)
 
-            Button:
-                id: button_9
-                text: '9'
-                on_press: 
-                    root.input_number(9)
+        InputNumberButton:
+            text: '9'
+            on_press: 
+                root.input_number(9)
 
-            Button:
-                id: button_del
-                text: 'Del'
-                on_press: 
-                    root.delete_last_number()
+        InputNumberButton:
+            text: 'Del'
+            on_press: 
+                root.delete_last_number()
 
-            Button:
-                id: button_0
-                text: '0'
-                on_press: 
-                    root.input_number(0)
+        InputNumberButton:
+            text: '0'
+            on_press: 
+                root.input_number(0)
 
-            Button:
-                id: run
-                text: 'Go!'
-                disabled: False
-                on_press: 
-                    app.root.current = 'job'
+        InputNumberButton:
+            text: 'Go!'
+            disabled: False
+            on_press: 
+                app.root.current = 'job'
 
 <ProblemWindow>:
-    Label:
+    CenteredLabel:
         id: problem_layout_message
         text: 'Unknown poblem occured!'
-        padding_y: self.height / 3
-        padding_x: 20
         multiline: True
-        size_hint_y: 0.3
         pos_hint: {'center_x':0.5, 'y': 0.5}
-        font_size: 20

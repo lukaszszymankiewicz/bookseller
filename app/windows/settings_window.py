@@ -1,7 +1,6 @@
 from app.windows.utils.constants import CURRENCY
 from app.windows.ux.colors import BLACK, GREY
-from app.windows.widgets.two_state_clickable_image import \
-    TwoStateClickableImage
+from app.windows.widgets.images import TwoStateClickableImage
 
 from .base_window import BaseBooksellerWindow
 
@@ -13,7 +12,6 @@ class SettingsWindow(BaseBooksellerWindow):
 
     def _disable_all_price_strategy_button(self):
         for widget_name in self.ids.keys():
-            # TODO: add some "functionality" paramter to whis widget class
             if widget_name.endswith("price_strategy"):
                 self.ids[widget_name].background_color = BLACK
 
@@ -35,6 +33,11 @@ class SettingsWindow(BaseBooksellerWindow):
 
     def set_price_strategy(self, percent: int):
         self._disable_all_price_strategy_button()
+
+        import pdb
+
+        pdb.set_trace()
+        print("imhere")
         self.ids[f"set_{str(percent)}_percent_price_strategy"].background_color = GREY
         self.price_strategy = percent
 

@@ -6,7 +6,7 @@ class ResultsWindow(Screen):
 
     def goback(self):
         self.manager.clear_book_data()
-        self.manager.current = "search"
+        self.manager.current = "main"
 
     def sell(self):
         pass

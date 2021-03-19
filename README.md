@@ -20,10 +20,13 @@ DONE:
  - [x] add moeny currency at results screen,
  - [x] add settings screen,
  - [x] change name of "SearchWindow" to "InputNumberManuallyScreen".
+ - [x] prettify kivy.kv file (move data to Python class),
 
 TODO:
+ - [ ] maybe some of the basic label values should be inputted by some init method instead of
+   hard-coding it kivy.kv? Think about it!
+ - [ ] add radio/swith buttons to settings (this by now is UGLY!)
  - [ ] add basic logo to main screen,
- - [ ] prettify kivy.kv file (move data to Python class),
  - [ ] add goback options in "input_number_manually_screen",
  - [ ] add config perserving closing app,
  - [ ] add whole app test (check if all method works abyhow, swithcing between screens etc),
