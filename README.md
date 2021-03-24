@@ -29,7 +29,8 @@ DONE:
 
 TODO:
  - [ ] add basic logo to main screen,
- - [ ] implement some basic message system (maybe by setting manage values in some basic class?)
+ - [ ] scan barcode from camera,
+ - [ ] implement some basic message system (maybe by setting manage values in some basic class?),
  - [ ] maybe some of the basic label values should be inputted by some init method instead of
    hard-coding it kivy.kv? Think about it!,
  - [ ] add goback options in "input_number_manually_screen",
@@ -44,6 +45,5 @@ TODO:
  - [ ] upgrade json extraction (actual vesion can explode in every second).
 
  NICE TO HAVE:
- - [ ] all widget in main.kv should have its own class (is it necessary?)
+ - [x] all widget in main.kv should have its own class (is it necessary?)
  - [x] change "wait_window" name to something more descriptable,
- - [ ] nice way to pass argmunets in between screens.
