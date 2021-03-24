@@ -1,13 +1,15 @@
 from app.windows.utils.constants import CURRENCY
 from app.windows.ux.colors import BLACK, GREY
-from app.windows.widgets.images import TwoStateClickableImage
 
 from .base_window import BaseBooksellerWindow
 
 
+def disable(instance):
+    instance.background_color = BLACK
+
+
 class SettingsWindow(BaseBooksellerWindow):
     id = "settings_window"
-
     price_strategy = 0
 
     def _disable_all_price_strategy_button(self):

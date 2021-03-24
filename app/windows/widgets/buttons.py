@@ -1,21 +1,15 @@
 from app.windows.ux.colors import BLACK, GREY
 from kivy.uix.button import Button
+from kivy.uix.togglebutton import ToggleButton
 
 
-class GrayButton(Button):
+class SampleToggleButton(ToggleButton):
     background_normal = ""
     font_size = 20
     background_color = GREY
 
     def __init__(self, **kwargs):
-        super(GrayButton, self).__init__(**kwargs)
-
-
-class InputNumberButton(GrayButton):
-    background_color = GREY
-
-    def __init__(self, **kwargs):
-        super(InputNumberButton, self).__init__(**kwargs)
+        super(SampleToggleButton, self).__init__(**kwargs)
 
 
 class ChangePriceButton(Button):
@@ -59,13 +53,3 @@ class SmallGrayButton(Button):
 
     def __init__(self, **kwargs):
         super(SmallGrayButton, self).__init__(**kwargs)
-
-
-class SmallBlackButton(Button):
-    size_hint = (0.5, 0.1)
-    background_normal = ""
-    font_size = 20
-    background_color = BLACK
-
-    def __init__(self, **kwargs):
-        super(SmallBlackButton, self).__init__(**kwargs)

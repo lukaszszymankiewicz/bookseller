@@ -1,32 +1,36 @@
+#:include widgets.kv
+
 <Manager>:
     MainWindow:
         name: "main"
 
-    ResultsWindow:
-        name: 'results'
-
     InputNumberManuallyScreen:
         name: 'input_number_manually'
 
-    JobWindow:
-        name: 'job'
-
     ProblemWindow:
         name: 'problem'
+
+    ResultsWindow:
+        name: 'results'
+
+    JobWindow:
+        name: 'job'
 
     SettingsWindow:
         name: 'settings'
 
 <MainWindow>:
-    CenteredLabel:
+    BigLabel:
         id: search_method_label
         text: 'Choose ISBN input method'
         pos_hint: {'center_x': 0.5, 'y': 0.8}
 
-    FullWidthGridLayoutThin:
+    GridLayout:
         id: search_method_layout
         rows: 1
         cols: 2
+        size_hint_x: 0.8
+        size_hint_y: 0.1
         pos_hint: {'center_x': 0.5, 'y': 0.6}
 
         GrayButton:
@@ -41,149 +45,141 @@
             on_press: 
                 app.root.current = 'input_number_manually'
 
-    SmallGrayButton:
+    GrayButton:
         id: goto_settings
         text: 'Settings'
+        size_hint: (0.2, 0.1)
         pos_hint: {'center_x': 0.5, 'y': 0.3}
         on_press: 
             app.root.current = 'settings'
 
-    SmallGrayButton:
+    GrayButton:
         id: exit_button
         text: 'Exit'
+        size_hint: (0.2, 0.1)
         pos_hint: {'center_x':0.5, 'y': 0.1}
         on_press: 
             app.get_running_app().stop()
 
 <SettingsWindow>:
-    CenteredLabel:
+    BigLabel:
         id: price_strategy_label
         text: 'choose default price difference from average:'
-        pos_hint: {'center_x':0.5, 'y': 0.9}
+        pos_hint: {'center_x': 0.5, 'y': 0.9}
 
-    FullWidthGridLayoutThin:
+    GridLayout:
         id: price_strategy_layout
         rows: 1
         cols: 4
-        pos_hint: {'center_x':0.5, 'y': 0.8}
+        size_hint_x: 0.8
+        size_hint_y: 0.1
+        pos_hint: {'center_x': 0.5, 'y': 0.8}
 
-        Button:
+        PriceStrategyToggleButton:
             id: set_0_percent_price_strategy
-            background_color: (0,0,0,1)
+            state: 'down'
             text: '-0%'
-            on_press: 
-                root.set_price_strategy(0)
 
-        Button:
+        PriceStrategyToggleButton:
             id: set_10_percent_price_strategy
-            background_color: (0,0,0,1)
             text: '-10%'
-            on_press: 
-                root.set_price_strategy(10)
 
-        Button:
+        PriceStrategyToggleButton:
             id: set_20_percent_price_strategy
-            background_color: (0,0,0,1)
             text: '-20%'
-            on_press: 
-                root.set_price_strategy(20)
 
-        Button:
-            background_color: (0,0,0,1)
+        PriceStrategyToggleButton:
             id: set_40_percent_price_strategy
             text: '-40%'
-            on_press: 
-                root.set_price_strategy(40)
 
-    CenteredLabel:
+    BigLabel:
         id: sell_strategy
         text: 'choose sell strategy'
-        pos_hint: {'center_x':0.5, 'y': 0.7}
+        pos_hint: {'center_x': 0.5, 'y': 0.7}
 
-    FullWidthGridLayoutThin:
+    GridLayout:
         id: sell_strategy_layout
         rows: 2
         cols: 3
+        size_hint_x: 0.7
+        size_hint_y: 0.1
         pos_hint: {'center_x': 0.5, 'y': 0.6}
 
-        CenteredLabel:
+        BigLabel:
             id: sell_strategy_label
             text: 'Sell as:'
 
-        GrayButton:
+        SellAsToggleButton:
             id: set_sell_as_new
             text: 'used'
-            on_press: 
-                root.sell_as('used')
+            state: 'down'
 
-        BlackButton:
+        SellAsToggleButton:
             id: set_sell_as_used
             text: 'new'
-            on_press: 
-                root.sell_as('new')
 
-        CenteredLabel:
+        BigLabel:
             id: buynow_strategy_label
             text: 'Allow Buy Now'
 
-        GrayButton:
+        BuyNowToggleButton:
             id: buynow_true
             text: 'yes'
-            on_press: 
-                root.buynow(True)
+            state: 'down'
 
-        BlackButton:
+        BuyNowToggleButton:
             id: buynow_false
             text: 'no'
-            on_press: 
-                root.buynow(False)
 
-    CenteredLabel:
+    BigLabel:
         id: delivery_strategy_label
         text: 'choose delivery options'
         pos_hint: {'center_x':0.5, 'y': 0.5}
 
-    FullWidthGridLayoutChunky:
+    GridLayout:
         id: delivery_strategy_layout
         rows: 3
         cols: 5
-        size_hint_x: 0.7
+        size_hint_x: 0.8
+        size_hint_y: 0.3
         pos_hint: {'center_x':0.5, 'y': 0.2}
+ 
+        SetDeliveryCheckBox:
+            id: set_parcelloker_on
+            size_hint_x: 0.1
 
-        TwoStateClickableImage:
-            id: parcellocker_delivery_tick
-            source: 'static/yes.png'
-
-        CenteredLabel:
+        BigLabel:
             id: parcellocker_delivery_label
-            background_normal: ''
+            size_hint_x: 0.4
             text: 'Parcellocker'
 
         SetLessPriceButton:
             on_press: 
                 root.change_price('parcellocker', -1)
 
-        CenteredLabel:
+        BigLabel:
             id: parcellocker_delivery_price
+            size_hint_x: 0.4
             text: '10.00 PLN'
 
         SetMorePriceButton:
             on_press: 
                 root.change_price('parcellocker', 1)
 
-        TwoStateClickableImage:
-            id: courier_delivery_tick
-            source: 'static/yes.png'
+        SetDeliveryCheckBox:
+            size_hint_x: 0.1
+            id: set_courier_on
 
-        CenteredLabel:
+        BigLabel:
             id: courier_delivery_label
+            size_hint_x: 0.4
             text: 'Courier'
 
         SetLessPriceButton:
             on_press: 
                 root.change_price('courier', -1)
 
-        CenteredLabel:
+        BigLabel:
             id: courier_delivery_price
             text: '10.00 PLN'
 
@@ -191,11 +187,11 @@
             on_press: 
                 root.change_price('courier', 1)
 
-        TwoStateClickableImage:
-            id: mail_delivery_tick
-            source: 'static/yes.png'
+        SetDeliveryCheckBox:
+            id: set_mail_on
+            size_hint_x: 0.1
 
-        CenteredLabel:
+        BigLabel:
             id: mail_delivery_label
             text: 'Mail'
 
@@ -203,7 +199,7 @@
             on_press: 
                 root.change_price('mail', -1)
 
-        CenteredLabel:
+        BigLabel:
             id: mail_delivery_price
             text: '10.00 PLN'
 
@@ -220,48 +216,52 @@
             app.root.current = 'main'
 
 <ResultsWindow>:
-    FullWidthGridLayoutChunkiest:
+    GridLayout:
         id: results_layout
         rows: 4
         cols: 2
+        size_hint_x: 0.8
+        size_hint_y: 0.5
         pos_hint: {'center_x':0.5, 'y': 0.4}
 
-        BaseLabel:
+        BigLabel:
             id: title_label
             text: 'title:'
 
-        BaseLabel:
+        BigLabel:
             id: title_content
             text: 'jebac psy'
 
-        BaseLabel:
+        BigLabel:
             id: author_label
             text: 'title:'
 
-        BaseLabel:
+        BigLabel:
             id: author_content
             text: 'Pezet'
 
-        BaseLabel:
+        BigLabel:
             id: avg_prices_label
             text: 'avg. price:'
 
-        BaseLabel:
+        BigLabel:
             id: avg_prices_content
             text: '0.0'
 
-        BaseLabel:
+        BigLabel:
             id: sales_number_label
             text: 'sold:'
 
-        BaseLabel:
+        BigLabel:
             id: sales_number_content
             text: '69'
 
-    FullWidthGridLayoutThin:
+    GridLayout:
         id: buttons_layout
         rows: 1
         cols: 2
+        size_hint_x: 0.8
+        size_hint_y: 0.1
         pos_hint: {'center_x':0.5, 'y': 0.2}
 
         GrayButton:
@@ -273,32 +273,47 @@
         GrayButton:
             id: sell_button
             text: 'Sell!'
-            # this will be implemented in future
             disabled: True  
             on_press: 
                 root.sell()
 
 <JobWindow>:
-    WaitForResultsImage:
-        source: "static/wait.gif"
-        pos_hint: {"center_x": 0.5, "center_y": 0.5}
+    canvas:
+        Color:
+            rgba: 0.0, 0.0, 0.0, 1.0
+        Rectangle:
+            pos: self.pos
+            size: self.size
+
+    Image:
+        id: job_wip_gif
+        source: 'static/wait.gif'
+        anim_delay: 0.1
+        anim_loop: 5
+        allow_stretch: False
+        size_hint_y: 0.1
+        size_hint_x: 0.1
+        pos_hint: {'center_x':0.5, 'center_y': 0.5}
 
 
 <InputNumberManuallyScreen>:
     id: search_layout_main
 
-    CenteredLabel:
+    ISBNLabel:
         id: isbn_number_label
         text: '9781617293702'
         pos_hint: {'center_x': 0.5, 'y': 0.7}
 
-    CenteredLabel:
+    BigLabel:
         id: message_label
         text: 'type ISBN number'
-        pos_hint: {'center_x':0.5, 'y': 0.5}
+        pos_hint: {'center_x': 0.5, 'y': 0.5}
 
-    FullWidthGridLayoutChunkiest:
+    GridLayout:
         id: keyboard_input_layout
+        size_hint_x: 0.8
+        size_hint_y: 0.4
+        pos_hint: {'center_x': 0.5, 'y': 0.1}
         rows: 4
         cols: 3
 
@@ -358,14 +373,25 @@
                 root.input_number(0)
 
         InputNumberButton:
+            id: run
             text: 'Go!'
             disabled: False
             on_press: 
                 app.root.current = 'job'
 
 <ProblemWindow>:
-    CenteredLabel:
+    BigLabel:
         id: problem_layout_message
         text: 'Unknown poblem occured!'
         multiline: True
         pos_hint: {'center_x':0.5, 'y': 0.5}
+
+    GrayButton:
+        id: goback
+        text: 'go back'
+        size_hint_x: 0.5
+        size_hint_y: 0.1
+        pos_hint: {'center_x': 0.5, 'y': 0.1}
+        disabled: False
+        on_press: 
+            app.root.current = 'main'

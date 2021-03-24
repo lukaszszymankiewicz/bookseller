@@ -21,16 +21,20 @@ DONE:
  - [x] add settings screen,
  - [x] change name of "SearchWindow" to "InputNumberManuallyScreen".
  - [x] prettify kivy.kv file (move data to Python class),
+ - [x] add welcome screen with three options available: scan by photo, input number manually and settings,
+ - [x] Implement radio buttons in Settings tab! (actually Toggle box are better!)
+ - [x] implement build-in check buttons,
+ - [x] once again: fill all static values into kivy file:
+   - [x] subclass all widgets
 
 TODO:
  - [ ] add basic logo to main screen,
- - [ ] Implement radio buttons in Settings tab!
+ - [ ] implement some basic message system (maybe by setting manage values in some basic class?)
  - [ ] maybe some of the basic label values should be inputted by some init method instead of
-   hard-coding it kivy.kv? Think about it!
+   hard-coding it kivy.kv? Think about it!,
  - [ ] add goback options in "input_number_manually_screen",
  - [ ] add config perserving closing app,
  - [ ] add whole app test (check if all method works abyhow, swithcing between screens etc),
- - [ ] add welcome screen with three options available: scan by photo, input number manually and settings,
  - [ ] add allegro login screen,
  - [ ] error screen - some basics but with try catch,
    - [ ] pretty error printing (now it shows raw Python error),

@@ -1,0 +1,60 @@
+# COLORS:
+
+#:set WHITE (1.0, 1.0, 1.0, 1.0)
+#:set BLACK (0.0, 0.0, 0.0, 1.0)
+#:set GRAY (0.3, 0.3, 0.3, 1.0)
+#:set PINK (1.0, 0.41, 0.7, 1.0)
+
+# FONTS:
+
+#:set BASE_FONT_SIZE 20
+#:set BASE_BIGGER_FONT_SIZE 30
+
+# CLASSES
+
+<BackgroundColor@Widget>
+    background_color: 0,0,0,1
+    canvas.before:
+        Color:
+            rgba: root.background_color
+        Rectangle:
+            size: self.size
+            pos: self.pos
+
+<BigLabel@Label+BackgroundColor>:
+    font_size: BASE_FONT_SIZE
+    size_hint: (0.5, 0.1)
+
+<ISBNLabel@Label+BackgroundColor>:
+    font_size: BASE_BIGGER_FONT_SIZE
+    color: WHITE
+    size_hint: (0.5, 0.1)
+
+<PriceStrategyToggleButton@ToggleButton>:
+    font_size: BASE_FONT_SIZE
+    group: 'price_strategy'
+
+<SellAsToggleButton@ToggleButton>:
+    font_size: BASE_FONT_SIZE
+    group: 'sell_as'
+
+<BuyNowToggleButton@ToggleButton>:
+    font_size: BASE_FONT_SIZE
+    group: 'buynow'
+
+<SetDeliveryCheckBox@CheckBox+BackgroundColor>:
+    color: WHITE
+
+<GrayButton@Button>:
+    background_normal: ""
+    font_size: BASE_FONT_SIZE
+    background_color: GRAY
+
+<InputNumberButton@Button>:
+    background_color: GRAY
+    font_size: BASE_FONT_SIZE
+
+<HourglassImage@Image+BackgroundColor>:
+    source: "static/wait.gif"
+    background_color: BLACK
+    size_hint: (0.5, 0.1)
