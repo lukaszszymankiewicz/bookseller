@@ -26,9 +26,9 @@ DONE:
  - [x] implement build-in check buttons,
  - [x] once again: fill all static values into kivy file:
    - [x] subclass all widgets
+ - [x] add basic logo to main screen,
 
 TODO:
- - [ ] add basic logo to main screen,
  - [ ] scan barcode from camera,
  - [ ] implement some basic message system (maybe by setting manage values in some basic class?),
  - [ ] maybe some of the basic label values should be inputted by some init method instead of

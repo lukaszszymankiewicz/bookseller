@@ -20,10 +20,8 @@
         name: 'settings'
 
 <MainWindow>:
-    BigLabel:
-        id: search_method_label
-        text: 'Choose ISBN input method'
-        pos_hint: {'center_x': 0.5, 'y': 0.8}
+    Logo:
+        pos_hint: {'center_x': 0.5, 'y': 0.7}
 
     GridLayout:
         id: search_method_layout
@@ -207,12 +205,13 @@
             on_press: 
                 root.change_price('mail', 1)
 
-    SmallGrayButton:
+    GrayButton:
         id: goback
         text: 'Save and Proceed'
         pos_hint: {'center_x':0.5, 'y': 0.0}
+        size_hint_x: 0.2
+        size_hint_y: 0.1
         on_press: 
-            root.save_and_proceed()
             app.root.current = 'main'
 
 <ResultsWindow>:
