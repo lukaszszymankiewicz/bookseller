@@ -28,12 +28,15 @@ DONE:
    - [x] subclass all widgets
  - [x] add basic logo to main screen,
  - [x] add goback options in "input_number_manually_screen",
+ - [x] add config perserving closing app,
+   - [x] think about some options schema validation (it colud be ovekill though),
 
 TODO:
- - [ ] upgrade json extraction (actual vesion can explode in every second).
+ - [ ] add swithiching between screen to Manage class direclty (it could trigge some Python code, so
+   this is rather necessary),
+ - [ ] upgrade json extraction (actual version can explode in every second),
  - [ ] scan barcode from camera,
  - [ ] implement some basic message system (maybe by setting manage values in some basic class?),
- - [ ] add config perserving closing app,
  - [ ] add whole app test (check if all method works abyhow, swithcing between screens etc),
  - [ ] add allegro login screen,
  - [ ] error screen - some basics but with try catch,

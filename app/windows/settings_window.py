@@ -7,8 +7,8 @@ class SettingsWindow(BaseBooksellerWindow):
     id = "settings_window"
     price_strategy = 0
 
-    def change_price(self, option: str, direction: int):
-        widget = self.ids[option + "_delivery_price"]
+    def change_price(self, delivey_option: str, direction: int):
+        widget = self.ids[delivey_option + "_delivery_price"]
         price = self._get_price(widget)
 
         if price == 0 and direction == -1:
