@@ -12,16 +12,16 @@
         "state": "normal"
     },
     "used_true": {
-        "state": "down"
+        "state": "normal"
     },
     "used_false": {
-        "state": "normal"
-    },
-    "buynow_true": {
         "state": "down"
     },
-    "buynow_false": {
+    "buynow_true": {
         "state": "normal"
+    },
+    "buynow_false": {
+        "state": "down"
     },
     "parcellocker_true": {
         "active": true

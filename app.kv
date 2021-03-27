@@ -41,7 +41,7 @@
             text: 'Input'
             disabled: False
             on_press: 
-                app.root.current = 'input_number_manually'
+                root.manager.go_to_input_number_manually_screen()
 
     GrayButton:
         id: goto_settings
@@ -389,8 +389,7 @@
             text: 'Go!'
             disabled: False
             on_press: 
-                # add this to manager
-                app.root.current = 'job'
+                root.manager.go_to_job_screen()
 
     GrayButton:
         id: goback
@@ -399,8 +398,7 @@
         pos_hint: {'center_x': 0.85, 'y': 0.9}
         text: 'X'
         on_press: 
-            # add this to manager
-            app.root.current = 'main'
+            root.manager. go_to_main_screen()
 
 <ProblemWindow>:
     BigLabel:
@@ -417,5 +415,4 @@
         pos_hint: {'center_x': 0.5, 'y': 0.1}
         disabled: False
         on_press: 
-            # TODO: add this to manager
-            app.root.current = 'main'
+            root.manager.go_to_main_screen()

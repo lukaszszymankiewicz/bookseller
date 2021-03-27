@@ -1,10 +1,8 @@
 import json
-from shutil import copyfile
 
 
 class OptionsReader:
     OPTIONS_PATH = "static/options.json"
-    DEFAULT_OPTIONS_PATH = "static/default_options.json"
 
     @staticmethod
     def get_options():
@@ -20,7 +18,3 @@ class OptionsReader:
             json.dump(options, file)
 
         file.close()
-
-    @staticmethod
-    def recreate_options():
-        copyfile(OptionsReader.DEFAULT_OPTIONS_PATH, OptionsReader.OPTIONS_PATH)

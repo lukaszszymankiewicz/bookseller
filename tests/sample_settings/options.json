@@ -1,1 +1,44 @@
-{"price_strategy": 10, "used": 0, "buynow": 1, "delivery_options": {"parcellocker": {"allow": 0, "price": 20}, "courier": {"allow": 0, "price": 10}, "mail": {"allow": 0, "price": 10}}}
+{
+    "set_0_percent_price_strategy": {
+        "state": "down"
+    },
+    "set_10_percent_price_strategy": {
+        "state": "normal"
+    },
+    "set_20_percent_price_strategy": {
+        "state": "normal"
+    },
+    "set_40_percent_price_strategy": {
+        "state": "normal"
+    },
+    "used_true": {
+        "state": "normal"
+    },
+    "used_false": {
+        "state": "down"
+    },
+    "buynow_true": {
+        "state": "normal"
+    },
+    "buynow_false": {
+        "state": "down"
+    },
+    "parcellocker_true": {
+        "active": true
+    },
+    "parcellocker_delivery_price": {
+        "text": "9.0 PLN"
+    },
+    "courier_true": {
+        "active": true
+    },
+    "courier_delivery_price": {
+        "text": "11.0 PLN"
+    },
+    "mail_true": {
+        "active": true
+    },
+    "mail_delivery_price": {
+        "text": "10 PLN"
+    }
+}

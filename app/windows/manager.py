@@ -12,20 +12,33 @@ class Manager(ScreenManager):
 
         OptionsReader.save_options(settings)
 
+    def _fill_up_settings(self):
+        options = OptionsReader.get_options()
+
+        for widget_id, settings in options.items():
+            for setting, value in settings.items():
+                if hasattr(self.get_screen("settings").ids[widget_id], setting):
+                    setattr(self.get_screen("settings").ids[widget_id], setting, value)
+                else:
+                    pass
+
+    def go_to_input_number_manually_screen(self):
+        self.current = "input_number_manually"
+
+    def go_to_job_screen(self):
+        self.current = "job"
+
     def go_back_from_settings_screen(self):
         self._save_settings()
+        self.current = "main"
+
+    def go_to_main_screen(self):
         self.current = "main"
 
     def go_to_settings_screen(self):
         self._clear_settings_screen()
         self._fill_up_settings()
         self.current = "settings"
-
-    def _fill_up_settings(self):
-        options = OptionsReader.get_options()
-        for widget_id, settings in options.items():
-            for setting, value in settings.items():
-                setattr(self.get_screen("settings").ids[widget_id], setting, value)
 
     def _clear_settings_screen(self):
         for price in [0, 10, 20, 40]:
