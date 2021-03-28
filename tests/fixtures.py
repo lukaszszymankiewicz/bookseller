@@ -3,8 +3,10 @@ import pickle
 
 import bs4
 import pytest
+from PIL import Image
 
 pickled_soups_path = "tests/pickled_soups/"
+sample_images_path = "tests/sample_images/"
 
 
 @pytest.fixture()
@@ -41,3 +43,17 @@ def get_sample_proper_settings():
         return bs4.BeautifulSoup(soup, "html.parser")
 
     return load_pickled_soup
+
+
+@pytest.fixture()
+def get_sample_image():
+    def load_sample_image(image_number: int):
+        if image_number > len(os.listdir(sample_images_path)):
+            raise ValueError("this image number does not exist!")
+
+        file_path = sample_images_path + f"sample_image_{image_number}.jpg"
+        image = Image.open(file_path)
+
+        return image
+
+    return load_sample_image

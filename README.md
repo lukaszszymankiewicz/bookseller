@@ -1,6 +1,15 @@
 This project will scan ISBN number from photo, check price on allegro and put it into auction if
 user want to.
 
+How to develop:
+
+1) Create virtual enviroment with Python3
+2) Install requirements.txt packages
+3) Install requirements.dev.txt developes packages
+4) Install external ZBar library:
+
+   """sudo apt-get install libzbar0"""
+
 ISSUES:
  - [x] going back to main screen does not work (sic!)
  - [ ] inputting custom ISBN (not prepared) will sometimes block cool gif in the background,
