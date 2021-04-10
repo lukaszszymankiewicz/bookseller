@@ -1,8 +1,11 @@
+from app.windows.utils.job import JobManager
 from app.windows.utils.options_reader import OptionsReader
 from kivy.uix.screenmanager import ScreenManager
 
 
 class Manager(ScreenManager):
+    job_manager = JobManager()
+
     def _save_settings(self):
         settings = {}
 
@@ -25,6 +28,10 @@ class Manager(ScreenManager):
     def go_to_input_number_manually_screen(self):
         self.current = "input_number_manually"
 
+    def go_to_problem_screen(self, exception):
+        self.current = "problem"
+        self.fill_error_in_problem_screen(exception)
+
     def go_to_job_screen(self):
         self.current = "job"
 
@@ -39,6 +46,10 @@ class Manager(ScreenManager):
         self._clear_settings_screen()
         self._fill_up_settings()
         self.current = "settings"
+
+    def go_to_results_screen(self, book_data: dict):
+        self.current = "results"
+        self.fill_book_data_in_results_screen(book_data)
 
     def _clear_settings_screen(self):
         for price in [0, 10, 20, 40]:
@@ -64,7 +75,7 @@ class Manager(ScreenManager):
         self.get_screen("input_number_manually").ids["isbn_number_label"].text = ""
 
     def fill_error_in_problem_screen(self, message: str):
-        self.current = "search"
+        self.get_screen("problem_window").ids["problem_layout_message"].text = message
 
     def get_isbn_number_from_search_screen(self) -> str:
         return self.get_screen("input_number_manually").ids["isbn_number_label"].text

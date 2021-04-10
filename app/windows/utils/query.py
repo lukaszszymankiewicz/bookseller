@@ -1,6 +1,5 @@
 import re
 
-from .message import Message
 from .parsers import prices_search, sales_number_search
 from .regex import clean_string_using_regexes
 from .request import make_request, make_request_and_serialize_response
@@ -15,39 +14,31 @@ NONDIGITS_REGEX = {"pattern": "\D", "repl": ""}
 
 
 def query_book_data(raw_string: str):
-    try:
-        code = clean_string_using_regexes(raw_string, [WHITESPACE_REGEX, NONDIGITS_REGEX])
-        url = construct_openlibrary_isbn_search_url(code)
-        data = make_request_and_serialize_response(url)
-        headers = construct_allegro_headers()
+    code = clean_string_using_regexes(raw_string, [WHITESPACE_REGEX, NONDIGITS_REGEX])
+    url = construct_openlibrary_isbn_search_url(code)
+    data = make_request_and_serialize_response(url)
+    headers = construct_allegro_headers()
 
-        author_code = _extract_author_code(data)
-        author_request_url = construct_openlibrary_author_search_url(author_code)
-        author_data = make_request_and_serialize_response(author_request_url)
+    author_code = _extract_author_code(data)
+    author_request_url = construct_openlibrary_author_search_url(author_code)
+    author_data = make_request_and_serialize_response(author_request_url)
 
-        author = _extract_author(author_data)
-        title = _extract_title(data)
+    author = _extract_author(author_data)
+    title = _extract_title(data)
 
-        allegro_url = construct_allegro_book_search_url(author, title)
-        allegro_content = make_request(allegro_url, headers).content
-        allegro_soup = create_soup(allegro_content)
+    allegro_url = construct_allegro_book_search_url(author, title)
+    allegro_content = make_request(allegro_url, headers).content
+    allegro_soup = create_soup(allegro_content)
 
-        avg_price = prices_search(soup=allegro_soup)
-        sales_number = sales_number_search(soup=allegro_soup)
+    avg_price = prices_search(soup=allegro_soup)
+    sales_number = sales_number_search(soup=allegro_soup)
 
-    except Exception as e:
-        return Message(success=False, content=e)
-
-    else:
-        return Message(
-            success=True,
-            content={
-                "title": title,
-                "author": author,
-                "avg_prices": str(round(avg_price, 2)) + " PLN",
-                "sales_number": sales_number,
-            },
-        )
+    return {
+        "title": title,
+        "author": author,
+        "avg_prices": str(round(avg_price, 2)) + " PLN",
+        "sales_number": sales_number,
+    }
 
 
 def _extract_author(data: dict) -> str:

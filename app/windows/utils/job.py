@@ -1,11 +1,17 @@
 import threading
-from typing import Callable, Tuple
+from typing import Callable
 
-from .enums import JobStatus
+from kivy.clock import Clock
+
+
+class JobStatus:
+    WIP = "WIP"
+    DONE = "DONE"
+    PROBLEM = "PROBLEM"
 
 
 class Job:
-    def __init__(self, fun: Callable, args: Tuple):
+    def __init__(self, fun: Callable, args: dict):
         self.fun = fun
         self.args = args
 
@@ -20,5 +26,52 @@ class Job:
         self.thread.start()
 
     def _run_fun(self):
-        self.result = self.fun(self.args)
-        self.status = JobStatus.DONE
+        try:
+            self.result = self.fun(**self.args)
+            self.status = JobStatus.DONE
+
+        except Exception as e:
+            self.result = e
+            self.status = JobStatus.PROBLEM
+
+
+class JobManager:
+    def __init__(self):
+        self.job = None
+        self.event = None
+        self.reaction = {JobStatus.DONE: None, JobStatus.PROBLEM: None}
+        self.default_check_interval = 0.5
+
+    def add_job(
+        self,
+        fun: Callable,
+        args: dict,
+        callback: Callable,
+        fallback: Callable,
+        check_interval: float = 0.1,
+    ):
+        self.event = Clock.schedule_interval(self.check, check_interval)
+
+        self.reaction[JobStatus.DONE] = callback
+        self.reaction[JobStatus.PROBLEM] = fallback
+
+        if not check_interval:
+            check_interval = self.default_check_interval
+
+        self.job = Job(fun=fun, args=args)
+
+    def check(self, dt: float) -> None:
+        if self.job.status == JobStatus.DONE:
+            self.reaction[JobStatus.DONE](self.job.result)
+            self.delete_job()
+
+        elif self.job.status == JobStatus.PROBLEM:
+            self.reaction[JobStatus.PROBLEM](self.job.result)
+            self.delete_job()
+
+        else:
+            pass
+
+    def delete_job(self):
+        self.event.cancel()
+        self.job = None
