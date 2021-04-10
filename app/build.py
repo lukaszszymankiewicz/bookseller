@@ -1,6 +1,7 @@
 from kivy.app import App
 from kivy.core.window import Window
 
+from app.windows.camera_window import CameraWindow
 from app.windows.input_number_manually_window import InputNumberManuallyScreen
 from app.windows.job_window import JobWindow
 from app.windows.main_window import MainWindow
