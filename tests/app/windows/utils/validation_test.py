@@ -1,11 +1,11 @@
 import pytest
-from app.windows.utils.validation import number_is_proper_isbn_number
+from app.windows.utils.validation import code_is_proper_isbn
 from faker import Faker
 
 N_PROBES = 100
 
 
-def test_number_is_proper_isbn_number_sucessfully_recognize_valid_isbn_number_with_10_digits():
+def test_code_is_proper_isbn_sucessfully_recognize_valid_isbn_number_with_10_digits():
     # GIVEN
     faker = Faker()
 
@@ -13,13 +13,13 @@ def test_number_is_proper_isbn_number_sucessfully_recognize_valid_isbn_number_wi
         isbn_number = faker.isbn10(separator="")
 
         # WHEN
-        message = number_is_proper_isbn_number(isbn_number)
+        message = code_is_proper_isbn(isbn_number)
 
         # THEN
         assert message.success
 
 
-def test_number_is_proper_isbn_number_sucessfully_recognize_valid_isbn_number_with_13_digits():
+def test_code_is_proper_isbn_sucessfully_recognize_valid_isbn_number_with_13_digits():
     # GIVEN
     faker = Faker()
 
@@ -27,7 +27,7 @@ def test_number_is_proper_isbn_number_sucessfully_recognize_valid_isbn_number_wi
         isbn_number = faker.isbn13(separator="")
 
         # WHEN
-        message = number_is_proper_isbn_number(isbn_number)
+        message = code_is_proper_isbn(isbn_number)
 
         # THEN
         assert message.success
@@ -49,9 +49,9 @@ def test_number_is_proper_isbn_number_sucessfully_recognize_valid_isbn_number_wi
         "9788395243355",
     ],
 )
-def test_number_is_proper_isbn_number_sucessfully_recognize_nonvalid_isbn_number(isbn_number):
+def test_code_is_proper_isbn_sucessfully_recognize_nonvalid_isbn_number(isbn_number):
     # WHEN
-    message = number_is_proper_isbn_number(isbn_number)
+    message = code_is_proper_isbn(isbn_number)
 
     # THEN
     assert message.success is False
@@ -70,18 +70,52 @@ def test_number_is_proper_isbn_number_sucessfully_recognize_nonvalid_isbn_number
         "9788371",
         "97883240",
         "978836396",
-        "97800075478",
-        "978839524335",
-        "97883952433589",
+        # "97800075478",
+        # "978839524335",
+        # "97883952433589",
     ],
 )
-def test_number_is_proper_isbn_number_sucessfully_recognize_isbn_number_with_wrong_len(isbn_number):
+def test_code_is_proper_isbn_sucessfully_recognize_too_short_code(isbn_number):
     # WHEN
-    message = number_is_proper_isbn_number(isbn_number)
+    message = code_is_proper_isbn(isbn_number)
+
+    # THEN
+    assert message.success is False
+    assert message.content == "number is too short"
+
+
+@pytest.mark.parametrize(
+    "isbn_number",
+    [
+        "97800075478",
+        "978839524335",
+    ],
+)
+def test_code_is_proper_isbn_sucessfully_recognize_code_between_10_and_13_chars(isbn_number):
+    # WHEN
+    message = code_is_proper_isbn(isbn_number)
 
     # THEN
     assert message.success is False
     assert message.content == "wrong number length"
+
+
+@pytest.mark.parametrize(
+    "isbn_number",
+    [
+        "97883952433589",
+        "978839524335899",
+        "9788395243358911",
+        "97883952433589123",
+    ],
+)
+def test_code_is_proper_isbn_sucessfully_recognize_too_long_code(isbn_number):
+    # WHEN
+    message = code_is_proper_isbn(isbn_number)
+
+    # THEN
+    assert message.success is False
+    assert message.content == "number is too long"
 
 
 @pytest.mark.parametrize(
@@ -98,11 +132,11 @@ def test_number_is_proper_isbn_number_sucessfully_recognize_isbn_number_with_wro
         "9738395243356",
     ],
 )
-def test_number_is_proper_isbn_number_sucessfully_recognize_isbn_number_with_wrong_prefix(
+def test_code_is_proper_isbn_sucessfully_recognize_isbn_number_with_wrong_prefix(
     isbn_number,
 ):
     # WHEN
-    message = number_is_proper_isbn_number(isbn_number)
+    message = code_is_proper_isbn(isbn_number)
 
     # THEN
     assert message.success is False

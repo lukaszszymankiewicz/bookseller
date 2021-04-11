@@ -1,6 +1,6 @@
 from kivy.uix.screenmanager import Screen
 
-from .utils.validation import ValidationMessage, number_is_proper_isbn_number
+from .utils.validation import ValidationMessage, code_is_proper_isbn
 
 
 class InputNumberManuallyScreen(Screen):
@@ -12,12 +12,12 @@ class InputNumberManuallyScreen(Screen):
 
     def _read_validation_message(self, message: ValidationMessage) -> None:
         if message.success:
-            self._enable_going_further()
+            self._enable_going_further(message_to_user=message.content)
         else:
             self._disable_going_further(message_to_user=message.content)
 
-    def _enable_going_further(self) -> None:
-        self._clear_message()
+    def _enable_going_further(self, message_to_user: str) -> None:
+        self._set_message(message_to_user)
         self._set_run_button(True)
 
     def _disable_going_further(self, message_to_user: str) -> None:
@@ -43,10 +43,10 @@ class InputNumberManuallyScreen(Screen):
             self.ids["isbn_number_label"].text = self._isbn_number[:-1]
             self._validate(self._isbn_number)
 
-    def _validate(self, number: int) -> None:
+    def _validate(self, code: int) -> None:
         self.manager.job_manager.add_job(
-            fun=number_is_proper_isbn_number,
-            args={"number": number},
+            fun=code_is_proper_isbn,
+            args={"code": code},
             callback=self._read_validation_message,
             fallback=self.manager.go_to_problem_screen,
             check_interval=0.01,

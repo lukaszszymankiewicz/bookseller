@@ -1,6 +1,6 @@
 from .job import Job
 from .options_reader import OptionsReader
 from .query import query_book_data
-from .validation import number_is_proper_isbn_number
+from .validation import code_is_proper_isbn
 
-__all__ = ["query_book_data", "number_is_proper_isbn_number", "Job", "OptionsReader"]
+__all__ = ["query_book_data", "code_is_proper_isbn", "Job", "OptionsReader"]

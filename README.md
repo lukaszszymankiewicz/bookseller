@@ -12,8 +12,8 @@ How to develop:
 
 ISSUES:
  - [x] going back to main screen does not work (sic!)
+ - [x] problem message seems to be not initialised while quering for book.
  - [ ] inputting custom ISBN (not prepared) will sometimes block cool gif in the background,
- - [ ] problem message seems to be not initialised while quering for book.
 
 DONE:
  - [x] number keyboard to input ISBN number in it,
@@ -43,15 +43,15 @@ DONE:
    this is rather necessary),
 
 TODO:
- - [ ] scan barcode from camera,
  - [ ] upgrade json extraction (actual version can explode in every second),
- - [ ] implement some basic message system (maybe by setting manage values in some basic class?),
  - [ ] add whole app test (check if all method works abyhow, swithcing between screens etc),
  - [ ] add allegro login screen,
- - [ ] error screen - some basics but with try catch,
+ - [x] error screen - some basics but with try catch,
    - [ ] pretty error printing (now it shows raw Python error),
    - [ ] implement some basic fuckups (no Internet connection, 404, and so on),
  - [ ] add rudimental docstrings,
+ - [x] scan barcode from camera,
+ - [x] implement some basic message system (maybe by setting manage values in some basic class?),
 
  NICE TO HAVE:
  - [x] all widget in main.kv should have its own class (is it necessary?)
