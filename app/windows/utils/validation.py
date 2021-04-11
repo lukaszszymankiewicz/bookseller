@@ -2,12 +2,18 @@ LEGAL_PREFIX = [978, 979]
 
 
 class ValidationMessage:
-    def __init__(self, success, content=None):
+    def __init__(self, success: bool, content: dict = None):
         self.success = success
-        self.content: dict = {}
+        self.content = content
 
 
 def number_is_proper_isbn_number(number: str) -> ValidationMessage:
+    if len(number) < 10:
+        return ValidationMessage(success=False, content="number is too short")
+
+    if len(number) > 13:
+        return ValidationMessage(success=False, content="number is too long")
+
     if number[-1] == "X":
         control_number = 10
     else:

@@ -75,7 +75,10 @@ class Manager(ScreenManager):
         self.get_screen("input_number_manually").ids["isbn_number_label"].text = ""
 
     def fill_error_in_problem_screen(self, message: str):
-        self.get_screen("problem_window").ids["problem_layout_message"].text = message
+        if hasattr(message, "args"):
+            self.get_screen("problem").ids["problem_layout_message"].text = message.args[0]
+        else:
+            self.get_screen("problem").ids["problem_layout_message"].text = message
 
     def get_isbn_number_from_search_screen(self) -> str:
         return self.get_screen("input_number_manually").ids["isbn_number_label"].text
