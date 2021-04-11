@@ -1,20 +1,17 @@
 #:include widgets.kv
 
 <Manager>:
-    MainWindow:
-        name: 'main'
-
     InputNumberManuallyScreen:
         name: 'input_number_manually'
-
-    ProblemWindow:
-        name: 'problem'
 
     ResultsWindow:
         name: 'results'
 
-    JobWindow:
-        name: 'job'
+    MainWindow:
+        name: 'main'
+
+    ProblemWindow:
+        name: 'problem'
 
     SettingsWindow:
         name: 'settings'
@@ -233,13 +230,18 @@
             root.manager.go_back_from_settings_screen()
 
 <ResultsWindow>:
+    ISBNLabel:
+        id: sales_number_label
+        text: 'ISBN: 1234567890123'
+        pos_hint: {'center_x':0.5, 'y': 0.8}
+
     GridLayout:
         id: results_layout
         rows: 4
         cols: 2
         size_hint_x: 0.8
         size_hint_y: 0.5
-        pos_hint: {'center_x':0.5, 'y': 0.4}
+        pos_hint: {'center_x':0.5, 'y': 0.3}
 
         BigLabel:
             id: title_label
@@ -247,7 +249,7 @@
 
         BigLabel:
             id: title_content
-            text: 'jebac psy'
+            text: ''
 
         BigLabel:
             id: author_label
@@ -255,7 +257,7 @@
 
         BigLabel:
             id: author_content
-            text: 'Pezet'
+            text: ''
 
         BigLabel:
             id: avg_prices_label
@@ -263,15 +265,35 @@
 
         BigLabel:
             id: avg_prices_content
-            text: '0.0'
+            text: ''
 
         BigLabel:
-            id: sales_number_label
-            text: 'sold:'
+            id: sold_copies_label
+            text: 'sold copies:'
 
         BigLabel:
-            id: sales_number_content
-            text: '69'
+            id: sold_copies_content
+            text: ''
+
+    GridLayout:
+        id: hourglasses_layout
+        rows: 4
+        cols: 1
+        size_hint_x: 0.4
+        size_hint_y: 0.5
+        pos_hint: {'center_x': 0.7, 'y': 0.3}
+
+        HourglassImage:
+            id: title_hourglass
+
+        HourglassImage:
+            id: author_hourglass
+
+        HourglassImage:
+            id: avg_prices_hourglass
+
+        HourglassImage:
+            id: sold_copies_hourglass
 
     GridLayout:
         id: buttons_layout
@@ -279,7 +301,7 @@
         cols: 2
         size_hint_x: 0.8
         size_hint_y: 0.1
-        pos_hint: {'center_x':0.5, 'y': 0.2}
+        pos_hint: {'center_x': 0.5, 'y': 0.1}
 
         GrayButton:
             id: goback_button
@@ -290,28 +312,9 @@
         GrayButton:
             id: sell_button
             text: 'Sell!'
-            disabled: True  
+            disabled: False
             on_press: 
-                root.sell()
-
-<JobWindow>:
-    canvas:
-        Color:
-            rgba: 0.0, 0.0, 0.0, 1.0
-        Rectangle:
-            pos: self.pos
-            size: self.size
-
-    Image:
-        id: job_wip_gif
-        source: 'static/wait.gif'
-        anim_delay: 0.1
-        anim_loop: 5
-        allow_stretch: False
-        size_hint_y: 0.1
-        size_hint_x: 0.1
-        pos_hint: {'center_x':0.5, 'center_y': 0.5}
-
+                root.sample()
 
 <InputNumberManuallyScreen>:
     id: search_layout_main
@@ -394,7 +397,7 @@
             text: 'Go!'
             disabled: False
             on_press: 
-                root.manager.go_to_job_screen()
+                root.manager.find(root.ids.isbn_number_label.text)
 
     GrayButton:
         id: goback
@@ -403,7 +406,7 @@
         pos_hint: {'center_x': 0.85, 'y': 0.9}
         text: 'X'
         on_press: 
-            root.manager. go_to_main_screen()
+            root.manager.go_to_main_screen()
 
 <ProblemWindow>:
     BigLabel:

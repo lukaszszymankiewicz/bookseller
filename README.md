@@ -43,9 +43,10 @@ DONE:
    this is rather necessary),
 
 TODO:
- - [ ] upgrade json extraction (actual version can explode in every second),
+ - [x] kewl loading screen (delete single job screen and add more user-fiendly waiting screen
+   direcly on results).
+ - [x] upgrade json extraction (actual version can explode in every second),
  - [ ] add whole app test (check if all method works abyhow, swithcing between screens etc),
- - [ ] add allegro login screen,
  - [x] error screen - some basics but with try catch,
    - [ ] pretty error printing (now it shows raw Python error),
    - [ ] implement some basic fuckups (no Internet connection, 404, and so on),

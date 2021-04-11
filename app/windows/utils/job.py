@@ -50,15 +50,14 @@ class JobManager:
         fallback: Callable,
         check_interval: float = 0.1,
     ):
-        self.event = Clock.schedule_interval(self.check, check_interval)
-
         self.reaction[JobStatus.DONE] = callback
         self.reaction[JobStatus.PROBLEM] = fallback
 
+        self.job = Job(fun=fun, args=args)
+        self.event = Clock.schedule_interval(self.check, check_interval)
+
         if not check_interval:
             check_interval = self.default_check_interval
-
-        self.job = Job(fun=fun, args=args)
 
     def check(self, dt: float) -> None:
         if self.job.status == JobStatus.DONE:
@@ -74,4 +73,3 @@ class JobManager:
 
     def delete_job(self):
         self.event.cancel()
-        self.job = None

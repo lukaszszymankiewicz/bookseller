@@ -1,4 +1,5 @@
 import re
+from typing import Dict
 
 from .parsers import prices_search, sales_number_search
 from .regex import clean_string_using_regexes
@@ -6,49 +7,44 @@ from .request import make_request, make_request_and_serialize_response
 from .soup import create_soup
 from .url_constructors import (construct_allegro_book_search_url,
                                construct_allegro_headers,
-                               construct_openlibrary_author_search_url,
-                               construct_openlibrary_isbn_search_url)
+                               construct_openlibrary_search_url)
 
+# TODO: maybe move it to regex module diectly?
 WHITESPACE_REGEX = {"pattern": r"\s+", "repl": "", "flags": re.UNICODE}
 NONDIGITS_REGEX = {"pattern": "\D", "repl": ""}
 
 
-def query_book_data(raw_string: str):
-    code = clean_string_using_regexes(raw_string, [WHITESPACE_REGEX, NONDIGITS_REGEX])
-    url = construct_openlibrary_isbn_search_url(code)
-    data = make_request_and_serialize_response(url)
+def query_title_and_author(raw_isbn_string: str) -> Dict[str, str]:
+    isbn_string = clean_string_using_regexes(raw_isbn_string, [WHITESPACE_REGEX, NONDIGITS_REGEX])
+    openlibrary_url = construct_openlibrary_search_url(isbn_string)
+    data = make_request_and_serialize_response(openlibrary_url)
+
+    return {"title": extract_title(data), "author": extract_author(data)}
+
+
+def query_avg_price_and_sold_copies(title: str, author: str) -> Dict[str, str]:
     headers = construct_allegro_headers()
-
-    author_code = _extract_author_code(data)
-    author_request_url = construct_openlibrary_author_search_url(author_code)
-    author_data = make_request_and_serialize_response(author_request_url)
-
-    author = _extract_author(author_data)
-    title = _extract_title(data)
-
     allegro_url = construct_allegro_book_search_url(author, title)
     allegro_content = make_request(allegro_url, headers).content
     allegro_soup = create_soup(allegro_content)
 
     avg_price = prices_search(soup=allegro_soup)
-    sales_number = sales_number_search(soup=allegro_soup)
+    sold_copies = sales_number_search(soup=allegro_soup)
 
     return {
-        "title": title,
-        "author": author,
-        "avg_prices": str(round(avg_price, 2)) + " PLN",
-        "sales_number": sales_number,
+        "avg_prices": round(avg_price, 2),
+        "sold_copies": sold_copies,
     }
 
 
-def _extract_author(data: dict) -> str:
-    return data.get("name")
+def extract_author(data: dict) -> str:
+    isbns = list(data.keys())[0]
+
+    # TODO: add moe authors options
+    return data[isbns].get("authors")[0].get("name")
 
 
-def _extract_title(data: dict) -> str:
-    raw_title = data.get("title")
-    return raw_title.split(":")[0]
+def extract_title(data: dict) -> str:
+    isbns = list(data.keys())[0]
 
-
-def _extract_author_code(data: dict) -> str:
-    return data.get("authors")[0]["key"].replace("/authors/", "")
+    return data[isbns].get("title")

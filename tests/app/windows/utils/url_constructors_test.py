@@ -1,7 +1,6 @@
 import pytest
 from app.windows.utils.url_constructors import (
-    construct_allegro_book_search_url, construct_openlibrary_author_search_url,
-    construct_openlibrary_isbn_search_url)
+    construct_allegro_book_search_url, construct_openlibrary_search_url)
 
 
 # fmt:off
@@ -34,35 +33,23 @@ def test_allegro_request_construct_proper_url(title, author, expected_url):
     assert url == expected_url
 
 
-# fmt:off
 @pytest.mark.parametrize(
     "isbn, expected_url",
     [
-        ("9783161484100", "https://openlibrary.org/isbn/9783161484100.json"),
-        ("9788310133748", "https://openlibrary.org/isbn/9788310133748.json"),
-    ]
+        (
+            "0201558025",
+            "https://openlibrary.org/api/books?bibkeys=ISBN:0201558025&jscmd=data&format=json",
+        ),
+        (
+            "9788310133748",
+            "https://openlibrary.org/api/books?bibkeys=ISBN:9788310133748&jscmd=data&format=json",
+        ),
+    ],
 )
-# fmt: on
-def test_construct_isbn_url_construct_proper_url(isbn, expected_url):
+def test_construct_openlibrary_search_url_fun_construct_proper_url(isbn, expected_url):
     # WHEN
-    url = construct_openlibrary_isbn_search_url(isbn)
+    url = construct_openlibrary_search_url(isbn)
 
     # THEN
-    assert url == expected_url
 
-
-# fmt:off
-@pytest.mark.parametrize(
-    "author, expected_url",
-    [
-        ("malcolmxd", "https://openlibrary.org/authors/malcolmxd.json"),
-        ("rychupej", "https://openlibrary.org/authors/rychupeja.json"),
-    ]
-)
-# fmt: on
-def construct_author_request_construct_proper_url(author, expected_url):
-    # WHEN
-    url = construct_openlibrary_author_search_url(author)
-
-    # THEN
     assert url == expected_url

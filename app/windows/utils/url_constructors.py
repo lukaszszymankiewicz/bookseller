@@ -1,5 +1,9 @@
 ALLEGRO_URL_PREFIX = "https://allegro.pl/"
-OPENLIBRARY_URL_PREFIX = "https://openlibrary.org"
+
+OPENLIBRARY_URL_PREFIX = "https://openlibrary.org/api/books?bibkeys=ISBN:"
+OPENLIBRARY_PARAM_SEPARATOR = "&"
+OPENLIBRARY_FULLDATA_OPTION = "jscmd=data"
+OPENLIBARY_FORMAT_AS_JSON_OPTION = "format=json"
 
 SEPARATOR = "/"
 ALLEGRO_CATEGORY_PREFIX = "kategoria"
@@ -13,10 +17,6 @@ ALLEGRO_SPACE = " "
 ALLEGRO_PARAM_SEPARATOR = "&"
 ALLEGRO_SORTBY_OPTION = "order"
 ALLEGRO_POPULARITY_OPTION = "qd"
-
-REQUEST_SUFFIX = ".json"
-OPENLIBRARY_ISBN_OPTION = "isbn"
-OPENLIBRARY_AUTHOR_OPTION = "authors"
 
 
 def construct_allegro_book_search_url(author: str, title: str) -> str:
@@ -51,27 +51,14 @@ def construct_allegro_headers() -> dict:
     }
 
 
-def construct_openlibrary_isbn_search_url(isbn: str) -> str:
+def construct_openlibrary_search_url(isbn: str) -> str:
     return "".join(
         [
             OPENLIBRARY_URL_PREFIX,
-            SEPARATOR,
-            OPENLIBRARY_ISBN_OPTION,
-            SEPARATOR,
             isbn,
-            REQUEST_SUFFIX,
-        ]
-    )
-
-
-def construct_openlibrary_author_search_url(author: str) -> str:
-    return "".join(
-        [
-            OPENLIBRARY_URL_PREFIX,
-            SEPARATOR,
-            OPENLIBRARY_AUTHOR_OPTION,
-            SEPARATOR,
-            author,
-            REQUEST_SUFFIX,
+            OPENLIBRARY_PARAM_SEPARATOR,
+            OPENLIBRARY_FULLDATA_OPTION,
+            OPENLIBRARY_PARAM_SEPARATOR,
+            OPENLIBARY_FORMAT_AS_JSON_OPTION,
         ]
     )

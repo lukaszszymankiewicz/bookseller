@@ -51,6 +51,10 @@ class Manager(ScreenManager):
         self.current = "results"
         self.fill_book_data_in_results_screen(book_data)
 
+    def find(self, raw_isbn_code: str):
+        self.current = "results"
+        self.get_screen("results").run_find_query(raw_isbn_code)
+
     def _clear_settings_screen(self):
         for price in [0, 10, 20, 40]:
             widget_name = "set_" + str(price) + "_percent_price_strategy"
@@ -60,12 +64,6 @@ class Manager(ScreenManager):
         self.get_screen("settings").ids["used_true"].state = "normal"
         self.get_screen("settings").ids["buynow_false"].state = "normal"
         self.get_screen("settings").ids["buynow_true"].state = "normal"
-
-    def fill_book_data_in_results_screen(self, book_data: dict) -> None:
-        self.get_screen("results").ids["title_content"].text = str(book_data["title"])
-        self.get_screen("results").ids["author_content"].text = str(book_data["author"])
-        self.get_screen("results").ids["avg_prices_content"].text = str(book_data["avg_prices"])
-        self.get_screen("results").ids["sales_number_content"].text = str(book_data["sales_number"])
 
     def clear_book_data(self) -> None:
         self.get_screen("results").ids["title_content"].text = ""
