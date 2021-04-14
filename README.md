@@ -13,7 +13,7 @@ How to develop:
 ISSUES:
  - [x] going back to main screen does not work (sic!)
  - [x] problem message seems to be not initialised while quering for book.
- - [ ] inputting custom ISBN (not prepared) will sometimes block cool gif in the background,
+ - [x] inputting custom ISBN (not prepared) will sometimes block cool gif in the background,
 
 DONE:
  - [x] number keyboard to input ISBN number in it,
