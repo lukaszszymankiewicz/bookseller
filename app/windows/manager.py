@@ -7,6 +7,7 @@ class Manager(ScreenManager):
     job_manager = JobManager()
 
     def _save_settings(self):
+        # TODO: move it to OptionsReader
         settings = {}
 
         for name, widget in self.get_screen("settings").ids.items():
@@ -16,6 +17,7 @@ class Manager(ScreenManager):
         OptionsReader.save_options(settings)
 
     def _fill_up_settings(self):
+        # TODO: move it to OptionsReader
         options = OptionsReader.get_options()
 
         for widget_id, settings in options.items():
@@ -51,7 +53,12 @@ class Manager(ScreenManager):
         self.current = "results"
         self.fill_book_data_in_results_screen(book_data)
 
-    def find(self, raw_isbn_code: str):
+    def go_back_from_results_screen(self):
+        self.job_manager.kill_jobs()
+        self.clear_book_data()
+        self.current = "main"
+
+    def order_find_query(self, raw_isbn_code: str):
         self.current = "results"
         self.get_screen("results").run_find_query(raw_isbn_code)
 
@@ -69,7 +76,7 @@ class Manager(ScreenManager):
         self.get_screen("results").ids["title_content"].text = ""
         self.get_screen("results").ids["author_content"].text = ""
         self.get_screen("results").ids["avg_prices_content"].text = ""
-        self.get_screen("results").ids["sales_number_content"].text = ""
+        self.get_screen("results").ids["sold_copies_content"].text = ""
         self.get_screen("input_number_manually").ids["isbn_number_label"].text = ""
 
     def fill_error_in_problem_screen(self, message: str):

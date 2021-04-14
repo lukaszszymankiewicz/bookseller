@@ -307,14 +307,12 @@
             id: goback_button
             text: 'Go Back'
             on_press: 
-                root.goback()
+                root.manager.go_back_from_results_screen()
 
         GrayButton:
             id: sell_button
             text: 'Sell!'
-            disabled: False
-            on_press: 
-                root.sample()
+            disabled: True
 
 <InputNumberManuallyScreen>:
     id: search_layout_main
@@ -397,7 +395,7 @@
             text: 'Go!'
             disabled: False
             on_press: 
-                root.manager.find(root.ids.isbn_number_label.text)
+                root.manager.order_find_query(root.ids.isbn_number_label.text)
 
     GrayButton:
         id: goback

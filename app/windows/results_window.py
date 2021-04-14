@@ -8,10 +8,6 @@ from .utils import query_avg_price_and_sold_copies, query_title_and_author
 class ResultsWindow(Screen):
     id = "results_window"
 
-    def goback(self):
-        self.manager.clear_book_data()
-        self.manager.current = "main"
-
     def run_find_query(self, raw_isbn_string: str):
         self.manager.job_manager.add_job(
             fun=query_title_and_author,

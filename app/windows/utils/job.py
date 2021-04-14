@@ -62,14 +62,15 @@ class JobManager:
     def check(self, dt: float) -> None:
         if self.job.status == JobStatus.DONE:
             self.reaction[JobStatus.DONE](self.job.result)
-            self.delete_job()
+            self.kill_jobs()
 
         elif self.job.status == JobStatus.PROBLEM:
             self.reaction[JobStatus.PROBLEM](self.job.result)
-            self.delete_job()
+            self.kill_jobs()
 
         else:
             pass
 
-    def delete_job(self):
+    def kill_jobs(self):
         self.event.cancel()
+        Clock.unschedule(self.event)
