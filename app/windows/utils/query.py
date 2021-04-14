@@ -6,7 +6,7 @@ from .regex import clean_string_using_regexes
 from .request import make_request, make_request_and_serialize_response
 from .soup import create_soup
 from .url_constructors import (construct_allegro_book_search_url,
-                               construct_allegro_headers,
+                               construct_headers,
                                construct_openlibrary_search_url)
 
 # TODO: maybe move it to regex module diectly?
@@ -23,7 +23,7 @@ def query_title_and_author(raw_isbn_string: str) -> Dict[str, str]:
 
 
 def query_avg_price_and_sold_copies(title: str, author: str) -> Dict[str, str]:
-    headers = construct_allegro_headers()
+    headers = construct_headers()
     allegro_url = construct_allegro_book_search_url(author, title)
     allegro_content = make_request(allegro_url, headers).content
     allegro_soup = create_soup(allegro_content)
