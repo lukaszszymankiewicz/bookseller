@@ -13,13 +13,22 @@ sudo apt-get install libzbar0
 ```
 
 TODO:
- - [ ] upgrade json extraction (actual version can explode in every second),
- - [ ] add whole app test (check if all method works abyhow, swithcing between screens etc),
+ - [x] add async job to read barcode from camera,
+ - [ ] check intenet connection at start (or at request?)
+ - [x] upgrade json extraction (actual version can explode in every second),
+ - [ ] add whole app test (check if all method works anyhow, swithcing between screens etc),
  - [x] error screen - some basics but with try catch,
-   - [ ] pretty error printing (now it shows raw Python error),
-   - [ ] implement some basic fuckups (no Internet connection, 404, and so on),
+   - [x] pretty error printing (now it shows raw Python error),
+   - [x] implement some basic fuckups (no Internet connection, 404, and so on),
  - [ ] add rudimental docstrings and documentation,
- - [ ] add async job to read barcode from camera,
- - [ ] add schema validation fo json extraction,
  - [ ] delete all TODOS
  - [ ] search for sold copies in Allegro Archive (add it as async job)
+ - [ ] try...catch if camera exist
+ - [ ] think about cleaning up project (app/windows/utils/..) should be named in some back-end
+   convention
+ - [ ] whink about moving all the functions directly into Python code. Right now tis is the only 
+   thing that lays in kivy code that actualy does something. I belive that this is braking up whole
+   MVC model convention.
+
+NICE TO HAVE:
+ - [ ] Camera should run only when needed.
