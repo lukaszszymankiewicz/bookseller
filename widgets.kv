@@ -11,6 +11,9 @@
 #:set BASE_BIGGER_FONT_SIZE 30
 
 # CLASSES
+<ScanCamera@Camera>:
+    play: False
+    resolution: self.size
 
 <BackgroundColor@Widget>
     background_color: 0,0,0,1
@@ -78,3 +81,6 @@
     opacity: 1.0
     anim_delay: 0.1
     size_hint: (0.1, 0.1)
+
+<ProblemImage@Image>:
+    source: "static/problem.png"

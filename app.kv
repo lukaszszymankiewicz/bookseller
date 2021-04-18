@@ -1,49 +1,58 @@
 #:include widgets.kv
 
 <Manager>:
-    InputNumberManuallyScreen:
-        name: 'input_number_manually'
-
-    ResultsWindow:
-        name: 'results'
-
     MainWindow:
         name: 'main'
 
     ProblemWindow:
         name: 'problem'
 
-    SettingsWindow:
-        name: 'settings'
-
     CameraWindow:
         name: 'camera'
 
+    InputNumberManuallyScreen:
+        name: 'input_number_manually'
+
+    ResultsWindow:
+        name: 'results'
+
+    SettingsWindow:
+        name: 'settings'
+
 <CameraWindow>:
+    name: 'camera'
+
+    ScanCamera:
+        id: scan_camera
+
+    GrayButton:
+        id: goback
+        text: 'Exit'
+        pos_hint: {'center_x': 0.5, 'y': 0.0}
+        size_hint: (0.2, 0.1)
+        on_press: 
+            root.manager.go_to_main_screen()
 
 <MainWindow>:
     Logo:
+        id: logo_image
         pos_hint: {'center_x': 0.5, 'y': 0.7}
 
-    GridLayout:
-        id: search_method_layout
-        rows: 1
-        cols: 2
-        size_hint_x: 0.8
-        size_hint_y: 0.1
-        pos_hint: {'center_x': 0.5, 'y': 0.6}
+    GrayButton:
+        id: search_by_scanning
+        text: 'Scan'
+        size_hint: (0.2, 0.1)
+        pos_hint: {'center_x': 0.3, 'y': 0.6}
+        on_press: 
+            root.manager.go_to_camera_screen()
 
-        GrayButton:
-            id: search_by_scanning
-            text: 'Scan'
-            disabled: True
-
-        GrayButton:
-            id: search_by_inputting
-            text: 'Input'
-            disabled: False
-            on_press: 
-                root.manager.go_to_input_number_manually_screen()
+    GrayButton:
+        id: search_by_inputting
+        text: 'Input'
+        size_hint: (0.2, 0.1)
+        pos_hint: {'center_x': 0.7, 'y': 0.6}
+        on_press: 
+            root.manager.go_to_input_number_manually_screen()
 
     GrayButton:
         id: goto_settings
@@ -57,7 +66,7 @@
         id: exit_button
         text: 'Exit'
         size_hint: (0.2, 0.1)
-        pos_hint: {'center_x':0.5, 'y': 0.1}
+        pos_hint: {'center_x': 0.5, 'y': 0.1}
         on_press: 
             app.get_running_app().stop()
 
@@ -71,8 +80,7 @@
         id: price_strategy_layout
         rows: 1
         cols: 4
-        size_hint_x: 0.8
-        size_hint_y: 0.1
+        size_hint: (0.8, 0.1)
         pos_hint: {'center_x': 0.5, 'y': 0.8}
 
         PriceStrategyToggleButton:
@@ -104,8 +112,7 @@
         id: sell_strategy_layout
         rows: 2
         cols: 3
-        size_hint_x: 0.7
-        size_hint_y: 0.1
+        size_hint: (0.7, 0.1)
         pos_hint: {'center_x': 0.5, 'y': 0.6}
 
         BigLabel:
@@ -141,15 +148,14 @@
     BigLabel:
         id: delivery_strategy_label
         text: 'choose delivery options'
-        pos_hint: {'center_x':0.5, 'y': 0.5}
+        pos_hint: {'center_x': 0.5, 'y': 0.5}
 
     GridLayout:
         id: delivery_strategy_layout
         rows: 3
         cols: 5
-        size_hint_x: 0.8
-        size_hint_y: 0.3
-        pos_hint: {'center_x':0.5, 'y': 0.2}
+        size_hint: (0.8, 0.3)
+        pos_hint: {'center_x': 0.5, 'y': 0.2}
  
         SetDeliveryCheckBox:
             id: parcellocker_true
@@ -223,9 +229,8 @@
     GrayButton:
         id: goback
         text: 'Save and Proceed'
-        pos_hint: {'center_x':0.5, 'y': 0.0}
-        size_hint_x: 0.2
-        size_hint_y: 0.1
+        pos_hint: {'center_x': 0.5, 'y': 0.0}
+        size_hint: (0.2, 0.1)
         on_press: 
             root.manager.go_back_from_settings_screen()
 
@@ -233,15 +238,14 @@
     ISBNLabel:
         id: sales_number_label
         text: 'ISBN: 1234567890123'
-        pos_hint: {'center_x':0.5, 'y': 0.8}
+        pos_hint: {'center_x': 0.5, 'y': 0.8}
 
     GridLayout:
         id: results_layout
         rows: 4
         cols: 2
-        size_hint_x: 0.8
-        size_hint_y: 0.5
-        pos_hint: {'center_x':0.5, 'y': 0.3}
+        size_hint: (0.8, 0.5)
+        pos_hint: {'center_x': 0.5, 'y': 0.3}
 
         BigLabel:
             id: title_label
@@ -279,8 +283,7 @@
         id: hourglasses_layout
         rows: 4
         cols: 1
-        size_hint_x: 0.4
-        size_hint_y: 0.5
+        size_hint: (0.4, 0.5)
         pos_hint: {'center_x': 0.7, 'y': 0.3}
 
         HourglassImage:
@@ -299,8 +302,7 @@
         id: buttons_layout
         rows: 1
         cols: 2
-        size_hint_x: 0.8
-        size_hint_y: 0.1
+        size_hint: (0.8, 0.1)
         pos_hint: {'center_x': 0.5, 'y': 0.1}
 
         GrayButton:
@@ -329,8 +331,7 @@
 
     GridLayout:
         id: keyboard_input_layout
-        size_hint_x: 0.8
-        size_hint_y: 0.4
+        size_hint: (0.8, 0.4)
         pos_hint: {'center_x': 0.5, 'y': 0.1}
         rows: 4
         cols: 3
@@ -399,26 +400,28 @@
 
     GrayButton:
         id: goback
-        size_hint_x: 0.1
-        size_hint_y: 0.1
+        size_hint: (0.1, 0.1)
         pos_hint: {'center_x': 0.85, 'y': 0.9}
         text: 'X'
         on_press: 
             root.manager.go_to_main_screen()
 
 <ProblemWindow>:
+    ProblemImage:
+        id: problem_image
+        size_hint: (0.2, 0.2)
+        pos_hint: {'center_x': 0.5, 'y': 0.6}
+
     BigLabel:
         id: problem_layout_message
         text: 'Unknown poblem occured!'
         multiline: True
-        pos_hint: {'center_x':0.5, 'y': 0.5}
+        pos_hint: {'center_x': 0.5, 'y': 0.4}
 
     GrayButton:
         id: goback
         text: 'go back'
-        size_hint_x: 0.5
-        size_hint_y: 0.1
+        size_hint: (0.5, 0.1)
         pos_hint: {'center_x': 0.5, 'y': 0.1}
-        disabled: False
         on_press: 
             root.manager.go_to_main_screen()

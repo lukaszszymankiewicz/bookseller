@@ -27,21 +27,22 @@ class Manager(ScreenManager):
                 else:
                     pass
 
-    def go_to_input_number_manually_screen(self):
+    def go_to_input_number_manually_screen(self, number=""):
         self.current = "input_number_manually"
+        self.get_screen("input_number_manually").ids["isbn_number_label"].text = str(number)
+
+    def go_to_camera_screen(self):
+        self.current = "camera"
+
+    def go_to_main_screen(self):
+        self.current = "main"
 
     def go_to_problem_screen(self, exception):
         self.current = "problem"
         self.fill_error_in_problem_screen(exception)
 
-    def go_to_job_screen(self):
-        self.current = "job"
-
     def go_back_from_settings_screen(self):
         self._save_settings()
-        self.current = "main"
-
-    def go_to_main_screen(self):
         self.current = "main"
 
     def go_to_settings_screen(self):
@@ -63,6 +64,7 @@ class Manager(ScreenManager):
         self.get_screen("results").run_find_query(raw_isbn_code)
 
     def _clear_settings_screen(self):
+        # TODO: add some custom propperty to know what should be cleared
         for price in [0, 10, 20, 40]:
             widget_name = "set_" + str(price) + "_percent_price_strategy"
             self.get_screen("settings").ids[widget_name].state = "normal"
@@ -73,6 +75,7 @@ class Manager(ScreenManager):
         self.get_screen("settings").ids["buynow_true"].state = "normal"
 
     def clear_book_data(self) -> None:
+        # TODO: add some custom propperty to know what should be cleared
         self.get_screen("results").ids["title_content"].text = ""
         self.get_screen("results").ids["author_content"].text = ""
         self.get_screen("results").ids["avg_prices_content"].text = ""
@@ -80,10 +83,7 @@ class Manager(ScreenManager):
         self.get_screen("input_number_manually").ids["isbn_number_label"].text = ""
 
     def fill_error_in_problem_screen(self, message: str):
-        if hasattr(message, "args"):
-            self.get_screen("problem").ids["problem_layout_message"].text = message.args[0]
-        else:
-            self.get_screen("problem").ids["problem_layout_message"].text = message
+        self.get_screen("problem").ids["problem_layout_message"].text = message
 
     def get_isbn_number_from_search_screen(self) -> str:
         return self.get_screen("input_number_manually").ids["isbn_number_label"].text

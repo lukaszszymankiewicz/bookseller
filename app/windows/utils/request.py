@@ -1,9 +1,18 @@
 import requests
 
-
-def make_request_and_serialize_response(url: str) -> dict:
-    return requests.get(url).json()
+from .schemas import Schema
 
 
-def make_request(url: str, headers: dict) -> dict:
-    return requests.get(url=url, headers=headers)
+def construct_headers() -> dict:
+    return {
+        "User-Agent": "Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:85.0) Gecko/20100101 Firefox/85.0"
+    }
+
+
+def make_request(url: str, schema: Schema, headers: dict = None) -> dict:
+    if not headers:
+        headers = construct_headers()
+
+    response = requests.get(url=url, headers=headers).json()
+
+    return schema.extract(response)

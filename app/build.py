@@ -21,3 +21,13 @@ class BuildApp(App):
 
     def build(self):
         return Manager()
+
+    def on_stop(self):
+        # TODO: here camera should be stopeed
+        pass
+
+    def on_pause(self):
+        return True
+
+    def on_resume(self):
+        pass

@@ -43,14 +43,6 @@ def construct_allegro_book_search_url(author: str, title: str) -> str:
     )
 
 
-def construct_headers() -> dict:
-    """ Yeah, it is just copied from my browser XD"""
-
-    return {
-        "User-Agent": "Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:85.0) Gecko/20100101 Firefox/85.0"
-    }
-
-
 def construct_openlibrary_search_url(isbn: str) -> str:
     return "".join(
         [

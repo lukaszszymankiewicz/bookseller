@@ -11,7 +11,7 @@ class ResultsWindow(Screen):
     def run_find_query(self, raw_isbn_string: str):
         self.manager.job_manager.add_job(
             fun=query_title_and_author,
-            args={"raw_isbn_string": raw_isbn_string},
+            args={"isbn_string": raw_isbn_string},
             callback=self.run_avg_price_and_sold_copies_query,
             fallback=self.manager.go_to_problem_screen,
             check_interval=0.5,

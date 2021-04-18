@@ -1,4 +1,5 @@
 import threading
+import traceback
 from typing import Callable
 
 from kivy.clock import Clock
@@ -30,9 +31,10 @@ class Job:
             self.result = self.fun(**self.args)
             self.status = JobStatus.DONE
 
-        except Exception as e:
-            self.result = e
+        except Exception as err:
+            traceback.print_tb(err.__traceback__)
             self.status = JobStatus.PROBLEM
+            self.result = err.args[0]
 
 
 class JobManager:
@@ -47,7 +49,7 @@ class JobManager:
         fun: Callable,
         args: dict,
         callback: Callable,
-        fallback: Callable,
+        fallback: Callable = None,
         check_interval: float = 0.1,
     ):
         self.reaction[JobStatus.DONE] = callback
@@ -60,13 +62,20 @@ class JobManager:
             check_interval = self.default_check_interval
 
     def check(self, dt: float) -> None:
-        if self.job.status == JobStatus.DONE:
+
+        if self.job.status == JobStatus.DONE and self.job.result:
             self.reaction[JobStatus.DONE](self.job.result)
             self.kill_jobs()
 
-        elif self.job.status == JobStatus.PROBLEM:
-            self.reaction[JobStatus.PROBLEM](self.job.result)
+        elif self.job.status == JobStatus.DONE and not self.job.result:
             self.kill_jobs()
+
+        elif self.job.status == JobStatus.PROBLEM:
+            if self.reaction[JobStatus.PROBLEM]:
+                self.reaction[JobStatus.PROBLEM](self.job.result)
+                self.kill_jobs()
+            else:
+                self.kill_jobs()
 
         else:
             pass
