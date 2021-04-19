@@ -17,3 +17,6 @@ class AllegroUnavailableError(BooksellerError):
         super().__init__(*args)
 
 
+class NoInternetConnectionError(BooksellerError):
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args)

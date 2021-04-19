@@ -1,5 +1,6 @@
 import requests
 
+from .exceptions import NoInternetConnectionError
 from .schemas import Schema
 
 
@@ -13,6 +14,9 @@ def make_request(url: str, schema: Schema, headers: dict = None) -> dict:
     if not headers:
         headers = construct_headers()
 
-    response = requests.get(url=url, headers=headers).json()
+    try:
+        response = requests.get(url=url, headers=headers).json()
+    except requests.ConnectionError:
+        raise NoInternetConnectionError("Cannot connect to Intrnet! Check Your connection!")
 
     return schema.extract(response)

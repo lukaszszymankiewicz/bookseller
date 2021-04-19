@@ -14,7 +14,7 @@ sudo apt-get install libzbar0
 
 TODO:
  - [x] add async job to read barcode from camera,
- - [ ] check intenet connection at start (or at request?)
+ - [x] check intenet connection at start (or at request?)
  - [x] upgrade json extraction (actual version can explode in every second),
  - [ ] add whole app test (check if all method works anyhow, swithcing between screens etc),
  - [x] error screen - some basics but with try catch,
