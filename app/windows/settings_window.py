@@ -1,9 +1,9 @@
-from app.windows.utils.constants import CURRENCY
+from kivy.uix.screenmanager import Screen
 
-from .base_window import BaseBooksellerWindow
+CURRENCY = "PLN"
 
 
-class SettingsWindow(BaseBooksellerWindow):
+class SettingsWindow(Screen):
     id = "settings_window"
     price_strategy = 0
 

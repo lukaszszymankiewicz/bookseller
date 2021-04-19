@@ -7,7 +7,7 @@ from .soup import create_soup
 
 
 class Schema(ABC):
-    """ Yeah. this is just placeholder for marshamallow or other json->object library"""
+    """Yeah. this is just placeholder for marshamallow or other json->object library."""
 
     @abstractstaticmethod
     def extract(data: dict) -> dict:

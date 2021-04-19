@@ -17,6 +17,9 @@ def parse_soup(
     aggregate_fun: Callable,
     soup: bs4.BeautifulSoup,
 ):
+    """
+    Parses BeautifulSoup (using 'tag' and 'args' parameters), clean and aggregate results.
+    """
     cleaned_tags = []
 
     tags = soup.findAll(name=tag, attrs=attrs)

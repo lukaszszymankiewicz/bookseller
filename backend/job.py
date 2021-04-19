@@ -12,6 +12,12 @@ class JobStatus:
 
 
 class Job:
+    """
+    Container for function run in secondary thread (so running function in Job won`t stop main
+    thread).
+    Exceptions are catched, so even if function failed information are passed along.
+    """
+
     def __init__(self, fun: Callable, args: dict):
         self.fun = fun
         self.args = args
@@ -38,6 +44,16 @@ class Job:
 
 
 class JobManager:
+    """
+    Wraper for Job class. Will run Job function and periodically check if Job is done. Futhermore
+    status about such Job is collected.
+    Every Job inputted into Manager must have defined callback function (function which will be run
+    if Job succeded) and fallback function (function which will be run in Job failed). As arguments
+    to fallback/callback function are results of Job function used (so when everything went good
+    result are passed along, if function failed Exception/messsage is passed along).
+    If Job function does not return anything code will move over and do nothing.
+    """
+
     def __init__(self):
         self.job = None
         self.event = None
@@ -52,16 +68,21 @@ class JobManager:
         fallback: Callable = None,
         check_interval: float = 0.1,
     ):
+        if not check_interval:
+            check_interval = self.default_check_interval
+
         self.reaction[JobStatus.DONE] = callback
         self.reaction[JobStatus.PROBLEM] = fallback
 
         self.job = Job(fun=fun, args=args)
         self.event = Clock.schedule_interval(self.check, check_interval)
 
-        if not check_interval:
-            check_interval = self.default_check_interval
-
     def check(self, dt: float) -> None:
+        """Periodically checks if Job fun is completed and routes the results.
+
+        Args:
+            dt - float representing check time interval.
+        """
 
         if self.job.status == JobStatus.DONE and self.job.result:
             self.reaction[JobStatus.DONE](self.job.result)

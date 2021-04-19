@@ -1,6 +1,6 @@
 from time import sleep
 
-from app.windows.utils.job import Job, JobManager, JobStatus
+from backend.job import Job, JobManager, JobStatus
 
 
 def test_job_runs_function_and_sets_done_flag():
@@ -24,8 +24,7 @@ def test_job_runs_function_and_sets_done_flag():
 
 def test_job_runs_function_and_properly_catch_exception():
     # GIVEN
-    expected_results_args = ("division by zero",)
-    expected_results_class_name = "ZeroDivisionError"
+    expected_results = "division by zero"
 
     def mock_divide_function(a: int, b: int):
         return a / b
@@ -39,8 +38,7 @@ def test_job_runs_function_and_properly_catch_exception():
     sleep(1.0)
 
     # THEN
-    assert failing_job.result.args == expected_results_args
-    assert failing_job.result.__class__.__name__ == expected_results_class_name
+    assert failing_job.result == expected_results
     assert failing_job.thread.is_alive() is False
 
 
@@ -87,14 +85,13 @@ def test_job_manager_callback_properly():
     manager.check(0.1)  # is there is ann issue in tests that Clock class isn`t working propelry?
 
     assert globals()["test_result"] == expected_result
-    assert manager.job is None
 
 
 def test_job_manager_fallback_properly():
     # GIVEN
     expected_result = 5
     manager = JobManager()
-    expected_result = "ZeroDivisionError"
+    expected_result = "division by zero"
 
     def mock_divide_function(a: int, b: int) -> int:
         return a / b
@@ -102,8 +99,8 @@ def test_job_manager_fallback_properly():
     def callback_fun(args):
         globals()["test_result"] = args
 
-    def fallback_fun(exception):
-        globals()["test_result"] = exception.__class__.__name__
+    def fallback_fun(message: str):
+        globals()["test_result"] = message
 
     # WHEN
     manager.add_job(
@@ -118,4 +115,3 @@ def test_job_manager_fallback_properly():
     manager.check(0.1)  # is there is ann issue in tests that Clock class isn`t working propelry?
 
     assert globals()["test_result"] == expected_result
-    assert manager.job is None

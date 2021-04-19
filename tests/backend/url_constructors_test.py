@@ -1,6 +1,7 @@
 import pytest
-from app.windows.utils.url_constructors import (
-    construct_allegro_book_search_url, construct_openlibrary_search_url)
+
+from backend.url_constructors import (construct_allegro_book_search_url,
+                                      construct_openlibrary_search_url)
 
 
 # fmt:off

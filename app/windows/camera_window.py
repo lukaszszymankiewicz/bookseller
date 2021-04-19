@@ -1,4 +1,4 @@
-from app.windows.utils.barcode_reader import read_barcodes
+from backend.barcode_reader import read_barcodes
 from kivy.clock import Clock
 from kivy.uix.screenmanager import Screen
 from PIL import Image
@@ -8,7 +8,7 @@ OFF = False
 
 
 class CameraWindow(Screen):
-    orientation = "vertical"
+    id = "camera_window"
 
     def __init__(self, **kwargs):
         super(CameraWindow, self).__init__(**kwargs)

@@ -1,13 +1,12 @@
 import re
 
 import pytest
-from app.windows.utils.regex import (clean_string_using_regexes,
-                                     run_substract_regex)
 
-WHITESPACE_REGEX = {"pattern": r"\s+", "repl": "", "flags": re.UNICODE}
-NONDIGITS_REGEX = {"pattern": "\D", "repl": ""}
+from backend.regex import (NONDIGITS_REGEX, WHITESPACE_REGEX,
+                           clean_string_using_regexes, run_substract_regex)
 
-# fmt:off
+
+# fmt: off
 @pytest.mark.parametrize(
     "raw_string, expected_results, regex_fun",
     [

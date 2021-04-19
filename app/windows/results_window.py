@@ -1,8 +1,7 @@
 from typing import Dict
 
+from backend import query_avg_price_and_sold_copies, query_title_and_author
 from kivy.uix.screenmanager import Screen
-
-from .utils import query_avg_price_and_sold_copies, query_title_and_author
 
 
 class ResultsWindow(Screen):

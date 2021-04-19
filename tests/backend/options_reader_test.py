@@ -1,6 +1,6 @@
 import os
 
-from app.windows.utils.options_reader import OptionsReader
+from backend.options_reader import OptionsReader
 
 
 def test_options_reader_get_options_works_properly():

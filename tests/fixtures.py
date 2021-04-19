@@ -5,9 +5,8 @@ import bs4
 import pytest
 from PIL import Image
 
-pickled_soups_path = "tests/pickled_soups/"
-sample_images_path = "tests/sample_images/"
-sample_camera_images_path = "tests/sample_camera_images/"
+pickled_soups_path = "tests/files/pickled_soups/"
+sample_images_path = "tests/files/sample_images/"
 
 
 @pytest.fixture()
@@ -58,17 +57,3 @@ def get_sample_image():
         return image
 
     return load_sample_image
-
-
-@pytest.fixture()
-def get_sample_camera_image():
-    def load_sample_camera_image(image_number: int):
-        if image_number > len(os.listdir(sample_camera_images_path)):
-            raise ValueError("this image number does not exist!")
-
-        file_path = sample_camera_images_path + f"sample_camera_image_{image_number}.png"
-        # image = Image.open(file_path)
-
-        return file_path
-
-    return load_sample_camera_image
