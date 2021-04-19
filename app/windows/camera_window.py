@@ -30,7 +30,14 @@ class CameraWindow(Screen):
     def texture_working(self):
         return self.texture is not None
 
+    def check_if_camera_exist(self):
+        if self.scan_camera._camera:
+            pass
+        else:
+            self.manager.go_to_problem_screen(message="Your camera seems not working")
+
     def on_enter(self):
+        self.check_if_camera_exist()
         self.event = Clock.schedule_interval(self.check_barcode, 0.2)
 
     def on_leave(self):

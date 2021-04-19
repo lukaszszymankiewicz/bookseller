@@ -27,7 +27,9 @@ class BuildApp(App):
         pass
 
     def on_pause(self):
+        # TODO: here camera should be stopeed
         return True
 
     def on_resume(self):
+        # TODO: here camera should be started
         pass
