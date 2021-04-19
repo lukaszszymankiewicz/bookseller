@@ -1,5 +1,5 @@
-from app.windows.utils.job import JobManager
-from app.windows.utils.options_reader import OptionsReader
+from backend.job import JobManager
+from backend.options_reader import OptionsReader
 from kivy.uix.screenmanager import ScreenManager
 
 

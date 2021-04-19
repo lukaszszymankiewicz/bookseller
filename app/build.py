@@ -8,7 +8,6 @@ from app.windows.manager import Manager
 from app.windows.problem_window import ProblemWindow
 from app.windows.results_window import ResultsWindow
 from app.windows.settings_window import SettingsWindow
-from app.windows.utils.options_reader import OptionsReader
 
 from .config import DEFAULT_WINDOW_SIZE
 
@@ -16,8 +15,6 @@ from .config import DEFAULT_WINDOW_SIZE
 class BuildApp(App):
     # TODO: is this really needed?
     Window.size = DEFAULT_WINDOW_SIZE  # this will set proper window size
-
-    OptionsReader.get_options()  # this will validate options
 
     def build(self):
         return Manager()

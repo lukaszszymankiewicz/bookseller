@@ -47,10 +47,12 @@ class JobManager:
     """
     Wraper for Job class. Will run Job function and periodically check if Job is done. Futhermore
     status about such Job is collected.
+
     Every Job inputted into Manager must have defined callback function (function which will be run
     if Job succeded) and fallback function (function which will be run in Job failed). As arguments
     to fallback/callback function are results of Job function used (so when everything went good
     result are passed along, if function failed Exception/messsage is passed along).
+
     If Job function does not return anything code will move over and do nothing.
     """
 

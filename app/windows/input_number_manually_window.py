@@ -1,6 +1,5 @@
+from backend.validation import ValidationMessage, code_is_proper_isbn
 from kivy.uix.screenmanager import Screen
-
-from .utils.validation import ValidationMessage, code_is_proper_isbn
 
 
 class InputNumberManuallyScreen(Screen):

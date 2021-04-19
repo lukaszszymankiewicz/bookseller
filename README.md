@@ -13,13 +13,14 @@ sudo apt-get install libzbar0
 ```
 
 TODO:
+ - [ ] delete all TODOS,
  - [ ] add whole app test (check if all method works anyhow, switching between screens etc),
- - [ ] delete all TODOS
- - [ ] search for sold copies in Allegro Archive (add it as async job)
- - [ ] try...catch if camera exist
- - [ ] whink about moving all the functions directly into Python code. Right now tis is the only 
+ - [ ] try...catch if camera exist,
+ - [ ] add more ISBN databases,
+ - [x] whink about moving all the functions directly into Python code. Right now tis is the only 
    thing that lays in kivy code that actualy does something. I belive that this is braking up whole
-   MVC model convention.
+   MVC model convention,
+ - [x] search for sold copies in Allegro Archive (add it as async job) (Archiwum Allegro to szajs),
  - [x] add async job to read barcode from camera,
  - [x] check intenet connection at start (or at request?)
  - [x] upgrade json extraction (actual version can explode in every second),
@@ -28,7 +29,7 @@ TODO:
    - [x] implement some basic fuckups (no Internet connection, 404, and so on),
  - [x] add rudimental docstrings and documentation,
  - [x] think about cleaning up project (app/windows/utils/..) should be named in some back-end
-   convention
+   convention.
 
 NICE TO HAVE:
  - [ ] Camera should run only when needed.
