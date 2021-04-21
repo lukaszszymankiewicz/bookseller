@@ -14,6 +14,7 @@ from .config import DEFAULT_WINDOW_SIZE
 
 class BuildApp(App):
     # TODO: is this really needed?
+    # TODO: response (it is good for testing but in the end it should not be in the app code).
     Window.size = DEFAULT_WINDOW_SIZE  # this will set proper window size
 
     def build(self):

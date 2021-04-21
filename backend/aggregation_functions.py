@@ -1,4 +1,9 @@
-"""Util functions for aggregating numbers"""
+"""
+Util functions for aggregating numbers.
+
+Parsing allegro (or other site) will result in many different parsed values. They are needed to
+corrected/validated/aggregated/converted. This functions relizes such tasks.
+"""
 
 from typing import List
 

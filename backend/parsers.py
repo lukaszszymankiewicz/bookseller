@@ -13,6 +13,14 @@ def parse_soup_single_entities(
     attrs: dict,
     soup: bs4.BeautifulSoup,
 ):
+    """
+    Parses BeautifulSoup for search in particual HTML tag. Only the first occurance is recorded.
+
+    Args:
+        tag - HTML tag to be found in Soup (function will found ALL occurances of this tag).
+        attrs - dict containing specific HTML attributes which tag mus have to be considered proper,
+        soup - BeautiflSoup instance.
+    """
     return soup.find(name=tag, attrs=attrs).text
 
 
@@ -26,7 +34,19 @@ def parse_soup_many_entities(
     soup: bs4.BeautifulSoup,
 ):
     """
-    Parses BeautifulSoup (using 'tag' and 'args' parameters), clean and aggregate results.
+    Parses BeautifulSoup for specific thing to be found in it. Additional cleanup and aggregation
+    are also performed.
+
+    Args:
+        tag - HTML tag to be found in Soup (function will found ALL occurances of this tag).
+        attrs - dict containing specific HTML attributes which tag mus have to be considered proper,
+        cleaning_regex - regex filte to be performed on every tag content,
+        cleaning_replace - arguments for Python 'replace' function (for additional string cleaning),
+        convertion_fun - function to be used to convert found values (rg.: float to integers),
+        aggregate_fun - function to be used on all founded results (after all cleanups) to generate
+            single result (eg.: sum of all elements),
+        soup - BeautiflSoup instance.
+
     """
     cleaned_tags = []
 
@@ -75,6 +95,16 @@ number_of_result_pages = partial(
     aggregate_fun=lambda x: x[0],
 )
 
+sales_number_search = partial(
+    parse_soup_many_entities,
+    tag="span",
+    attrs={"class": "msa3_z4"},
+    cleaning_regex="[0-9]*",
+    convertion_fun=force_to_int,
+    cleaning_replace=("", ""),
+    aggregate_fun=force_sum,
+)
+
 title_search = partial(
     parse_soup_single_entities,
     tag="span",
@@ -85,14 +115,4 @@ author_search = partial(
     parse_soup_single_entities,
     tag="span",
     attrs={"itemprop": "author"},
-)
-
-sales_number_search = partial(
-    parse_soup_many_entities,
-    tag="span",
-    attrs={"class": "msa3_z4"},
-    cleaning_regex="[0-9]*",
-    convertion_fun=force_to_int,
-    cleaning_replace=("", ""),
-    aggregate_fun=force_sum,
 )

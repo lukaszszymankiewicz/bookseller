@@ -225,8 +225,11 @@ def test_job_manager_fallbacks_properly_for_two_function_and_no_defined_fallback
     manager.check(0.1)
     assert not globals().get("place_result_here")
 
-    # cleanup
-    del globals()["place_result_here"]
+    # cleanup (just in case)
+    try:
+        del globals()["place_result_here"]
+    except KeyError:
+        pass
 
 
 def test_job_manager_callback_properly_even_if_proper_function_is_slowest():

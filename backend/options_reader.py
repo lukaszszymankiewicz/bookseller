@@ -3,26 +3,26 @@ import json
 
 class OptionsReader:
     """
-    Wapper for options file read/write.
-
-    Primarly it just iteate over option buttons, check whether its state should be perseved and save
-    it state if needed.
+    Wrapper for options file read/write. Options are gathered as widgets "state" (or more preceisely
+    specific attribute value) so at next start of application all widgets can be put into same state
+    as before.
 
     """
 
     OPTIONS_PATH = "static/options.json"
 
-    @staticmethod
-    def get_options():
+    def __init__(self):
+        pass
+
+    def get_options(self):
         with open(OptionsReader.OPTIONS_PATH, "r") as file:
             options = json.load(file)
         file.close()
 
         return options
 
-    @staticmethod
-    def save_options(options: dict):
+    def save_options(self, widgets_state: dict):
         with open(OptionsReader.OPTIONS_PATH, "w") as file:
-            json.dump(options, file)
+            json.dump(widgets_state, file)
 
         file.close()

@@ -87,21 +87,25 @@
             id: set_0_percent_price_strategy
             text: '-0%'
             save_in_settings: 'state'
+            default: {'state': 'normal'}
 
         PriceStrategyToggleButton:
             id: set_10_percent_price_strategy
             text: '-10%'
             save_in_settings: 'state'
+            default: {'state': 'normal'}
 
         PriceStrategyToggleButton:
             id: set_20_percent_price_strategy
             text: '-20%'
             save_in_settings: 'state'
+            default: {'state': 'normal'}
 
         PriceStrategyToggleButton:
             id: set_40_percent_price_strategy
             text: '-40%'
             save_in_settings: 'state'
+            default: {'state': 'normal'}
 
     BigLabel:
         id: sell_strategy
@@ -124,11 +128,13 @@
             text: 'used'
             state: 'down'
             save_in_settings: 'state'
+            default: {'state': 'normal'}
 
         SellAsToggleButton:
             id: used_false
             text: 'new'
             save_in_settings: 'state'
+            default: {'state': 'normal'}
 
         BigLabel:
             id: buynow_strategy_label
@@ -139,11 +145,13 @@
             text: 'yes'
             state: 'down'
             save_in_settings: 'state'
+            default: {'state': 'normal'}
 
         BuyNowToggleButton:
             id: buynow_false
             text: 'no'
             save_in_settings: 'state'
+            default: {'state': 'normal'}
 
     BigLabel:
         id: delivery_strategy_label
@@ -254,6 +262,7 @@
         BigLabel:
             id: title_content
             text: ''
+            default: {'text': ''}
 
         BigLabel:
             id: author_label
@@ -262,6 +271,7 @@
         BigLabel:
             id: author_content
             text: ''
+            default: {'text': ''}
 
         BigLabel:
             id: avg_prices_label
@@ -270,6 +280,7 @@
         BigLabel:
             id: avg_prices_content
             text: ''
+            default: {'text': ''}
 
         BigLabel:
             id: sold_copies_label
@@ -278,6 +289,7 @@
         BigLabel:
             id: sold_copies_content
             text: ''
+            default: {'text': ''}
 
     GridLayout:
         id: hourglasses_layout

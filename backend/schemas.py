@@ -42,9 +42,6 @@ class OpenlibarySchema(Schema):
         if data == {}:
             raise BookNotFoundError("Book not found in Data Base :C")
 
-        import pdb
-
-        pdb.set_trace()
         try:
             header = list(data.keys())[0]
 

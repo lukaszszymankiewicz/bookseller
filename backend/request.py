@@ -1,7 +1,7 @@
 import requests
 
 from .enums import ResponseFormat
-from .exceptions import AllegroUnavailableError, NoInternetConnectionError
+from .exceptions import AllegroUnavailableError
 from .schemas import Schema
 
 ALLEGRO_HEADERS = {
@@ -28,6 +28,18 @@ def make_request(
     expected_response_format: str = ResponseFormat.raw,
     headers: dict = None,
 ) -> dict:
+    """
+    Method will make GET request on inputted url and serialize (if needed) the response.
+
+    Args:
+        url - url adress to be requested,
+        schema - Schema instance which will parse response (to obtain specific data from response),
+        expected_response_format - indication in which form Schema requires data format to parse,
+        headers - request headers.
+
+    Returns:
+        data in format defined in Schema.
+    """
     if not headers:
         headers = DEFAULT_HEADERS
 
