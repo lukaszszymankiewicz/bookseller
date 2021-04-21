@@ -43,8 +43,8 @@ class InputNumberManuallyScreen(Screen):
             self._validate(self._isbn_number)
 
     def _validate(self, code: int) -> None:
-        self.manager.job_manager.add_job(
-            fun=code_is_proper_isbn,
+        self.manager.job_manager.add_concurent_jobs(
+            funs=[code_is_proper_isbn],
             args={"code": code},
             callback=self._read_validation_message,
             fallback=self.manager.go_to_problem_screen,

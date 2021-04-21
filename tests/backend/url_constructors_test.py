@@ -1,7 +1,30 @@
 import pytest
 
 from backend.url_constructors import (construct_allegro_book_search_url,
+                                      construct_bookfinder_search_url,
                                       construct_openlibrary_search_url)
+
+
+@pytest.mark.parametrize(
+    "isbn, expected_url",
+    [
+        (
+            "0201558025",
+            "https://www.bookfinder.com/search/?isbn=0201558025&mode=isbn&st=sr&ac=qr",
+        ),
+        (
+            "9788310133748",
+            "https://www.bookfinder.com/search/?isbn=9788310133748&mode=isbn&st=sr&ac=qr",
+        ),
+    ],
+)
+def test_construct_construct_bookfinder_search_url_fun_construct_proper_url(isbn, expected_url):
+    # WHEN
+    url = construct_bookfinder_search_url(isbn)
+
+    # THEN
+
+    assert url == expected_url
 
 
 # fmt:off

@@ -55,7 +55,7 @@ class Manager(ScreenManager):
         self.fill_book_data_in_results_screen(book_data)
 
     def go_back_from_results_screen(self):
-        self.job_manager.kill_jobs()
+        self.job_manager.kill_all_jobs()
         self.clear_book_data()
         self.current = "main"
 

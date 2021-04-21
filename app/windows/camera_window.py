@@ -54,8 +54,8 @@ class CameraWindow(Screen):
         self._set_camera(ON)
 
         if self.scan_camera_is_indexed and self.texture_working:
-            self.manager.job_manager.add_job(
-                fun=read_barcodes,
+            self.manager.job_manager.add_concurent_jobs(
+                funs=[read_barcodes],
                 args={
                     "image": Image.frombytes(
                         mode="RGBA",

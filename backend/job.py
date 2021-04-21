@@ -1,14 +1,9 @@
 import threading
-import traceback
-from typing import Callable
+from typing import Callable, List
 
 from kivy.clock import Clock
 
-
-class JobStatus:
-    WIP = "WIP"
-    DONE = "DONE"
-    PROBLEM = "PROBLEM"
+from .enums import JobStatus
 
 
 class Job:
@@ -27,6 +22,7 @@ class Job:
 
         self.status = JobStatus.WIP
         self._run_job()
+        self.name = fun.__name__
 
     def _run_job(self):
         self.thread = threading.Thread(target=self._run_fun)
@@ -38,8 +34,7 @@ class Job:
             self.status = JobStatus.DONE
 
         except Exception as err:
-            traceback.print_tb(err.__traceback__)
-            self.status = JobStatus.PROBLEM
+            self.status = JobStatus.FAILED
             self.result = err.args[0]
 
 
@@ -57,52 +52,78 @@ class JobManager:
     """
 
     def __init__(self):
-        self.job = None
         self.event = None
-        self.reaction = {JobStatus.DONE: None, JobStatus.PROBLEM: None}
-        self.default_check_interval = 0.5
+        self.jobs = []
+        self.fallback = None
+        self.callback = None
 
-    def add_job(
+    def add_concurent_jobs(
         self,
-        fun: Callable,
+        funs: List[Callable],
         args: dict,
         callback: Callable,
         fallback: Callable = None,
         check_interval: float = 0.1,
     ):
-        if not check_interval:
-            check_interval = self.default_check_interval
+        self.callback = callback
+        self.fallback = fallback or do_nothing
 
-        self.reaction[JobStatus.DONE] = callback
-        self.reaction[JobStatus.PROBLEM] = fallback
+        for fun in funs:
+            self.jobs.append(Job(fun=fun, args=args))
 
-        self.job = Job(fun=fun, args=args)
         self.event = Clock.schedule_interval(self.check, check_interval)
 
+    @property
+    def n_jobs(self):
+        return len(self.jobs)
+
     def check(self, dt: float) -> None:
-        """Periodically checks if Job fun is completed and routes the results.
+        """Periodically checks if any of the Jobs fun is completed.
+
+        JobManager will run all of functions in search of this one which return proper results.
+        If all Jobs failed fallback function will be runned.
 
         Args:
             dt - float representing check time interval.
         """
+        jobs_to_delete = []
 
-        if self.job.status == JobStatus.DONE and self.job.result:
-            self.reaction[JobStatus.DONE](self.job.result)
-            self.kill_jobs()
+        for job in self.jobs:
+            if job.status == JobStatus.DONE:
+                self.callback(job.result)
+                self.kill_all_jobs()
+                break
 
-        elif self.job.status == JobStatus.DONE and not self.job.result:
-            self.kill_jobs()
+            elif job.status == JobStatus.FAILED:
+                jobs_to_delete.append(job)
 
-        elif self.job.status == JobStatus.PROBLEM:
-            if self.reaction[JobStatus.PROBLEM]:
-                self.reaction[JobStatus.PROBLEM](self.job.result)
-                self.kill_jobs()
             else:
-                self.kill_jobs()
+                # Work in Progress
+                pass
+
+        if jobs_to_delete:
+            self.cleanup(jobs_to_delete)
+
+    def cleanup(self, jobs_to_delete: List[Job]) -> None:
+        if self.n_jobs == len(jobs_to_delete):
+
+            results = {}
+            for job in jobs_to_delete:
+                results[job.name] = job.result
+
+            self.fallback(results)
+            self.kill_all_jobs()
 
         else:
-            pass
+            self.jobs = [job for job in self.jobs if job not in jobs_to_delete]
 
-    def kill_jobs(self):
+    def kill_all_jobs(self):
         self.event.cancel()
+        self.jobs = []
+        self.fallback = None
+        self.callback = None
         Clock.unschedule(self.event)
+
+
+def do_nothing(args):
+    pass

@@ -2,7 +2,8 @@ from abc import ABC, abstractstaticmethod
 
 from .exceptions import (AllegroUnavailableError, BookNotFoundError,
                          WrongResponseError)
-from .parsers import prices_search, sales_number_search
+from .parsers import (author_search, prices_search, sales_number_search,
+                      title_search)
 from .soup import create_soup
 
 
@@ -14,12 +15,36 @@ class Schema(ABC):
         pass
 
 
-class BookSchema(Schema):
+class BookfinderSchema(Schema):
     @staticmethod
     def extract(data: dict):
         if data == {}:
             raise BookNotFoundError("Book not found in Data Base :C")
 
+        try:
+            soup = create_soup(data)
+
+            author = author_search(soup=soup)
+            title = title_search(soup=soup)
+
+            return {
+                "author": author,
+                "title": title,
+            }
+
+        except Exception:
+            raise WrongResponseError("Something went wrong while querying ISBN")
+
+
+class OpenlibarySchema(Schema):
+    @staticmethod
+    def extract(data: dict):
+        if data == {}:
+            raise BookNotFoundError("Book not found in Data Base :C")
+
+        import pdb
+
+        pdb.set_trace()
         try:
             header = list(data.keys())[0]
 
@@ -28,20 +53,12 @@ class BookSchema(Schema):
             else:
                 author = data[header]["authors"][0]["name"]
 
-            isbns = data[header]["identifiers"]["isbn_13"]
-
-            if len(isbns) == 0:
-                isbn = "Unknown"
-            else:
-                isbn = isbns[0]
-
             title = data[header]["title"]
 
         except Exception:
             raise WrongResponseError("Something went wrong while querying ISBN")
 
         return {
-            "isbn": isbn,
             "author": author,
             "title": title,
         }

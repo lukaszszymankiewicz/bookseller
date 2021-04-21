@@ -1,6 +1,8 @@
 from typing import Dict
 
-from backend import query_avg_price_and_sold_copies, query_title_and_author
+from backend.query import (query_avg_price_and_sold_copies,
+                           query_title_and_author_in_bookfinder,
+                           query_title_and_author_in_openlibrary)
 from kivy.uix.screenmanager import Screen
 
 
@@ -8,8 +10,8 @@ class ResultsWindow(Screen):
     id = "results_window"
 
     def run_find_query(self, raw_isbn_string: str):
-        self.manager.job_manager.add_job(
-            fun=query_title_and_author,
+        self.manager.job_manager.add_concurent_jobs(
+            funs=[query_title_and_author_in_openlibrary, query_title_and_author_in_bookfinder],
             args={"isbn_string": raw_isbn_string},
             callback=self.run_avg_price_and_sold_copies_query,
             fallback=self.manager.go_to_problem_screen,
@@ -19,8 +21,8 @@ class ResultsWindow(Screen):
     def run_avg_price_and_sold_copies_query(self, title_and_author_data: Dict[str, str]):
         self._update_title_and_author(title_and_author_data)
 
-        self.manager.job_manager.add_job(
-            fun=query_avg_price_and_sold_copies,
+        self.manager.job_manager.add_concurent_jobs(
+            funs=[query_avg_price_and_sold_copies],
             args=title_and_author_data,
             callback=self._update_avg_prices_and_sold_copies,
             fallback=self.manager.go_to_problem_screen,
