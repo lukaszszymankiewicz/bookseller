@@ -18,22 +18,23 @@ class Schema(ABC):
 class BookfinderSchema(Schema):
     @staticmethod
     def extract(data: dict):
-        if data == {}:
-            raise BookNotFoundError("Book not found in Data Base :C")
 
         try:
             soup = create_soup(data)
-
             author = author_search(soup=soup)
             title = title_search(soup=soup)
 
+        except Exception:
+            raise WrongResponseError("Something went wrong while querying ISBN")
+
+        if not author and title:
+            raise BookNotFoundError("Book not found in Data Base :C")
+
+        else:
             return {
                 "author": author,
                 "title": title,
             }
-
-        except Exception:
-            raise WrongResponseError("Something went wrong while querying ISBN")
 
 
 class OpenlibarySchema(Schema):
@@ -44,12 +45,7 @@ class OpenlibarySchema(Schema):
 
         try:
             header = list(data.keys())[0]
-
-            if len(data[header]["authors"]) == 0:
-                author = "Unknown"
-            else:
-                author = data[header]["authors"][0]["name"]
-
+            author = data[header]["authors"][0]["name"]
             title = data[header]["title"]
 
         except Exception:

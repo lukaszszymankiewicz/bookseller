@@ -41,7 +41,7 @@
     GrayButton:
         id: search_by_scanning
         text: 'Scan'
-        size_hint: (0.2, 0.1)
+        size_hint: (0.3, 0.1)
         pos_hint: {'center_x': 0.3, 'y': 0.6}
         on_press: 
             root.manager.go_to_camera_screen()
@@ -49,7 +49,7 @@
     GrayButton:
         id: search_by_inputting
         text: 'Input'
-        size_hint: (0.2, 0.1)
+        size_hint: (0.3, 0.1)
         pos_hint: {'center_x': 0.7, 'y': 0.6}
         on_press: 
             root.manager.go_to_input_number_manually_screen()
@@ -57,7 +57,7 @@
     GrayButton:
         id: goto_settings
         text: 'Settings'
-        size_hint: (0.2, 0.1)
+        size_hint: (0.4, 0.1)
         pos_hint: {'center_x': 0.5, 'y': 0.3}
         on_press: 
             root.manager.go_to_settings_screen()
@@ -65,7 +65,7 @@
     GrayButton:
         id: exit_button
         text: 'Exit'
-        size_hint: (0.2, 0.1)
+        size_hint: (0.4, 0.1)
         pos_hint: {'center_x': 0.5, 'y': 0.1}
         on_press: 
             app.get_running_app().stop()
@@ -73,14 +73,14 @@
 <SettingsWindow>:
     BigLabel:
         id: price_strategy_label
-        text: 'choose default price difference from average:'
+        text: 'price diff from avg:'
         pos_hint: {'center_x': 0.5, 'y': 0.9}
 
     GridLayout:
         id: price_strategy_layout
         rows: 1
         cols: 4
-        size_hint: (0.8, 0.1)
+        size_hint: (0.9, 0.1)
         pos_hint: {'center_x': 0.5, 'y': 0.8}
 
         PriceStrategyToggleButton:
@@ -109,19 +109,21 @@
 
     BigLabel:
         id: sell_strategy
-        text: 'choose sell strategy'
+        text: 'sell strategy'
         pos_hint: {'center_x': 0.5, 'y': 0.7}
 
     GridLayout:
         id: sell_strategy_layout
         rows: 2
         cols: 3
-        size_hint: (0.7, 0.1)
+        size_hint: (0.9, 0.1)
         pos_hint: {'center_x': 0.5, 'y': 0.6}
 
         BigLabel:
             id: sell_strategy_label
             text: 'Sell as:'
+            halign: 'left'
+            size_hint: (0.3, 0.1)
 
         SellAsToggleButton:
             id: used_true
@@ -129,16 +131,20 @@
             state: 'down'
             save_in_settings: 'state'
             default: {'state': 'normal'}
+            size_hint: (0.3, 0.1)
 
         SellAsToggleButton:
             id: used_false
             text: 'new'
             save_in_settings: 'state'
             default: {'state': 'normal'}
+            size_hint: (0.3, 0.1)
 
         BigLabel:
             id: buynow_strategy_label
-            text: 'Allow Buy Now'
+            text: 'Buy Now'
+            halign: 'left'
+            size_hint: (0.3, 0.1)
 
         BuyNowToggleButton:
             id: buynow_true
@@ -146,23 +152,25 @@
             state: 'down'
             save_in_settings: 'state'
             default: {'state': 'normal'}
+            size_hint: (0.3, 0.1)
 
         BuyNowToggleButton:
             id: buynow_false
             text: 'no'
             save_in_settings: 'state'
             default: {'state': 'normal'}
+            size_hint: (0.3, 0.1)
 
     BigLabel:
         id: delivery_strategy_label
-        text: 'choose delivery options'
+        text: 'delivery options'
         pos_hint: {'center_x': 0.5, 'y': 0.5}
 
     GridLayout:
         id: delivery_strategy_layout
         rows: 3
         cols: 5
-        size_hint: (0.8, 0.3)
+        size_hint: (0.9, 0.3)
         pos_hint: {'center_x': 0.5, 'y': 0.2}
  
         SetDeliveryCheckBox:
@@ -173,7 +181,7 @@
         BigLabel:
             id: parcellocker_delivery_label
             size_hint_x: 0.4
-            text: 'Parcellocker'
+            text: 'InPost'
 
         SetLessPriceButton:
             on_press: 
@@ -236,15 +244,15 @@
 
     GrayButton:
         id: goback
-        text: 'Save and Proceed'
+        text: 'Save & Exit'
         pos_hint: {'center_x': 0.5, 'y': 0.0}
-        size_hint: (0.2, 0.1)
+        size_hint: (0.4, 0.1)
         on_press: 
             root.manager.go_back_from_settings_screen()
 
 <ResultsWindow>:
     ISBNLabel:
-        id: sales_number_label
+        id: results_isbn_number
         text: 'ISBN: 1234567890123'
         pos_hint: {'center_x': 0.5, 'y': 0.8}
 
@@ -406,15 +414,15 @@
         InputNumberButton:
             id: run
             text: 'Go!'
-            disabled: False
+            disabled: True
             on_press: 
                 root.manager.order_find_query(root.ids.isbn_number_label.text)
 
     GrayButton:
         id: goback
-        size_hint: (0.1, 0.1)
+        size_hint: (0.3, 0.1)
         pos_hint: {'center_x': 0.85, 'y': 0.9}
-        text: 'X'
+        text: 'Exit'
         on_press: 
             root.manager.go_to_main_screen()
 
@@ -429,6 +437,9 @@
         text: 'Unknown poblem occured!'
         multiline: True
         pos_hint: {'center_x': 0.5, 'y': 0.4}
+        text_size: 0.9 * self.width, None
+        size_hint: 1, None
+        height: self.texture_size[1]
 
     GrayButton:
         id: goback

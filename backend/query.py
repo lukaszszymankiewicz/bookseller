@@ -8,7 +8,6 @@ from .url_constructors import (construct_allegro_book_search_url,
                                construct_openlibrary_search_url)
 
 
-# TODO: maybe some simple class?
 def query_title_and_author_in_openlibrary(isbn_string: str) -> Dict[str, str]:
     url = construct_openlibrary_search_url(isbn_string)
 

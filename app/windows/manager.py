@@ -57,13 +57,14 @@ class Manager(ScreenManager):
 
     def order_find_query(self, raw_isbn_code: str):
         self.get_screen("results").run_find_query(raw_isbn_code)
+        self.get_screen("results").ids["results_isbn_number"].text = "ISBN: " + str(raw_isbn_code)
         self.current = "results"
 
     def set_defaults_values_on_window(self, screen: str):
         self.widget_inspector.set_widgets_default_values(self.widgets_on_screen(screen))
 
     def fill_error_in_problem_screen(self, message: str):
-        self.get_screen("problem").ids["problem_layout_message"].text = message
+        self.get_screen("problem").ids["problem_layout_message"].text = str(message)
 
     def get_isbn_number_from_search_screen(self) -> str:
         return self.get_screen("input_number_manually").ids["isbn_number_label"].text

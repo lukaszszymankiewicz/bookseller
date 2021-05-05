@@ -10,13 +10,3 @@ How to develop:
 ```
 sudo apt-get install libzbar0
 ```
-
-TODO:
- - [ ] create APK!,
- - [ ] add whole app test (check if all method works anyhow, switching between screens etc),
- - [ ] docstring EVERYWHERE!
- - [ ] test coverage at least 100%!
- - [ ] delete ALL TODOs!
-
-NICE TO HAVE:
- - [ ] Camera should run only when needed.

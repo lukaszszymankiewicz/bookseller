@@ -21,7 +21,12 @@ def parse_soup_single_entities(
         attrs - dict containing specific HTML attributes which tag mus have to be considered proper,
         soup - BeautiflSoup instance.
     """
-    return soup.find(name=tag, attrs=attrs).text
+    result = soup.find(name=tag, attrs=attrs)
+
+    if not result:
+        return None
+
+    return result.text
 
 
 def parse_soup_many_entities(
